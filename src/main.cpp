@@ -17,38 +17,45 @@ constexpr float W = 1.00f;
 }
 }
 
+void win_game()
+{
+	ImGui::Begin("Game Window");
+	ImVec2 p = ImGui::GetCursorScreenPos();
+	ImGui::GetWindowDrawList()->AddRectFilled(p, ImVec2(p.x + 100, p.y + 100), ImGui::GetColorU32((ImGuiCol) 1));
+	ImGui::End();
+}
+
 int main(int argc, char** argv)
 {
 	// check arguments
-	if (argc!=2) {
+	if (argc != 2) {
 		return EXIT_FAILURE;
 	}
 
 	// Setup SDL
-	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER)!=0) {
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER) != 0) {
 		printf("Error: %s\n", SDL_GetError());
 		return EXIT_FAILURE;
 	}
 
-	// GL 3.0 + GLSL 130
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS, 0);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
 
-	// Create window with graphics context
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
 	SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
 
 	SDL_DisplayMode current;
 	SDL_GetCurrentDisplayMode(0, &current);
-	SDL_Window* window = SDL_CreateWindow("Dear ImGui SDL2+OpenGL3 example", SDL_WINDOWPOS_CENTERED,
-			SDL_WINDOWPOS_CENTERED, 1280, 720, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
-	SDL_GLContext gl_context = SDL_GL_CreateContext(window);
-	SDL_GL_SetSwapInterval(1); // Enable vsync
+	SDL_Window* window = SDL_CreateWindow("Chip8 Emulator", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+										  1280, 720, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
 
-	bool err = gl3wInit()!=0;
+	SDL_GLContext gl_context = SDL_GL_CreateContext(window);
+	SDL_GL_SetSwapInterval(1);
+
+	bool err = gl3wInit() != 0;
 	if (err) {
 		fprintf(stderr, "Failed to initialize OpenGL loader!\n");
 		return EXIT_FAILURE;
@@ -59,7 +66,6 @@ int main(int argc, char** argv)
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO();
 	(void) io;
-	//io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;  // Enable Keyboard Controls
 
 	// imgui style
 	ImGui::StyleColorsDark();
@@ -75,12 +81,12 @@ int main(int argc, char** argv)
 
 		while (SDL_PollEvent(&event)) {
 			ImGui_ImplSDL2_ProcessEvent(&event);
-			if (event.type==SDL_QUIT) {
+			if (event.type == SDL_QUIT) {
 				done = true;
 			}
 
-			if (event.type==SDL_WINDOWEVENT && event.window.event==SDL_WINDOWEVENT_CLOSE
-					&& event.window.windowID==SDL_GetWindowID(window)) {
+			if (event.type == SDL_WINDOWEVENT && event.window.event == SDL_WINDOWEVENT_CLOSE
+					&& event.window.windowID == SDL_GetWindowID(window)) {
 				done = true;
 			}
 		}
@@ -90,20 +96,15 @@ int main(int argc, char** argv)
 		ImGui_ImplSDL2_NewFrame(window);
 		ImGui::NewFrame();
 
-		static float f = 0.0f;
-		static int counter = 0;
-
-		// imgui window
-		ImGui::Begin("Hello, world!");
-		ImGui::End();
+		// insert windows here
+		win_game();
 
 		// Rendering
 		ImGui::Render();
 
 		SDL_GL_MakeCurrent(window, gl_context);
 		glViewport(0, 0, (int) io.DisplaySize.x, (int) io.DisplaySize.y);
-		glClearColor(Constants::CLEAR_COLOR::X, Constants::CLEAR_COLOR::Y, Constants::CLEAR_COLOR::Z,
-				Constants::CLEAR_COLOR::W);
+		glClearColor(Constants::CLEAR_COLOR::X, Constants::CLEAR_COLOR::Y, Constants::CLEAR_COLOR::Z, Constants::CLEAR_COLOR::W);
 		glClear(GL_COLOR_BUFFER_BIT);
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 		SDL_GL_SwapWindow(window);

@@ -1,0 +1,35 @@
+cmake_minimum_required(VERSION 3.13)
+project(CHIP8_IMGUI)
+
+set(CMAKE_CXX_STANDARD 14)
+
+# IMGUI
+include_directories(lib/imgui)
+
+# gl3w
+add_subdirectory(lib/gl3w)
+include_directories(lib/gl3w)
+
+# include
+include_directories(include)
+
+# linker flags
+set(CMAKE_CXX_FLAGS "-lSDL2 -ldl")
+
+add_executable(CHIP8_IMGUI src/main.cpp
+        include/imgui_impl_opengl3.cpp
+        include/imgui_impl_opengl3.h
+        include/imgui_impl_sdl.cpp
+        include/imgui_impl_sdl.h
+
+        # imgui (TODO)
+        lib/imgui/imgui.cpp
+        lib/imgui/imgui_draw.cpp
+        lib/imgui/imgui_widgets.cpp
+        lib/imgui/imgui_demo.cpp
+        lib/imgui/imgui.h
+        lib/imgui/imstb_rectpack.h
+        lib/imgui/imstb_textedit.h
+        lib/imgui/imstb_truetype.h)
+
+target_link_libraries(CHIP8_IMGUI Gl3w)

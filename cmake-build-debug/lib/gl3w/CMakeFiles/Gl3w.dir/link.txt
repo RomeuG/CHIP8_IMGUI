@@ -1,0 +1,2 @@
+/usr/bin/ar qc libGl3w.a  CMakeFiles/Gl3w.dir/gl3w.c.o
+/usr/bin/ranlib libGl3w.a

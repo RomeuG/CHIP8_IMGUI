@@ -1,0 +1,24 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/romeu/Projects/CHIP8_IMGUI/lib/gl3w/GL/gl3w.h
+GL/glcorearb.h
+-
+
+/home/romeu/Projects/CHIP8_IMGUI/lib/gl3w/gl3w.c
+GL/gl3w.h
+/home/romeu/Projects/CHIP8_IMGUI/lib/gl3w/GL/gl3w.h
+stdlib.h
+-
+windows.h
+-
+dlfcn.h
+-
+dlfcn.h
+-
+

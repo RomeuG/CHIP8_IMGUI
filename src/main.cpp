@@ -6,16 +6,31 @@
 #include <SDL2/SDL.h>
 #include <GL/gl3w.h>
 
+namespace Constants {
+constexpr char glsl_version[] = "#version 130";
+
+namespace CLEAR_COLOR {
+constexpr float X = 0.45f;
+constexpr float Y = 0.55f;
+constexpr float Z = 0.60f;
+constexpr float W = 1.00f;
+}
+}
+
 int main(int argc, char** argv)
 {
+	// check arguments
+	if (argc!=2) {
+		return EXIT_FAILURE;
+	}
+
 	// Setup SDL
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER)!=0) {
 		printf("Error: %s\n", SDL_GetError());
-		return -1;
+		return EXIT_FAILURE;
 	}
 
 	// GL 3.0 + GLSL 130
-	constexpr char* glsl_version = "#version 130";
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS, 0);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
@@ -51,9 +66,7 @@ int main(int argc, char** argv)
 
 	// Setup Platform/Renderer bindings
 	ImGui_ImplSDL2_InitForOpenGL(window, gl_context);
-	ImGui_ImplOpenGL3_Init(glsl_version);
-
-	ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+	ImGui_ImplOpenGL3_Init(Constants::glsl_version);
 
 	// Main loop
 	bool done = false;
@@ -89,7 +102,8 @@ int main(int argc, char** argv)
 
 		SDL_GL_MakeCurrent(window, gl_context);
 		glViewport(0, 0, (int) io.DisplaySize.x, (int) io.DisplaySize.y);
-		glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
+		glClearColor(Constants::CLEAR_COLOR::X, Constants::CLEAR_COLOR::Y, Constants::CLEAR_COLOR::Z,
+				Constants::CLEAR_COLOR::W);
 		glClear(GL_COLOR_BUFFER_BIT);
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 		SDL_GL_SwapWindow(window);

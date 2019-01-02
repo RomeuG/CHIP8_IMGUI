@@ -2,12 +2,14 @@
 #include "imgui_impl_sdl.h"
 #include "imgui_impl_opengl3.h"
 
-#include <stdio.h>
+#include "chip8.hpp"
+
 #include <SDL2/SDL.h>
 #include <GL/gl3w.h>
+#include <cstring>
 
 namespace Constants {
-constexpr char glsl_version[] = "#version 130";
+constexpr char GLSL_VERSION[] = "#version 130";
 
 namespace CLEAR_COLOR {
 constexpr float X = 0.45f;
@@ -30,6 +32,12 @@ int main(int argc, char** argv)
 	// check arguments
 	if (argc != 2) {
 		return EXIT_FAILURE;
+	}
+
+	// tests
+	if (std::strcmp(argv[2], "tests") == 0) {
+		// testing here
+		return EXIT_SUCCESS;
 	}
 
 	// Setup SDL
@@ -72,7 +80,7 @@ int main(int argc, char** argv)
 
 	// Setup Platform/Renderer bindings
 	ImGui_ImplSDL2_InitForOpenGL(window, gl_context);
-	ImGui_ImplOpenGL3_Init(Constants::glsl_version);
+	ImGui_ImplOpenGL3_Init(Constants::GLSL_VERSION);
 
 	// Main loop
 	bool done = false;

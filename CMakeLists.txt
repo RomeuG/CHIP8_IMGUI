@@ -30,6 +30,6 @@ add_executable(CHIP8_IMGUI src/main.cpp
         lib/imgui/imgui.h
         lib/imgui/imstb_rectpack.h
         lib/imgui/imstb_textedit.h
-        lib/imgui/imstb_truetype.h)
+        lib/imgui/imstb_truetype.h include/chip8.hpp)
 
 target_link_libraries(CHIP8_IMGUI Gl3w)

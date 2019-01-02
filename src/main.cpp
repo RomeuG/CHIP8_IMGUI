@@ -35,7 +35,7 @@ int main(int argc, char** argv)
 	}
 
 	// tests
-	if (std::strcmp(argv[2], "tests") == 0) {
+	if (std::strcmp(argv[1], "tests") == 0) {
 		// testing here
 		return EXIT_SUCCESS;
 	}

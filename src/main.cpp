@@ -37,6 +37,7 @@ int main(int argc, char** argv)
 	// tests
 	if (std::strcmp(argv[1], "tests") == 0) {
 		// testing here
+		chip8 a;
 		return EXIT_SUCCESS;
 	}
 

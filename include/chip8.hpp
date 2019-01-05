@@ -6,6 +6,9 @@
 #include <cstdint>
 
 namespace Constants {
+static constexptr std::size_t
+ROM_LOCATION = 0x200;
+
 static constexpr std::size_t CH8_MEMORY_SIZE = 0x1000;
 static constexpr std::size_t CH8_GFX_SIZE = 0x800;
 
@@ -14,7 +17,7 @@ static constexpr std::size_t CH8_STACK_SIZE = 0x10;
 static constexpr std::size_t CH8_KEY_SIZE = 0x10;
 static constexpr std::size_t CH8_FONT_SIZE = 0x10;
 
-static constexpr std::array<std::uint8_t, Constants::CH8_MEMORY_SIZE> font_list = {
+static constexpr std::array<std::uint8_t, Constants::CH8_MEMORY_SIZE> FONT_LIST = {
 		0xF0, 0x90, 0x90, 0x90, 0xF0, // 0
 		0x20, 0x60, 0x20, 0x20, 0x70, // 1
 		0xF0, 0x10, 0xF0, 0x80, 0xF0, // 2
@@ -52,7 +55,19 @@ struct chip8 {
 
 	chip8()
 	{
-		std::copy(Constants::font_list.begin(), Constants::font_list.end(), memory.begin());
+		load_font();
+	};
+
+	inline void load_font()
+	{
+		std::copy(Constants::FONT_LIST.begin(), Constants::FONT_LIST.end(), memory.begin());
+	}
+
+	inline void load_rom(std::vector<char>&& buffer)
+	{
+		auto it = memory.begin();
+		std::advance(it, Constants::ROM_LOCATION);
+		std::copy(buffer.begin(), buffer.end(), it);
 	}
 };
 

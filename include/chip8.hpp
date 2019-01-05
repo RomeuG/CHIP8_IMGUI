@@ -4,10 +4,11 @@
 #include <array>
 #include <vector>
 #include <cstdint>
+#include <unordered_map>
+#include <functional>
 
 namespace Constants {
-static constexptr std::size_t
-ROM_LOCATION = 0x200;
+static constexpr std::size_t ROM_LOCATION = 0x200;
 
 static constexpr std::size_t CH8_MEMORY_SIZE = 0x1000;
 static constexpr std::size_t CH8_GFX_SIZE = 0x800;
@@ -56,7 +57,24 @@ struct chip8 {
 	chip8()
 	{
 		load_font();
-	};
+		std::unordered_map<unsigned short int, std::function<void(void)>> _al{
+				{0x0000, []() { return; }},
+				{0x1000, [this]() { return; }},
+				{0x2000, [this]() { return; }},
+				{0x3000, [this]() { return; }},
+				{0x4000, [this]() { return; }},
+				{0x5000, [this]() { return; }},
+				{0x6000, [this]() { return; }},
+				{0x7000, [this]() { return; }},
+				{0x8000, [this]() { return; }},
+				{0xA000, [this]() { return; }},
+				{0xB000, [this]() { return; }},
+				{0xC000, [this]() { return; }},
+				{0xD000, [this]() { return; }},
+				{0xE000, [this]() { return; }},
+				{0xF000, [this]() { return; }},
+		};
+	}
 
 	inline void load_font()
 	{

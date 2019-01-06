@@ -7,6 +7,7 @@
 #include <SDL2/SDL.h>
 #include <GL/gl3w.h>
 #include <cstring>
+#include <fstream>
 
 namespace Constants {
 constexpr char GLSL_VERSION[] = "#version 130";
@@ -30,14 +31,20 @@ void win_game()
 int main(int argc, char** argv)
 {
 	// check arguments
-	if (argc != 2) {
+	if (argc < 2) {
 		return EXIT_FAILURE;
 	}
 
 	// tests
 	if (std::strcmp(argv[1], "tests") == 0) {
 		// testing here
+
+		// read file
+		std::ifstream f(argv[2], std::ios::binary);
+		std::vector<char> v(std::istreambuf_iterator<char>{f}, {});
+
 		chip8 a;
+		a.load_rom(std::move(v));
 		return EXIT_SUCCESS;
 	}
 

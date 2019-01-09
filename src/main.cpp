@@ -45,6 +45,7 @@ int main(int argc, char** argv)
 
 		chip8 a;
 		a.load_rom(std::move(v));
+		a.cycle();
 		return EXIT_SUCCESS;
 	}
 

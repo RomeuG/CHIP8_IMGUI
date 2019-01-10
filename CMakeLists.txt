@@ -16,22 +16,26 @@ include_directories(include)
 # linker flags
 set(CMAKE_CXX_FLAGS "-lSDL2 -ldl")
 
+# debug print
 add_definitions(-DDEBUG)
 
-add_executable(CHIP8_IMGUI src/main.cpp
-        include/imgui_impl_opengl3.cpp
-        include/imgui_impl_opengl3.h
-        include/imgui_impl_sdl.cpp
-        include/imgui_impl_sdl.h
+# compilation db
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-        # imgui (TODO)
-        lib/imgui/imgui.cpp
-        lib/imgui/imgui_draw.cpp
-        lib/imgui/imgui_widgets.cpp
-        lib/imgui/imgui_demo.cpp
-        lib/imgui/imgui.h
-        lib/imgui/imstb_rectpack.h
-        lib/imgui/imstb_textedit.h
-        lib/imgui/imstb_truetype.h include/chip8.hpp src/chip8.cpp include/imgui_memory_editor.h)
+add_executable(CHIP8_IMGUI src/main.cpp
+	    include/imgui_impl_opengl3.cpp
+		include/imgui_impl_opengl3.h
+		include/imgui_impl_sdl.cpp
+		include/imgui_impl_sdl.h
+
+		# imgui (TODO)
+		lib/imgui/imgui.cpp
+		lib/imgui/imgui_draw.cpp
+		lib/imgui/imgui_widgets.cpp
+		lib/imgui/imgui_demo.cpp
+		lib/imgui/imgui.h
+		lib/imgui/imstb_rectpack.h
+		lib/imgui/imstb_textedit.h
+		lib/imgui/imstb_truetype.h include/chip8.hpp src/chip8.cpp include/imgui_memory_editor.h)
 
 target_link_libraries(CHIP8_IMGUI Gl3w)

@@ -73,7 +73,6 @@ struct chip8 {
 					  std::fill(graphics.begin(), graphics.end(), 0);
 					  pc += 2;
 
-					  DEBUG_PRINT(stdout, "%.4X", opcode);
 					  break;
 				  }
 				  case 0xE: {
@@ -118,8 +117,6 @@ struct chip8 {
 
 			  V[_x] = _nn;
 			  pc += 2;
-
-			  DEBUG_PRINT(stdout, "%.4X\n", opcode);
 			}},
 			{0x7000, [this]() {
 			  auto _x = (opcode & 0x0F00) >> 8;

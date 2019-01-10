@@ -8,6 +8,7 @@
 #include <GL/gl3w.h>
 #include <cstring>
 #include <fstream>
+#include <imgui_memory_editor.h>
 
 namespace Constants {
 constexpr char GLSL_VERSION[] = "#version 130";
@@ -26,6 +27,12 @@ void win_game()
 	ImVec2 p = ImGui::GetCursorScreenPos();
 	ImGui::GetWindowDrawList()->AddRectFilled(p, ImVec2(p.x + 100, p.y + 100), ImGui::GetColorU32((ImGuiCol) 1));
 	ImGui::End();
+}
+
+void win_hex_editor(std::array<std::uint8_t, Constants::CH8_MEMORY_SIZE>& memory)
+{
+	static MemoryEditor mem_edit;
+	mem_edit.DrawWindow("Memory Editor", &memory, Constants::CH8_MEMORY_SIZE);
 }
 
 int main(int argc, char** argv)
@@ -48,6 +55,14 @@ int main(int argc, char** argv)
 		a.cycle();
 		return EXIT_SUCCESS;
 	}
+
+	// init chip8
+	std::ifstream f(argv[1], std::ios::binary);
+	std::vector<char> v(std::istreambuf_iterator<char>{f}, {});
+
+	chip8 a;
+	a.load_rom(std::move(v));
+	//a.cycle();
 
 	// Setup SDL
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER) != 0) {
@@ -115,6 +130,12 @@ int main(int argc, char** argv)
 
 		// insert windows here
 		win_game();
+
+		// hex editor
+		win_hex_editor(a.memory);
+
+		// chip8 cycle
+		a.cycle();
 
 		// Rendering
 		ImGui::Render();

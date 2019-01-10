@@ -19,7 +19,7 @@ void chip8::load_rom(std::vector<char>&& buffer)
 
 void chip8::cycle()
 {
-	for (;;) {
+//	for (;;) {
 		opcode = (memory[pc] << 8 | memory[pc + 1]);
 
 		// reset timers
@@ -28,14 +28,13 @@ void chip8::cycle()
 		if (sound_timer == 0); //beep;
 
 		auto a = _al.find(opcode & 0xF000);
-		//(a->second)();
 		if (a == _al.cend()) {
-			// unknown instruction
+			DEBUG_PRINT(stdout, "%s\n", "Unknown instruction.");
 		}
 		else {
 			(a->second)();
 		}
-	}
+//	}
 
 	// draw flag events
 	// input events

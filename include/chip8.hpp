@@ -40,6 +40,15 @@ static constexpr std::array<std::uint8_t, Constants::CH8_MEMORY_SIZE> FONT_LIST 
 
 };
 
+// DEBUG PRINT
+#ifdef DEBUG
+#define DEBUG_PRINT(output, fmt, ...)                                    \
+    do { fprintf(output, "%s:%d:%s(): " fmt, __FILE__,        \
+                            __LINE__, __func__, __VA_ARGS__);fflush(stdout);fflush(stderr); } while (0)
+#else
+#define DEBUG_PRINT(output, fmt, ...) ((void)0)
+#endif
+
 struct chip8 {
 	std::uint16_t I{0};
 	std::uint16_t pc{0x200};
@@ -63,6 +72,8 @@ struct chip8 {
 				  case 0x0: {
 					  std::fill(graphics.begin(), graphics.end(), 0);
 					  pc += 2;
+
+					  DEBUG_PRINT(stdout, "%.4X", opcode);
 					  break;
 				  }
 				  case 0xE: {
@@ -107,6 +118,8 @@ struct chip8 {
 
 			  V[_x] = _nn;
 			  pc += 2;
+
+			  DEBUG_PRINT(stdout, "%.4X\n", opcode);
 			}},
 			{0x7000, [this]() {
 			  auto _x = (opcode & 0x0F00) >> 8;

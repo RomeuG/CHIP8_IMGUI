@@ -16,6 +16,8 @@ include_directories(include)
 # linker flags
 set(CMAKE_CXX_FLAGS "-lSDL2 -ldl")
 
+add_definitions(-DDEBUG)
+
 add_executable(CHIP8_IMGUI src/main.cpp
         include/imgui_impl_opengl3.cpp
         include/imgui_impl_opengl3.h

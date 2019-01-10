@@ -35,6 +35,43 @@ void win_hex_editor(std::array<std::uint8_t, Constants::CH8_MEMORY_SIZE>& memory
     mem_edit.DrawWindow("Memory Editor", &memory, Constants::CH8_MEMORY_SIZE);
 }
 
+void win_registers(std::array<std::uint8_t, Constants::CH8_REG_SIZE>& registers)
+{
+    ImGui::Begin("CHIP8 Registers");
+
+    ImGui::SameLine();
+    ImGui::CheckboxFlags("V[0x0]", (unsigned int*)&registers[0x0], ImGuiComboFlags_HeightLargest);
+    ImGui::SameLine();
+    ImGui::CheckboxFlags("V[0x1]", (unsigned int*)&registers[0x1], ImGuiComboFlags_HeightLargest);
+    ImGui::SameLine();
+    ImGui::CheckboxFlags("V[0x2]", (unsigned int*)&registers[0x2], ImGuiComboFlags_HeightLargest);
+    ImGui::SameLine();
+    ImGui::CheckboxFlags("V[0x3]", (unsigned int*)&registers[0x3], ImGuiComboFlags_HeightLargest);
+    ImGui::CheckboxFlags("V[0x4]", (unsigned int*)&registers[0x4], ImGuiComboFlags_PopupAlignLeft);
+    ImGui::SameLine();
+    ImGui::CheckboxFlags("V[0x5]", (unsigned int*)&registers[0x5], ImGuiComboFlags_PopupAlignLeft);
+    ImGui::SameLine();
+    ImGui::CheckboxFlags("V[0x6]", (unsigned int*)&registers[0x6], ImGuiComboFlags_PopupAlignLeft);
+    ImGui::SameLine();
+    ImGui::CheckboxFlags("V[0x7]", (unsigned int*)&registers[0x7], ImGuiComboFlags_PopupAlignLeft);
+    ImGui::CheckboxFlags("V[0x8]", (unsigned int*)&registers[0x8], ImGuiComboFlags_PopupAlignLeft);
+    ImGui::SameLine();
+    ImGui::CheckboxFlags("V[0x9]", (unsigned int*)&registers[0x9], ImGuiComboFlags_PopupAlignLeft);
+    ImGui::SameLine();
+    ImGui::CheckboxFlags("V[0xA]", (unsigned int*)&registers[0xA], ImGuiComboFlags_PopupAlignLeft);
+    ImGui::SameLine();
+    ImGui::CheckboxFlags("V[0xB]", (unsigned int*)&registers[0xB], ImGuiComboFlags_PopupAlignLeft);
+    ImGui::CheckboxFlags("V[0xC]", (unsigned int*)&registers[0xC], ImGuiComboFlags_PopupAlignLeft);
+    ImGui::SameLine();
+    ImGui::CheckboxFlags("V[0xD]", (unsigned int*)&registers[0xD], ImGuiComboFlags_PopupAlignLeft);
+    ImGui::SameLine();
+    ImGui::CheckboxFlags("V[0xE]", (unsigned int*)&registers[0xE], ImGuiComboFlags_PopupAlignLeft);
+    ImGui::SameLine();
+    ImGui::CheckboxFlags("V[0xF]", (unsigned int*)&registers[0xF], ImGuiComboFlags_PopupAlignLeft);
+
+    ImGui::End();
+}
+
 int main(int argc, char** argv)
 {
     // check arguments
@@ -132,6 +169,9 @@ int main(int argc, char** argv)
 
         // hex editor
         win_hex_editor(a.memory);
+
+        // register window
+        win_registers(a.V);
 
         // demo window
         ImGui::ShowDemoWindow();

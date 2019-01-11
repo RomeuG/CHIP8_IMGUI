@@ -39,35 +39,14 @@ void win_registers(std::array<std::uint8_t, Constants::CH8_REG_SIZE>& registers)
 {
     ImGui::Begin("CHIP8 Registers");
 
-    ImGui::SameLine();
-    ImGui::CheckboxFlags("V[0x0]", (unsigned int*)&registers[0x0], ImGuiComboFlags_HeightLargest);
-    ImGui::SameLine();
-    ImGui::CheckboxFlags("V[0x1]", (unsigned int*)&registers[0x1], ImGuiComboFlags_HeightLargest);
-    ImGui::SameLine();
-    ImGui::CheckboxFlags("V[0x2]", (unsigned int*)&registers[0x2], ImGuiComboFlags_HeightLargest);
-    ImGui::SameLine();
-    ImGui::CheckboxFlags("V[0x3]", (unsigned int*)&registers[0x3], ImGuiComboFlags_HeightLargest);
-    ImGui::CheckboxFlags("V[0x4]", (unsigned int*)&registers[0x4], ImGuiComboFlags_PopupAlignLeft);
-    ImGui::SameLine();
-    ImGui::CheckboxFlags("V[0x5]", (unsigned int*)&registers[0x5], ImGuiComboFlags_PopupAlignLeft);
-    ImGui::SameLine();
-    ImGui::CheckboxFlags("V[0x6]", (unsigned int*)&registers[0x6], ImGuiComboFlags_PopupAlignLeft);
-    ImGui::SameLine();
-    ImGui::CheckboxFlags("V[0x7]", (unsigned int*)&registers[0x7], ImGuiComboFlags_PopupAlignLeft);
-    ImGui::CheckboxFlags("V[0x8]", (unsigned int*)&registers[0x8], ImGuiComboFlags_PopupAlignLeft);
-    ImGui::SameLine();
-    ImGui::CheckboxFlags("V[0x9]", (unsigned int*)&registers[0x9], ImGuiComboFlags_PopupAlignLeft);
-    ImGui::SameLine();
-    ImGui::CheckboxFlags("V[0xA]", (unsigned int*)&registers[0xA], ImGuiComboFlags_PopupAlignLeft);
-    ImGui::SameLine();
-    ImGui::CheckboxFlags("V[0xB]", (unsigned int*)&registers[0xB], ImGuiComboFlags_PopupAlignLeft);
-    ImGui::CheckboxFlags("V[0xC]", (unsigned int*)&registers[0xC], ImGuiComboFlags_PopupAlignLeft);
-    ImGui::SameLine();
-    ImGui::CheckboxFlags("V[0xD]", (unsigned int*)&registers[0xD], ImGuiComboFlags_PopupAlignLeft);
-    ImGui::SameLine();
-    ImGui::CheckboxFlags("V[0xE]", (unsigned int*)&registers[0xE], ImGuiComboFlags_PopupAlignLeft);
-    ImGui::SameLine();
-    ImGui::CheckboxFlags("V[0xF]", (unsigned int*)&registers[0xF], ImGuiComboFlags_PopupAlignLeft);
+    ImGui::Columns(4, NULL, true);
+    static bool selected[16] = { 0 };
+    for (int i = 0; i < 16; i++) {
+        char label[32];
+        sprintf(label, "V[0x%.1X] = 0x%.2X", i, registers[i]);
+        if (ImGui::Selectable(label, &selected[i])) {}
+        ImGui::NextColumn();
+    }
 
     ImGui::End();
 }

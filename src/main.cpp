@@ -51,6 +51,15 @@ void win_registers(std::array<std::uint8_t, Constants::CH8_REG_SIZE>& registers)
     ImGui::End();
 }
 
+void win_flags(bool &draw_flag)
+{
+	ImGui::Begin("CHIP8 Flags");
+
+	ImGui::CheckboxFlags("Draw Flag", (unsigned int*)&draw_flag, ImGuiComboFlags_PopupAlignLeft);
+
+	ImGui::End();
+}
+
 int main(int argc, char** argv)
 {
     // check arguments
@@ -152,13 +161,16 @@ int main(int argc, char** argv)
         // register window
         win_registers(a.V);
 
-        // demo window
+		// flag window
+		win_flags(a.draw_flag);
+
+		// demo window
         ImGui::ShowDemoWindow();
 
         // chip8 cycle
         a.cycle();
 
-        // Rendering
+		// Rendering
         ImGui::Render();
 
         SDL_GL_MakeCurrent(window, gl_context);

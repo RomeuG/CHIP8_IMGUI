@@ -51,12 +51,10 @@ void win_registers(std::array<std::uint8_t, Constants::CH8_REG_SIZE>& registers)
     ImGui::End();
 }
 
-void win_flags(bool &draw_flag)
+void win_flags(bool &draw_flag, bool &draw_flag_blocked)
 {
 	ImGui::Begin("CHIP8 Flags");
-
 	ImGui::CheckboxFlags("Draw Flag", (unsigned int*)&draw_flag, ImGuiComboFlags_PopupAlignLeft);
-
 	ImGui::End();
 }
 
@@ -162,7 +160,7 @@ int main(int argc, char** argv)
         win_registers(a.V);
 
 		// flag window
-		win_flags(a.draw_flag);
+		win_flags(a.draw_flag, a.draw_flag_blocked);
 
 		// demo window
         ImGui::ShowDemoWindow();

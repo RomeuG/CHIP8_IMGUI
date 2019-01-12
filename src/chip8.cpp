@@ -27,8 +27,8 @@ void chip8::cycle()
 		if (sound_timer > 0) sound_timer--;
 		if (sound_timer == 0); //beep;
 
-		auto a = _al.find(opcode & 0xF000);
-		if (a == _al.cend()) {
+		auto a = instruction_table.find(opcode & 0xF000);
+		if (a == instruction_table.cend()) {
 			DEBUG_PRINT(stdout, "%s\n", "Unknown instruction.");
 		}
 		else {

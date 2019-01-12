@@ -59,6 +59,7 @@ struct chip8 {
 	std::uint8_t sound_timer{0};
 
 	bool draw_flag{false};
+	bool draw_flag_blocked{false};
 
 	std::array<std::uint8_t, Constants::CH8_MEMORY_SIZE> memory{0};
 	std::array<std::uint8_t, Constants::CH8_GFX_SIZE> graphics{0};
@@ -66,8 +67,8 @@ struct chip8 {
 	std::array<std::uint8_t, Constants::CH8_KEY_SIZE> keys{0};
 	std::array<std::uint16_t, Constants::CH8_STACK_SIZE> stack{0};
 
-	std::unordered_map<unsigned short int, std::function<void(void)>> _al{
-			{0x0000, [this]() {
+	std::unordered_map<unsigned short int, std::function<void(void)>> instruction_table{
+		{0x0000, [this]() {
 			  switch (opcode & 0x000F) {
 				  case 0x0: {
 					  std::fill(graphics.begin(), graphics.end(), 0);
@@ -213,7 +214,7 @@ struct chip8 {
 			{0xD000, [this]() {
 			  V[0xF] = 0x0;
 			  // TODO: draw stuff
-			  draw_flag = true;
+			  if (!draw_flag_blocked) draw_flag = true;
 			  pc += 2;
 			}},
 			{0xE000, [this]() {

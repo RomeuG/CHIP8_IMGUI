@@ -11,14 +11,14 @@
 #include <imgui_memory_editor.h>
 
 namespace Constants {
-constexpr char GLSL_VERSION[] = "#version 130";
+	constexpr char GLSL_VERSION[] = "#version 130";
 
-namespace CLEAR_COLOR {
-constexpr float X = 0.45f;
-constexpr float Y = 0.55f;
-constexpr float Z = 0.60f;
-constexpr float W = 1.00f;
-}
+	namespace CLEAR_COLOR {
+		constexpr float X = 0.45f;
+		constexpr float Y = 0.55f;
+		constexpr float Z = 0.60f;
+		constexpr float W = 1.00f;
+	}
 }
 
 void win_game()
@@ -48,7 +48,7 @@ void win_registers(std::array<std::uint8_t, Constants::CH8_REG_SIZE>& registers)
         ImGui::NextColumn();
     }
 
-    ImGui::End();
+	ImGui::End();
 }
 
 void win_flags(bool &draw_flag, bool &draw_flag_blocked)
@@ -140,7 +140,7 @@ int main(int argc, char** argv)
             }
 
             if (event.type == SDL_WINDOWEVENT && event.window.event == SDL_WINDOWEVENT_CLOSE
-                    && event.window.windowID == SDL_GetWindowID(window)) {
+				&& event.window.windowID == SDL_GetWindowID(window)) {
                 done = true;
             }
         }

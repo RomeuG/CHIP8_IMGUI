@@ -1,3 +1,6 @@
 .idea/
 cmake-build-debug
 chip8swemu/
+GPATH
+GTAGS
+GRTAGS

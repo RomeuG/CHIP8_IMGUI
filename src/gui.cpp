@@ -2,7 +2,7 @@
 
 #include <imgui_memory_editor.h>
 
-static void ShowExampleMenuFile()
+static void win_menu_bar_file()
 {
     ImGui::MenuItem("(dummy menu)", NULL, false, false);
     if (ImGui::MenuItem("New")) {}
@@ -18,7 +18,7 @@ static void ShowExampleMenuFile()
             ImGui::MenuItem("Sailor");
             if (ImGui::BeginMenu("Recurse.."))
             {
-                ShowExampleMenuFile();
+                win_menu_bar_file();
                 ImGui::EndMenu();
             }
             ImGui::EndMenu();
@@ -64,16 +64,16 @@ static void ShowExampleMenuFile()
         IM_ASSERT(0);
     }
     if (ImGui::MenuItem("Checked", NULL, true)) {}
-    if (ImGui::MenuItem("Quit", "Alt+F4")) {}
+    if (ImGui::MenuItem("Quit", "Alt+F4")) { exit(0); }
 }
 
-void ShowExampleAppMainMenuBar()
+void win_menu_bar()
 {
     if (ImGui::BeginMainMenuBar())
     {
         if (ImGui::BeginMenu("File"))
         {
-            ShowExampleMenuFile();
+            win_menu_bar_file();
             ImGui::EndMenu();
         }
         if (ImGui::BeginMenu("Edit"))

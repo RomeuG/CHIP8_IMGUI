@@ -114,7 +114,7 @@ int main(int argc, char** argv)
         ImGui::NewFrame();
 
 		// menu bar
-		ShowExampleAppMainMenuBar();
+		win_menu_bar();
 
 		// insert windows here
         win_game();

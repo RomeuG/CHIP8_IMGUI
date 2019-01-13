@@ -3,12 +3,12 @@
 #include "imgui_impl_opengl3.h"
 
 #include "chip8.hpp"
+#include "gui.hpp"
 
 #include <SDL2/SDL.h>
 #include <GL/gl3w.h>
 #include <cstring>
 #include <fstream>
-#include <imgui_memory_editor.h>
 
 namespace Constants {
 	constexpr char GLSL_VERSION[] = "#version 130";
@@ -19,43 +19,6 @@ namespace Constants {
 		constexpr float Z = 0.60f;
 		constexpr float W = 1.00f;
 	}
-}
-
-void win_game()
-{
-    ImGui::Begin("Game Window");
-    ImVec2 p = ImGui::GetCursorScreenPos();
-    ImGui::GetWindowDrawList()->AddRectFilled(p, ImVec2(p.x + 100, p.y + 100), ImGui::GetColorU32((ImGuiCol) 1));
-    ImGui::End();
-}
-
-void win_hex_editor(std::array<std::uint8_t, Constants::CH8_MEMORY_SIZE>& memory)
-{
-    static MemoryEditor mem_edit;
-    mem_edit.DrawWindow("Memory Editor", &memory, Constants::CH8_MEMORY_SIZE);
-}
-
-void win_registers(std::array<std::uint8_t, Constants::CH8_REG_SIZE>& registers)
-{
-    ImGui::Begin("CHIP8 Registers");
-
-    ImGui::Columns(4, NULL, true);
-    static bool selected[16] = { 0 };
-    for (int i = 0; i < 16; i++) {
-        char label[32];
-        sprintf(label, "V[0x%.1X] = 0x%.2X", i, registers[i]);
-        if (ImGui::Selectable(label, &selected[i])) {}
-        ImGui::NextColumn();
-    }
-
-	ImGui::End();
-}
-
-void win_flags(bool &draw_flag, bool &draw_flag_blocked)
-{
-	ImGui::Begin("CHIP8 Flags");
-	ImGui::CheckboxFlags("Draw Flag", (unsigned int*)&draw_flag, ImGuiComboFlags_PopupAlignLeft);
-	ImGui::End();
 }
 
 int main(int argc, char** argv)
@@ -150,7 +113,10 @@ int main(int argc, char** argv)
         ImGui_ImplSDL2_NewFrame(window);
         ImGui::NewFrame();
 
-        // insert windows here
+		// menu bar
+		ShowExampleAppMainMenuBar();
+
+		// insert windows here
         win_game();
 
         // hex editor
@@ -160,7 +126,10 @@ int main(int argc, char** argv)
         win_registers(a.V);
 
 		// flag window
-		win_flags(a.draw_flag, a.draw_flag_blocked);
+		win_flags(a.draw_flag);
+
+		// timer window
+		win_timers(a.sound_timer, a.delay_timer);
 
 		// demo window
         ImGui::ShowDemoWindow();

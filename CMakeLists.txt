@@ -14,7 +14,7 @@ include_directories(lib/gl3w)
 include_directories(include)
 
 # linker flags
-set(CMAKE_CXX_FLAGS "-lSDL2 -ldl")
+set(CMAKE_CXX_FLAGS "-ggdb3 -O0 -lSDL2 -ldl")
 
 # debug print
 add_definitions(-DDEBUG)
@@ -36,6 +36,11 @@ add_executable(CHIP8_IMGUI src/main.cpp
 		lib/imgui/imgui.h
 		lib/imgui/imstb_rectpack.h
 		lib/imgui/imstb_textedit.h
-		lib/imgui/imstb_truetype.h include/chip8.hpp src/chip8.cpp include/imgui_memory_editor.h)
+		lib/imgui/imstb_truetype.h
+		include/chip8.hpp
+		include/gui.hpp
+		src/gui.cpp
+		src/chip8.cpp
+		include/imgui_memory_editor.h)
 
-target_link_libraries(CHIP8_IMGUI Gl3w)
+	  target_link_libraries(CHIP8_IMGUI Gl3w)

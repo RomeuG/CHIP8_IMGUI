@@ -30,7 +30,7 @@ void chip8::load_rom(char *rom_name)
 	// disassemble rom
 	std::uint32_t pc = 0x0;
 	while(pc < (file_size)) {
-		auto disasm = disasm_opcode(v, pc);
+		auto disasm = disasm_opcode(v[pc], v[pc + 1], pc);
 		disassembly.push_back(disasm);
 		pc += 2;
 	}

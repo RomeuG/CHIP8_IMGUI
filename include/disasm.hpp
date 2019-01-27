@@ -4,6 +4,6 @@
 #include <iostream>
 #include <vector>
 
-std::string disasm_opcode(std::vector<char> &buffer, std::uint32_t pcounter);
+std::string disasm_opcode(char &p_code, char &p_code_next, std::uint32_t pcounter);
 
 #endif

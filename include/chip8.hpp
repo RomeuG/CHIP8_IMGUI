@@ -50,6 +50,10 @@ static constexpr std::array<std::uint8_t, Constants::CH8_MEMORY_SIZE> FONT_LIST 
 #endif
 
 struct chip8 {
+	std::string file_name{0};
+	std::uint32_t file_size{0};
+	std::vector<std::string> disassembly{0};
+
 	std::uint16_t I{0};
 	std::uint16_t pc{0x200};
 	std::uint16_t sp{0};
@@ -278,7 +282,7 @@ struct chip8 {
 	chip8();
 
 	void load_font();
-	void load_rom(std::vector<char>&& buffer);
+	void load_rom(char *rom_name);
 	void cycle();
 };
 

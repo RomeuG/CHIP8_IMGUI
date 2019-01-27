@@ -1,6 +1,6 @@
 #include <iostream>
 
-std::string print_opcode(unsigned char *buffer, unsigned int pcounter)
+std::string disasm_opcode(unsigned char *buffer, unsigned int pcounter)
 {
 	unsigned char *p_code = &buffer[pcounter];
 	unsigned int opcode = (p_code[0] << 8) | (p_code[1]);

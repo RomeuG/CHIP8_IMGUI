@@ -132,6 +132,11 @@ int main(int argc, char** argv)
 		// timer window
 		win_timers(a.sound_timer, a.delay_timer);
 
+		// disasm window
+		ImGui::Begin("Disasm window");
+		ImGui::Selectable("test");
+		ImGui::End();
+
 		// demo window
         ImGui::ShowDemoWindow();
 

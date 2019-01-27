@@ -1,52 +1,52 @@
 [
 {
   "directory": "/home/romeu/Projects/CHIP8_IMGUI/cmake-build-debug",
-  "command": "/usr/bin/c++  -DDEBUG -I/home/romeu/Projects/CHIP8_IMGUI/lib/imgui -I/home/romeu/Projects/CHIP8_IMGUI/lib/gl3w -I/home/romeu/Projects/CHIP8_IMGUI/include  -ggdb3 -O0 -lstdc++fs -lSDL2 -ldl   -std=gnu++17 -o CMakeFiles/CHIP8_IMGUI.dir/src/main.cpp.o -c /home/romeu/Projects/CHIP8_IMGUI/src/main.cpp",
+  "command": "/usr/bin/c++  -DDEBUG -I/home/romeu/Projects/CHIP8_IMGUI/lib/imgui -I/home/romeu/Projects/CHIP8_IMGUI/lib/gl3w -I/home/romeu/Projects/CHIP8_IMGUI/include  -ggdb3 -O0 -lSDL2 -ldl   -std=gnu++17 -o CMakeFiles/CHIP8_IMGUI.dir/src/main.cpp.o -c /home/romeu/Projects/CHIP8_IMGUI/src/main.cpp",
   "file": "/home/romeu/Projects/CHIP8_IMGUI/src/main.cpp"
 },
 {
   "directory": "/home/romeu/Projects/CHIP8_IMGUI/cmake-build-debug",
-  "command": "/usr/bin/c++  -DDEBUG -I/home/romeu/Projects/CHIP8_IMGUI/lib/imgui -I/home/romeu/Projects/CHIP8_IMGUI/lib/gl3w -I/home/romeu/Projects/CHIP8_IMGUI/include  -ggdb3 -O0 -lstdc++fs -lSDL2 -ldl   -std=gnu++17 -o CMakeFiles/CHIP8_IMGUI.dir/include/imgui_impl_opengl3.cpp.o -c /home/romeu/Projects/CHIP8_IMGUI/include/imgui_impl_opengl3.cpp",
+  "command": "/usr/bin/c++  -DDEBUG -I/home/romeu/Projects/CHIP8_IMGUI/lib/imgui -I/home/romeu/Projects/CHIP8_IMGUI/lib/gl3w -I/home/romeu/Projects/CHIP8_IMGUI/include  -ggdb3 -O0 -lSDL2 -ldl   -std=gnu++17 -o CMakeFiles/CHIP8_IMGUI.dir/include/imgui_impl_opengl3.cpp.o -c /home/romeu/Projects/CHIP8_IMGUI/include/imgui_impl_opengl3.cpp",
   "file": "/home/romeu/Projects/CHIP8_IMGUI/include/imgui_impl_opengl3.cpp"
 },
 {
   "directory": "/home/romeu/Projects/CHIP8_IMGUI/cmake-build-debug",
-  "command": "/usr/bin/c++  -DDEBUG -I/home/romeu/Projects/CHIP8_IMGUI/lib/imgui -I/home/romeu/Projects/CHIP8_IMGUI/lib/gl3w -I/home/romeu/Projects/CHIP8_IMGUI/include  -ggdb3 -O0 -lstdc++fs -lSDL2 -ldl   -std=gnu++17 -o CMakeFiles/CHIP8_IMGUI.dir/include/imgui_impl_sdl.cpp.o -c /home/romeu/Projects/CHIP8_IMGUI/include/imgui_impl_sdl.cpp",
+  "command": "/usr/bin/c++  -DDEBUG -I/home/romeu/Projects/CHIP8_IMGUI/lib/imgui -I/home/romeu/Projects/CHIP8_IMGUI/lib/gl3w -I/home/romeu/Projects/CHIP8_IMGUI/include  -ggdb3 -O0 -lSDL2 -ldl   -std=gnu++17 -o CMakeFiles/CHIP8_IMGUI.dir/include/imgui_impl_sdl.cpp.o -c /home/romeu/Projects/CHIP8_IMGUI/include/imgui_impl_sdl.cpp",
   "file": "/home/romeu/Projects/CHIP8_IMGUI/include/imgui_impl_sdl.cpp"
 },
 {
   "directory": "/home/romeu/Projects/CHIP8_IMGUI/cmake-build-debug",
-  "command": "/usr/bin/c++  -DDEBUG -I/home/romeu/Projects/CHIP8_IMGUI/lib/imgui -I/home/romeu/Projects/CHIP8_IMGUI/lib/gl3w -I/home/romeu/Projects/CHIP8_IMGUI/include  -ggdb3 -O0 -lstdc++fs -lSDL2 -ldl   -std=gnu++17 -o CMakeFiles/CHIP8_IMGUI.dir/lib/imgui/imgui.cpp.o -c /home/romeu/Projects/CHIP8_IMGUI/lib/imgui/imgui.cpp",
+  "command": "/usr/bin/c++  -DDEBUG -I/home/romeu/Projects/CHIP8_IMGUI/lib/imgui -I/home/romeu/Projects/CHIP8_IMGUI/lib/gl3w -I/home/romeu/Projects/CHIP8_IMGUI/include  -ggdb3 -O0 -lSDL2 -ldl   -std=gnu++17 -o CMakeFiles/CHIP8_IMGUI.dir/lib/imgui/imgui.cpp.o -c /home/romeu/Projects/CHIP8_IMGUI/lib/imgui/imgui.cpp",
   "file": "/home/romeu/Projects/CHIP8_IMGUI/lib/imgui/imgui.cpp"
 },
 {
   "directory": "/home/romeu/Projects/CHIP8_IMGUI/cmake-build-debug",
-  "command": "/usr/bin/c++  -DDEBUG -I/home/romeu/Projects/CHIP8_IMGUI/lib/imgui -I/home/romeu/Projects/CHIP8_IMGUI/lib/gl3w -I/home/romeu/Projects/CHIP8_IMGUI/include  -ggdb3 -O0 -lstdc++fs -lSDL2 -ldl   -std=gnu++17 -o CMakeFiles/CHIP8_IMGUI.dir/lib/imgui/imgui_draw.cpp.o -c /home/romeu/Projects/CHIP8_IMGUI/lib/imgui/imgui_draw.cpp",
+  "command": "/usr/bin/c++  -DDEBUG -I/home/romeu/Projects/CHIP8_IMGUI/lib/imgui -I/home/romeu/Projects/CHIP8_IMGUI/lib/gl3w -I/home/romeu/Projects/CHIP8_IMGUI/include  -ggdb3 -O0 -lSDL2 -ldl   -std=gnu++17 -o CMakeFiles/CHIP8_IMGUI.dir/lib/imgui/imgui_draw.cpp.o -c /home/romeu/Projects/CHIP8_IMGUI/lib/imgui/imgui_draw.cpp",
   "file": "/home/romeu/Projects/CHIP8_IMGUI/lib/imgui/imgui_draw.cpp"
 },
 {
   "directory": "/home/romeu/Projects/CHIP8_IMGUI/cmake-build-debug",
-  "command": "/usr/bin/c++  -DDEBUG -I/home/romeu/Projects/CHIP8_IMGUI/lib/imgui -I/home/romeu/Projects/CHIP8_IMGUI/lib/gl3w -I/home/romeu/Projects/CHIP8_IMGUI/include  -ggdb3 -O0 -lstdc++fs -lSDL2 -ldl   -std=gnu++17 -o CMakeFiles/CHIP8_IMGUI.dir/lib/imgui/imgui_widgets.cpp.o -c /home/romeu/Projects/CHIP8_IMGUI/lib/imgui/imgui_widgets.cpp",
+  "command": "/usr/bin/c++  -DDEBUG -I/home/romeu/Projects/CHIP8_IMGUI/lib/imgui -I/home/romeu/Projects/CHIP8_IMGUI/lib/gl3w -I/home/romeu/Projects/CHIP8_IMGUI/include  -ggdb3 -O0 -lSDL2 -ldl   -std=gnu++17 -o CMakeFiles/CHIP8_IMGUI.dir/lib/imgui/imgui_widgets.cpp.o -c /home/romeu/Projects/CHIP8_IMGUI/lib/imgui/imgui_widgets.cpp",
   "file": "/home/romeu/Projects/CHIP8_IMGUI/lib/imgui/imgui_widgets.cpp"
 },
 {
   "directory": "/home/romeu/Projects/CHIP8_IMGUI/cmake-build-debug",
-  "command": "/usr/bin/c++  -DDEBUG -I/home/romeu/Projects/CHIP8_IMGUI/lib/imgui -I/home/romeu/Projects/CHIP8_IMGUI/lib/gl3w -I/home/romeu/Projects/CHIP8_IMGUI/include  -ggdb3 -O0 -lstdc++fs -lSDL2 -ldl   -std=gnu++17 -o CMakeFiles/CHIP8_IMGUI.dir/lib/imgui/imgui_demo.cpp.o -c /home/romeu/Projects/CHIP8_IMGUI/lib/imgui/imgui_demo.cpp",
+  "command": "/usr/bin/c++  -DDEBUG -I/home/romeu/Projects/CHIP8_IMGUI/lib/imgui -I/home/romeu/Projects/CHIP8_IMGUI/lib/gl3w -I/home/romeu/Projects/CHIP8_IMGUI/include  -ggdb3 -O0 -lSDL2 -ldl   -std=gnu++17 -o CMakeFiles/CHIP8_IMGUI.dir/lib/imgui/imgui_demo.cpp.o -c /home/romeu/Projects/CHIP8_IMGUI/lib/imgui/imgui_demo.cpp",
   "file": "/home/romeu/Projects/CHIP8_IMGUI/lib/imgui/imgui_demo.cpp"
 },
 {
   "directory": "/home/romeu/Projects/CHIP8_IMGUI/cmake-build-debug",
-  "command": "/usr/bin/c++  -DDEBUG -I/home/romeu/Projects/CHIP8_IMGUI/lib/imgui -I/home/romeu/Projects/CHIP8_IMGUI/lib/gl3w -I/home/romeu/Projects/CHIP8_IMGUI/include  -ggdb3 -O0 -lstdc++fs -lSDL2 -ldl   -std=gnu++17 -o CMakeFiles/CHIP8_IMGUI.dir/src/gui.cpp.o -c /home/romeu/Projects/CHIP8_IMGUI/src/gui.cpp",
+  "command": "/usr/bin/c++  -DDEBUG -I/home/romeu/Projects/CHIP8_IMGUI/lib/imgui -I/home/romeu/Projects/CHIP8_IMGUI/lib/gl3w -I/home/romeu/Projects/CHIP8_IMGUI/include  -ggdb3 -O0 -lSDL2 -ldl   -std=gnu++17 -o CMakeFiles/CHIP8_IMGUI.dir/src/gui.cpp.o -c /home/romeu/Projects/CHIP8_IMGUI/src/gui.cpp",
   "file": "/home/romeu/Projects/CHIP8_IMGUI/src/gui.cpp"
 },
 {
   "directory": "/home/romeu/Projects/CHIP8_IMGUI/cmake-build-debug",
-  "command": "/usr/bin/c++  -DDEBUG -I/home/romeu/Projects/CHIP8_IMGUI/lib/imgui -I/home/romeu/Projects/CHIP8_IMGUI/lib/gl3w -I/home/romeu/Projects/CHIP8_IMGUI/include  -ggdb3 -O0 -lstdc++fs -lSDL2 -ldl   -std=gnu++17 -o CMakeFiles/CHIP8_IMGUI.dir/src/chip8.cpp.o -c /home/romeu/Projects/CHIP8_IMGUI/src/chip8.cpp",
+  "command": "/usr/bin/c++  -DDEBUG -I/home/romeu/Projects/CHIP8_IMGUI/lib/imgui -I/home/romeu/Projects/CHIP8_IMGUI/lib/gl3w -I/home/romeu/Projects/CHIP8_IMGUI/include  -ggdb3 -O0 -lSDL2 -ldl   -std=gnu++17 -o CMakeFiles/CHIP8_IMGUI.dir/src/chip8.cpp.o -c /home/romeu/Projects/CHIP8_IMGUI/src/chip8.cpp",
   "file": "/home/romeu/Projects/CHIP8_IMGUI/src/chip8.cpp"
 },
 {
   "directory": "/home/romeu/Projects/CHIP8_IMGUI/cmake-build-debug",
-  "command": "/usr/bin/c++  -DDEBUG -I/home/romeu/Projects/CHIP8_IMGUI/lib/imgui -I/home/romeu/Projects/CHIP8_IMGUI/lib/gl3w -I/home/romeu/Projects/CHIP8_IMGUI/include  -ggdb3 -O0 -lstdc++fs -lSDL2 -ldl   -std=gnu++17 -o CMakeFiles/CHIP8_IMGUI.dir/src/disasm.cpp.o -c /home/romeu/Projects/CHIP8_IMGUI/src/disasm.cpp",
+  "command": "/usr/bin/c++  -DDEBUG -I/home/romeu/Projects/CHIP8_IMGUI/lib/imgui -I/home/romeu/Projects/CHIP8_IMGUI/lib/gl3w -I/home/romeu/Projects/CHIP8_IMGUI/include  -ggdb3 -O0 -lSDL2 -ldl   -std=gnu++17 -o CMakeFiles/CHIP8_IMGUI.dir/src/disasm.cpp.o -c /home/romeu/Projects/CHIP8_IMGUI/src/disasm.cpp",
   "file": "/home/romeu/Projects/CHIP8_IMGUI/src/disasm.cpp"
 }
 ]

@@ -1,6 +1,9 @@
 #ifndef __DISASM_HPP_
 #define __DISASM_HPP_
 
-void disasm_opcode(unsigned char *buffer, unsigned int pcounter);
+#include <iostream>
+#include <vector>
+
+std::string disasm_opcode(std::vector<char> &buffer, std::uint32_t pcounter);
 
 #endif

@@ -126,7 +126,9 @@ int main(int argc, char** argv)
 
 		// disasm window
 		ImGui::Begin("Disasm window");
-		ImGui::Selectable("test");
+		for (auto &disasm_str : a.disassembly) {
+			ImGui::Selectable(disasm_str.c_str());
+		}
 		ImGui::End();
 
 		// demo window

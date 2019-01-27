@@ -1,8 +1,12 @@
 #include <iostream>
+#include <vector>
 
-std::string disasm_opcode(unsigned char *buffer, unsigned int pcounter)
+std::string disasm_opcode(std::vector<char> &buffer, std::uint32_t pcounter)
 {
-	unsigned char *p_code = &buffer[pcounter];
+	char p_code[2];
+	p_code[0] = buffer[pcounter];
+	p_code[1] = buffer[pcounter + 1];
+
 	unsigned int opcode = (p_code[0] << 8) | (p_code[1]);
 
 	unsigned short int _X = (opcode & 0x0F00) >> 8;
@@ -78,5 +82,6 @@ std::string disasm_opcode(unsigned char *buffer, unsigned int pcounter)
 	default: std::snprintf(out_buffer, sizeof(out_buffer), "0x%04X - 0x%02X%02X - Unknown\n", pcounter, p_code[0], p_code[1]);
 	}
 
+	final_string = out_buffer;
 	return final_string;
 }

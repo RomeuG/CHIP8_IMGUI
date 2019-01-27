@@ -1,4 +1,5 @@
 #include "chip8.hpp"
+#include "disasm.hpp"
 
 #include <fstream>
 #include <filesystem>
@@ -27,6 +28,12 @@ void chip8::load_rom(char *rom_name)
 	std::copy(v.begin(), v.end(), it);
 
 	// disassemble rom
+	std::uint32_t pc = 0x0;
+	while(pc < (file_size)) {
+		auto disasm = disasm_opcode(v, pc);
+		disassembly.push_back(disasm);
+		pc += 2;
+	}
 }
 
 void chip8::cycle()

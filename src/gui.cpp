@@ -104,3 +104,12 @@ void win_timers(std::uint8_t &sound_timer, std::uint8_t &delay_timer)
 
 	ImGui::End();
 }
+
+void win_disasm(std::vector<std::string> &vec)
+{
+	ImGui::Begin("Disasm window");
+	for (auto &disasm_str : vec) {
+	 	ImGui::Selectable(disasm_str.c_str());
+	}
+	ImGui::End();
+}

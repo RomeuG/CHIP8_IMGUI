@@ -23,6 +23,7 @@ void chip8::load_rom(char *rom_name)
 	// file size
 	file_size = std::filesystem::file_size(rom_name);
 
+	// load into memory
 	auto it = memory.begin();
 	std::advance(it, Constants::ROM_LOCATION);
 	std::copy(v.begin(), v.end(), it);

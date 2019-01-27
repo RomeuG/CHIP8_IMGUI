@@ -125,11 +125,7 @@ int main(int argc, char** argv)
 		win_timers(a.sound_timer, a.delay_timer);
 
 		// disasm window
-		ImGui::Begin("Disasm window");
-		for (auto &disasm_str : a.disassembly) {
-			ImGui::Selectable(disasm_str.c_str());
-		}
-		ImGui::End();
+		win_disasm(a.disassembly);
 
 		// demo window
         ImGui::ShowDemoWindow();

@@ -39,8 +39,10 @@ add_executable(CHIP8_IMGUI src/main.cpp
 		lib/imgui/imstb_truetype.h
 		include/chip8.hpp
 		include/gui.hpp
+		include/disasm.hpp
 		src/gui.cpp
 		src/chip8.cpp
+		src/disasm.cpp
 		include/imgui_memory_editor.h)
 
 	  target_link_libraries(CHIP8_IMGUI Gl3w)

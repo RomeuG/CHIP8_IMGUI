@@ -1,16 +1,7 @@
 #include "chip8.hpp"
 
 #include <fstream>
-
-auto _get_file_size(std::ifstream &f)
-{
-	const auto _begin = f.tellg();
-	f.seekg(0, std::ios::end);
-	const auto _end = f.tellg();
-	f.seekg(0, std::ios::beg);
-
-	return _end - _begin;
-}
+#include <filesystem>
 
 chip8::chip8()
 {
@@ -29,7 +20,7 @@ void chip8::load_rom(char *rom_name)
 	std::vector<char> v(std::istreambuf_iterator<char>{f}, {});
 
 	// file size
-	file_size = _get_file_size(f);
+	file_size = std::filesystem::file_size(rom_name);
 
 	auto it = memory.begin();
 	std::advance(it, Constants::ROM_LOCATION);

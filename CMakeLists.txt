@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.13)
 project(CHIP8_IMGUI)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 
 # IMGUI
 include_directories(lib/imgui)
@@ -14,6 +14,7 @@ include_directories(lib/gl3w)
 include_directories(include)
 
 # linker flags
+set(LIBSTDCXX_FS_LIBRARIES -lstdc++fs)
 set(CMAKE_CXX_FLAGS "-ggdb3 -O0 -lSDL2 -ldl")
 
 # debug print
@@ -45,4 +46,4 @@ add_executable(CHIP8_IMGUI src/main.cpp
 		src/disasm.cpp
 		include/imgui_memory_editor.h)
 
-	  target_link_libraries(CHIP8_IMGUI Gl3w)
+	  target_link_libraries(CHIP8_IMGUI Gl3w ${LIBSTDCXX_FS_LIBRARIES})

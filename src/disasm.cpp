@@ -1,8 +1,11 @@
 #include <iostream>
 #include <vector>
 
-std::string disasm_opcode(char &p_code, char &p_code_next, std::uint32_t pcounter)
+std::string disasm_opcode(char &_p_code, char &_p_code_next, std::uint32_t pcounter)
 {
+	std::uint8_t p_code = static_cast<std::uint8_t>(_p_code);
+	std::uint8_t p_code_next = static_cast<std::uint8_t>(_p_code_next);
+
 	unsigned int opcode = (p_code << 8) | (p_code_next);
 
 	unsigned short int _X = (opcode & 0x0F00) >> 8;

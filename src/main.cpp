@@ -128,9 +128,12 @@ int main(int argc, char** argv)
 		win_disasm(a.disassembly);
 
 		// demo window
-        ImGui::ShowDemoWindow();
+        //ImGui::ShowDemoWindow();
 
-        // chip8 cycle
+		// log window
+		win_log();
+
+		// chip8 cycle
         a.cycle();
 
 		// Rendering

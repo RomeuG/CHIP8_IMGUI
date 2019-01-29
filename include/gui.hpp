@@ -15,4 +15,6 @@ void win_flags(bool &draw_flag);
 void win_timers(std::uint8_t &sound_timer, std::uint8_t &delay_timer);
 void win_disasm(std::vector<std::string> &vec);
 
+void win_log();
+
 #endif

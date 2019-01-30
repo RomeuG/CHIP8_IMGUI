@@ -6,6 +6,7 @@
 #include "imgui_impl_opengl3.h"
 
 #include "chip8.hpp"
+#include "logging.hpp"
 
 void win_menu_bar();
 void win_game();

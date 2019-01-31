@@ -8,6 +8,8 @@
 #include <functional>
 #include <random>
 
+#include "logging.hpp"
+
 namespace Constants {
 static constexpr std::size_t ROM_LOCATION = 0x200;
 
@@ -50,6 +52,8 @@ static constexpr std::array<std::uint8_t, Constants::CH8_MEMORY_SIZE> FONT_LIST 
 #endif
 
 struct chip8 {
+	logging *logger;
+
 	std::string file_name{0};
 	std::uint32_t file_size{0};
 	std::vector<std::string> disassembly;

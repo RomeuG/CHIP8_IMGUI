@@ -4,8 +4,14 @@
 #include <fstream>
 #include <filesystem>
 
+#define LOG_INFO "info"
+
 chip8::chip8()
 {
+	// initialize logger
+	logger = logging::get_instance();
+
+	// init font
 	load_font();
 }
 
@@ -51,6 +57,8 @@ void chip8::cycle()
 		DEBUG_PRINT(stdout, "%s\n", "Unknown instruction.");
 	}
 	else {
+		logger->add_log("[%05d] [%s] Opcode: 0x%02X\n",
+						ImGui::GetFrameCount(), LOG_INFO, opcode & 0xF000);
 		(a->second)();
 	}
 

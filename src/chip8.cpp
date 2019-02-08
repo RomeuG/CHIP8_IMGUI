@@ -9,7 +9,7 @@
 chip8::chip8()
 {
 	// initialize logger
-	logger = logging::get_instance();
+	logger = Logging::get_instance();
 
 	// init font
 	load_font();

@@ -1,24 +1,31 @@
 #include "logging.hpp"
 
-logging *logging::instance = 0;
+Logging *Logging::instance = 0;
 
-logging *logging::get_instance()
+Logging *Logging::get_instance()
 {
 	if (instance == 0) {
-		instance = new logging();
+		instance = new Logging();
 	}
 
 	return instance;
 }
 
-void logging::clear()
+Logging::~Logging()
+{
+	if (instance != nullptr) {
+		delete instance;
+	}
+}
+
+void Logging::clear()
 {
 	text_buffer.clear();
 	line_offsets.clear();
 	line_offsets.push_back(0);
 }
 
-void logging::add_log(const char* fmt, ...)
+void Logging::add_log(const char* fmt, ...)
 {
 	int old_size = text_buffer.size();
 	va_list args;
@@ -35,7 +42,7 @@ void logging::add_log(const char* fmt, ...)
 	scroll_to_bottom = true;
 }
 
-void logging::draw(const char* title, bool* p_open)
+void Logging::draw(const char* title, bool* p_open)
 {
 	if (!ImGui::Begin(title, p_open)) {
 		ImGui::End();

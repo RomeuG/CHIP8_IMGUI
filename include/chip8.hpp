@@ -52,7 +52,7 @@ static constexpr std::array<std::uint8_t, Constants::CH8_MEMORY_SIZE> FONT_LIST 
 #endif
 
 struct chip8 {
-	logging *logger;
+	Logging *logger;
 
 	std::string file_name{0};
 	std::uint32_t file_size{0};

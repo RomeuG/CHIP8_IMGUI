@@ -116,9 +116,7 @@ void win_disasm(std::vector<std::string> &vec)
 
 void win_log()
 {
-	//static logging log;
-	//logging g_logger;
-	logging *g_logger = logging::get_instance();
+	Logging *logger = Logging::get_instance();
 
 	// For the demo: add a debug button before the normal log window contents
 	// We take advantage of the fact that multiple calls to Begin()/End() are appending to the same window.
@@ -131,12 +129,12 @@ void win_log()
         {
             const char* categories[3] = { "info", "warn", "error" };
             const char* words[] = { "Bumfuzzled", "Cattywampus", "Snickersnee", "Abibliophobia", "Absquatulate", "Nincompoop", "Pauciloquent" };
-            g_logger->add_log("[%05d] [%s] Hello, current time is %.1f, here's a word: '%s'\n",
-							  ImGui::GetFrameCount(), categories[counter % IM_ARRAYSIZE(categories)], ImGui::GetTime(), words[counter % IM_ARRAYSIZE(words)]);
+            logger->add_log("[%05d] [%s] Hello, current time is %.1f, here's a word: '%s'\n",
+							ImGui::GetFrameCount(), categories[counter % IM_ARRAYSIZE(categories)], ImGui::GetTime(), words[counter % IM_ARRAYSIZE(words)]);
             counter++;
         }
 	}
     ImGui::End();
 
-    g_logger->draw("Chip8 Logging");
+    logger->draw("Chip8 Logging");
 }

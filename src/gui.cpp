@@ -122,18 +122,6 @@ void win_log()
 	// We take advantage of the fact that multiple calls to Begin()/End() are appending to the same window.
 	ImGui::SetNextWindowSize(ImVec2(500, 400), ImGuiCond_FirstUseEver);
     ImGui::Begin("Chip8 Logging");
-    if (ImGui::SmallButton("Add 5 entries"))
-    {
-        static int counter = 0;
-        for (int n = 0; n < 5; n++)
-        {
-            const char* categories[3] = { "info", "warn", "error" };
-            const char* words[] = { "Bumfuzzled", "Cattywampus", "Snickersnee", "Abibliophobia", "Absquatulate", "Nincompoop", "Pauciloquent" };
-            logger->add_log("[%05d] [%s] Hello, current time is %.1f, here's a word: '%s'\n",
-							ImGui::GetFrameCount(), categories[counter % IM_ARRAYSIZE(categories)], ImGui::GetTime(), words[counter % IM_ARRAYSIZE(words)]);
-            counter++;
-        }
-	}
     ImGui::End();
 
     logger->draw("Chip8 Logging");

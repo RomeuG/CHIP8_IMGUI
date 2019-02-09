@@ -22,6 +22,37 @@ namespace Constants {
 	}
 }
 
+void render_windows(chip8 &c8)
+{
+
+	// menu bar
+	win_menu_bar();
+
+	// insert windows here
+	win_game();
+
+	// hex editor
+	win_hex_editor(c8.memory);
+
+	// register window
+	win_registers(c8.V);
+
+	// flag window
+	win_flags(c8.draw_flag);
+
+	// timer window
+	win_timers(c8.sound_timer, c8.delay_timer);
+
+	// disasm window
+	win_disasm(c8.disassembly);
+
+	// demo window
+	//ImGui::ShowDemoWindow();
+
+	// log window
+	win_log();
+}
+
 int main(int argc, char** argv)
 {
     // check arguments
@@ -106,32 +137,8 @@ int main(int argc, char** argv)
 		ImGui_ImplSDL2_NewFrame(window);
 		ImGui::NewFrame();
 
-		// menu bar
-		win_menu_bar();
-
-		// insert windows here
-		win_game();
-
-		// hex editor
-		win_hex_editor(a.memory);
-
-        // register window
-        win_registers(a.V);
-
-		// flag window
-		win_flags(a.draw_flag);
-
-		// timer window
-		win_timers(a.sound_timer, a.delay_timer);
-
-		// disasm window
-		win_disasm(a.disassembly);
-
-		// demo window
-        //ImGui::ShowDemoWindow();
-
-		// log window
-		win_log();
+		// function that has all windows
+		render_windows(a);
 
 		// chip8 cycle
         a.cycle();

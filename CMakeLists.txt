@@ -3,6 +3,9 @@ project(CHIP8_IMGUI)
 
 set(CMAKE_CXX_STANDARD 17)
 
+# compiler
+set(CMAKE_CXX_COMPILER clang++)
+
 # IMGUI
 include_directories(lib/imgui)
 

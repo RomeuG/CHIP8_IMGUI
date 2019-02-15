@@ -31,7 +31,7 @@ void Logging::add_log(const char* fmt, ...)
 	text_buffer.appendfv(fmt, args);
 	va_end(args);
 
-	for (int new_size = text_buffer.size(); old_size < new_size; old_size++) {
+	for (auto new_size = text_buffer.size(); old_size < new_size; old_size++) {
 		if (text_buffer[old_size] == '\n') {
 			line_offsets.push_back(old_size + 1);
 		}
@@ -52,7 +52,9 @@ void Logging::draw(const char* title, bool* p_open)
 	}
 
 	ImGui::SameLine();
-	bool copy = ImGui::Button("Copy");
+	auto copy = ImGui::Button("Copy");
+	ImGui::SameLine();
+	auto stop = ImGui::Button("Stop");
 	ImGui::SameLine();
 	text_filter.Draw("Filter", -100.0f);
 	ImGui::Separator();
@@ -62,8 +64,8 @@ void Logging::draw(const char* title, bool* p_open)
 	}
 
 	ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(0, 0));
-	const char* buf = text_buffer.begin();
-	const char* buf_end = text_buffer.end();
+	auto buf = text_buffer.begin();
+	auto buf_end = text_buffer.end();
 	if (text_filter.IsActive()) {
 		for (int line_no = 0; line_no < line_offsets.Size; line_no++) {
 			const char* line_start = buf + line_offsets[line_no];

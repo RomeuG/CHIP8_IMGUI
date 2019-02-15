@@ -3,8 +3,8 @@
 
 std::string disasm_opcode(char &_p_code, char &_p_code_next, std::uint32_t _pcounter)
 {
-	std::uint8_t p_code = static_cast<std::uint8_t>(_p_code);
-	std::uint8_t p_code_next = static_cast<std::uint8_t>(_p_code_next);
+	auto p_code = static_cast<std::uint8_t>(_p_code);
+	auto p_code_next = static_cast<std::uint8_t>(_p_code_next);
 
 	std::uint32_t pcounter = _pcounter + 0x200;
 

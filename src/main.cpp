@@ -61,7 +61,7 @@ int main(int argc, char** argv)
     }
 
     // tests
-    if (std::strcmp(argv[1], "tests") == 0) {
+	if (std::strncmp(argv[1], "tests", 5) == 0) {
         // testing here
         chip8 a;
         a.load_rom(argv[2]);
@@ -75,7 +75,7 @@ int main(int argc, char** argv)
 
 	// Setup SDL
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER) != 0) {
-		printf("Error: %s\n", SDL_GetError());
+		std::printf("Error: %s\n", SDL_GetError());
 		return EXIT_FAILURE;
 	}
 
@@ -96,7 +96,7 @@ int main(int argc, char** argv)
 	SDL_GLContext gl_context = SDL_GL_CreateContext(window);
 	SDL_GL_SetSwapInterval(1);
 
-	bool err = gl3wInit() != 0;
+	auto err = gl3wInit() != 0;
 	if (err) {
 		fprintf(stderr, "Failed to initialize OpenGL loader!\n");
 		return EXIT_FAILURE;
@@ -116,7 +116,7 @@ int main(int argc, char** argv)
 	ImGui_ImplOpenGL3_Init(Constants::GLSL_VERSION);
 
 	// Main loop
-	bool done = false;
+	auto done = false;
 	while (!done) {
 		SDL_Event event;
 

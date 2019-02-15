@@ -5,10 +5,9 @@ std::string disasm_opcode(char &_p_code, char &_p_code_next, std::uint32_t _pcou
 {
 	auto p_code = static_cast<std::uint8_t>(_p_code);
 	auto p_code_next = static_cast<std::uint8_t>(_p_code_next);
+	auto pcounter = _pcounter + 0x200;
 
-	std::uint32_t pcounter = _pcounter + 0x200;
-
-	unsigned int opcode = (p_code << 8) | (p_code_next);
+	std::uint16_t opcode = (p_code << 8) | (p_code_next);
 
 	unsigned short int _X = (opcode & 0x0F00) >> 8;
 	unsigned short int _Y = (opcode & 0x00F0) >> 4;

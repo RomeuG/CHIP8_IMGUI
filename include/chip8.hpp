@@ -7,6 +7,7 @@
 #include <unordered_map>
 #include <functional>
 #include <random>
+#include <iostream>
 
 #include "logging.hpp"
 
@@ -52,7 +53,7 @@ static constexpr std::array<std::uint8_t, Constants::CH8_MEMORY_SIZE> FONT_LIST 
 #endif
 
 struct chip8 {
-	Logging *logger;
+	Logging* logger;
 
 	std::string file_name{0};
 	std::uint32_t file_size{0};
@@ -76,7 +77,7 @@ struct chip8 {
 	std::array<std::uint16_t, Constants::CH8_STACK_SIZE> stack{0};
 
 	std::unordered_map<unsigned short int, std::function<void(void)>> instruction_table{
-		{0x0000, [this]() {
+			{0x0000, [this]() {
 			  switch (opcode & 0x000F) {
 				  case 0x0: {
 					  std::fill(graphics.begin(), graphics.end(), 0);
@@ -286,7 +287,7 @@ struct chip8 {
 	chip8();
 
 	void load_font();
-	void load_rom(char *rom_name);
+	void load_rom(char* rom_name);
 	void cycle();
 };
 

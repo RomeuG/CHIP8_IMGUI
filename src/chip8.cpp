@@ -20,7 +20,7 @@ void chip8::load_font()
 	std::copy(Constants::FONT_LIST.begin(), Constants::FONT_LIST.end(), memory.begin());
 }
 
-void chip8::load_rom(char *rom_name)
+void chip8::load_rom(char* rom_name)
 {
 	// read file
 	std::ifstream f(rom_name, std::ios::binary);
@@ -36,7 +36,7 @@ void chip8::load_rom(char *rom_name)
 
 	// disassemble rom
 	std::uint32_t pc = 0x0;
-	while(pc < (file_size)) {
+	while (pc < (file_size)) {
 		auto disasm = disasm_opcode(v[pc], v[pc + 1], pc);
 		disassembly.push_back(disasm);
 		pc += 2;
@@ -52,13 +52,13 @@ void chip8::cycle()
 	if (sound_timer > 0) sound_timer--;
 	if (sound_timer == 0); //beep;
 
-	auto a = instruction_table.find(opcode & 0xF000);
+	auto instruction = (std::uint16_t) (opcode & 0xF000);
+	auto a = instruction_table.find(instruction);
 	if (a == instruction_table.cend()) {
 		DEBUG_PRINT(stdout, "%s\n", "Unknown instruction.");
 	}
 	else {
-		logger->add_log("[%05d] [%s] Opcode: 0x%02X\n",
-						ImGui::GetFrameCount(), LOG_INFO, opcode & 0xF000);
+		logger->add_log("[%05d] [%s] Opcode: 0x%02X\n", ImGui::GetFrameCount(), LOG_INFO, instruction);
 		(a->second)();
 	}
 

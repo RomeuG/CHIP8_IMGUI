@@ -29,7 +29,7 @@ void Logging::add_log(const char* fmt, ...)
 {
 	if (!active) return;
 
-	int old_size = text_buffer.size();
+	auto old_size = text_buffer.size();
 	va_list args;
 	va_start(args, fmt);
 	text_buffer.appendfv(fmt, args);
@@ -73,9 +73,9 @@ void Logging::draw(const char* title, bool* p_open)
 	auto buf = text_buffer.begin();
 	auto buf_end = text_buffer.end();
 	if (text_filter.IsActive()) {
-		for (int line_no = 0; line_no < line_offsets.Size; line_no++) {
-			const char* line_start = buf + line_offsets[line_no];
-			const char* line_end = (line_no + 1 < line_offsets.Size) ? (buf + line_offsets[line_no + 1] - 1) : buf_end;
+		for (auto line_no = 0; line_no < line_offsets.Size; line_no++) {
+			auto line_start = buf + line_offsets[line_no];
+			auto line_end = (line_no + 1 < line_offsets.Size) ? (buf + line_offsets[line_no + 1] - 1) : buf_end;
 			if (text_filter.PassFilter(line_start, line_end)) {
 				ImGui::TextUnformatted(line_start, line_end);
 			}
@@ -84,9 +84,9 @@ void Logging::draw(const char* title, bool* p_open)
 		ImGuiListClipper clipper;
 		clipper.Begin(line_offsets.Size);
 		while (clipper.Step()) {
-			for (int line_no = clipper.DisplayStart; line_no < clipper.DisplayEnd; line_no++) {
-				const char* line_start = buf + line_offsets[line_no];
-				const char* line_end = (line_no + 1 < line_offsets.Size) ? (buf + line_offsets[line_no + 1] - 1) : buf_end;
+			for (auto line_no = clipper.DisplayStart; line_no < clipper.DisplayEnd; line_no++) {
+				auto line_start = buf + line_offsets[line_no];
+				auto line_end = (line_no + 1 < line_offsets.Size) ? (buf + line_offsets[line_no + 1] - 1) : buf_end;
 				ImGui::TextUnformatted(line_start, line_end);
 			}
 		}

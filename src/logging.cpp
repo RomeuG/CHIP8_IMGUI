@@ -13,9 +13,7 @@ Logging *Logging::get_instance()
 
 Logging::~Logging()
 {
-	if (instance != nullptr) {
-		delete instance;
-	}
+	delete instance;
 }
 
 void Logging::clear()

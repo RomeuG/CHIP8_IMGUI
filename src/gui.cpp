@@ -7,13 +7,15 @@ static void win_menu_bar_file()
     if (ImGui::MenuItem("New")) {}
     if (ImGui::MenuItem("Open", "Ctrl+O")) {}
     ImGui::Separator();
-    if (ImGui::BeginMenu("Options"))
-    {
+	if (ImGui::BeginMenu("Options")) {
         static bool enabled = true;
         ImGui::MenuItem("Enabled", "", &enabled);
         ImGui::BeginChild("child", ImVec2(0, 60), true);
-        for (int i = 0; i < 10; i++)
-            ImGui::Text("Scrolling Text %d", i);
+
+		for (int i = 0; i < 10; i++) {
+			ImGui::Text("Scrolling Text %d", i);
+		}
+
         ImGui::EndChild();
 
         static float f = 0.5f;
@@ -31,15 +33,13 @@ static void win_menu_bar_file()
 
 void win_menu_bar()
 {
-    if (ImGui::BeginMainMenuBar())
-    {
-        if (ImGui::BeginMenu("File"))
-        {
+	if (ImGui::BeginMainMenuBar()) {
+		if (ImGui::BeginMenu("File")) {
             win_menu_bar_file();
             ImGui::EndMenu();
         }
-        if (ImGui::BeginMenu("Edit"))
-        {
+
+		if (ImGui::BeginMenu("Edit")) {
             if (ImGui::MenuItem("Undo", "CTRL+Z")) {}
             if (ImGui::MenuItem("Redo", "CTRL+Y", false, false)) {}  // Disabled item
             ImGui::Separator();
@@ -48,7 +48,8 @@ void win_menu_bar()
             if (ImGui::MenuItem("Paste", "CTRL+V")) {}
             ImGui::EndMenu();
         }
-        ImGui::EndMainMenuBar();
+
+		ImGui::EndMainMenuBar();
     }
 }
 

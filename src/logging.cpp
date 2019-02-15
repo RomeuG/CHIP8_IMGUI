@@ -1,10 +1,10 @@
 #include "logging.hpp"
 
-Logging *Logging::instance = 0;
+Logging* Logging::instance = nullptr;
 
 Logging *Logging::get_instance()
 {
-	if (instance == 0) {
+	if (instance == nullptr) {
 		instance = new Logging();
 	}
 

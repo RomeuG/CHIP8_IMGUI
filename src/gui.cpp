@@ -25,7 +25,7 @@ static void win_menu_bar_file()
         ImGui::Checkbox("Check", &b);
         ImGui::EndMenu();
     }
-    if (ImGui::MenuItem("Checked", NULL, true)) {}
+	if (ImGui::MenuItem("Checked", nullptr, true)) { }
     if (ImGui::MenuItem("Quit", "Alt+F4")) { exit(0); }
 }
 
@@ -70,7 +70,7 @@ void win_registers(std::array<std::uint8_t, Constants::CH8_REG_SIZE>& registers)
 {
     ImGui::Begin("CHIP8 Registers");
 
-    ImGui::Columns(4, NULL, true);
+	ImGui::Columns(4, nullptr, true);
     static bool selected[16] = { 0 };
     for (int i = 0; i < 16; i++) {
         char label[32];
@@ -93,7 +93,7 @@ void win_timers(std::uint8_t &sound_timer, std::uint8_t &delay_timer)
 {
 	ImGui::Begin("CHIP8 Timer");
 
-	ImGui::Columns(2, NULL, true);
+	ImGui::Columns(2, nullptr, true);
     static bool selected[2] = { 0 };
     for (int i = 0; i < 2; i++) {
         char label[32];

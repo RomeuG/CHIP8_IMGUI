@@ -1,3 +1,4 @@
+#include <iostream>
 #include "logging.hpp"
 
 Logging* Logging::instance = nullptr;
@@ -6,6 +7,7 @@ Logging *Logging::get_instance()
 {
 	if (instance == nullptr) {
 		instance = new Logging();
+		instance->active = true;
 	}
 
 	return instance;
@@ -25,6 +27,8 @@ void Logging::clear()
 
 void Logging::add_log(const char* fmt, ...)
 {
+	if (!active) return;
+
 	int old_size = text_buffer.size();
 	va_list args;
 	va_start(args, fmt);
@@ -54,11 +58,13 @@ void Logging::draw(const char* title, bool* p_open)
 	ImGui::SameLine();
 	auto copy = ImGui::Button("Copy");
 	ImGui::SameLine();
-	auto stop = ImGui::Button("Stop");
+	if (ImGui::Button("Stop")) {
+		active = !active;
+	}
 	ImGui::SameLine();
 	text_filter.Draw("Filter", -100.0f);
 	ImGui::Separator();
-	ImGui::BeginChild("scrolling", ImVec2(0,0), false, ImGuiWindowFlags_HorizontalScrollbar);
+	ImGui::BeginChild("scrolling", ImVec2(0, 0), false, ImGuiWindowFlags_HorizontalScrollbar);
 	if (copy) {
 		ImGui::LogToClipboard();
 	}

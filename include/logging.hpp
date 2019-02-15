@@ -13,7 +13,9 @@ struct Logging
     ImGuiTextBuffer text_buffer;
     ImGuiTextFilter text_filter;
     ImVector<int> line_offsets;
+
     bool scroll_to_bottom;
+	bool active;
 
 	static Logging *get_instance();
 

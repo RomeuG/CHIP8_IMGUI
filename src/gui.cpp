@@ -12,19 +12,19 @@ static void win_menu_bar_file()
     if (ImGui::MenuItem("Open", "Ctrl+O")) {}
     ImGui::Separator();
 	if (ImGui::BeginMenu("Options")) {
-        static bool enabled = true;
+		static auto enabled = true;
         ImGui::MenuItem("Enabled", "", &enabled);
         ImGui::BeginChild("child", ImVec2(0, 60), true);
 
-		for (int i = 0; i < 10; i++) {
+		for (auto i = 0; i < 10; i++) {
 			ImGui::Text("Scrolling Text %d", i);
 		}
 
         ImGui::EndChild();
 
-        static float f = 0.5f;
-        static int n = 0;
-        static bool b = true;
+		static auto f = 0.5f;
+		static auto n = 0;
+		static auto b = true;
         ImGui::SliderFloat("Value", &f, 0.0f, 1.0f);
         ImGui::InputFloat("Input", &f, 0.1f);
         ImGui::Combo("Combo", &n, "Yes\0No\0Maybe\0\0");
@@ -102,7 +102,7 @@ void win_registers(std::array<std::uint8_t, Constants::CH8_REG_SIZE>& registers)
 
 	ImGui::Columns(4, nullptr, true);
     static bool selected[16] = { 0 };
-    for (int i = 0; i < 16; i++) {
+	for (auto i = 0; i < 16; i++) {
         char label[32];
         sprintf(label, "V[0x%.1X] = 0x%.2X", i, registers[i]);
         if (ImGui::Selectable(label, &selected[i])) {}
@@ -125,7 +125,7 @@ void win_timers(std::uint8_t &sound_timer, std::uint8_t &delay_timer)
 
 	ImGui::Columns(2, nullptr, true);
     static bool selected[2] = { 0 };
-    for (int i = 0; i < 2; i++) {
+	for (auto i = 0; i < 2; i++) {
         char label[32];
         sprintf(label, "%s = 0x%.2X", i == 0 ? "Sound Timer" : "Delay Timer", i == 0 ? sound_timer : delay_timer);
 		if (ImGui::Selectable(label, &selected[i])) {}
@@ -146,7 +146,7 @@ void win_disasm(std::vector<std::string> &vec)
 
 void win_log()
 {
-	Logging *logger = Logging::get_instance();
+	auto logger = Logging::get_instance();
 
 	// For the demo: add a debug button before the normal log window contents
 	// We take advantage of the fact that multiple calls to Begin()/End() are appending to the same window.

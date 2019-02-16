@@ -57,25 +57,22 @@ void win_menu_bar()
 
 void win_game(SDL_Surface* screen)
 {
+	static bool generate_texture = true;
+	static GLuint texture_id = 0;
+
     ImGui::Begin("Game Window");
 
-	//auto screen = IMG_Load("image.jpg");
-	auto window_size = ImGui::GetWindowSize();
+	if (generate_texture) {
+		glGenTextures(1, &texture_id);
+		generate_texture = false;
+	}
 
 	if (screen != nullptr) {
-		GLuint texture_id = 0;
-
-		glGenTextures(1, &texture_id);
-		glBindTexture(GL_TEXTURE_2D, texture_id);
-
-		// define mode
 		auto gl_mode = GL_RGB;
-		if (screen->format->BytesPerPixel == 4) {
-			gl_mode = GL_RGBA;
-		}
+		auto window_size = ImGui::GetWindowSize();
 
+		glBindTexture(GL_TEXTURE_2D, texture_id);
 		glTexImage2D(GL_TEXTURE_2D, 0, gl_mode, screen->w, screen->h, 0, gl_mode, GL_UNSIGNED_BYTE, screen->pixels);
-
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 

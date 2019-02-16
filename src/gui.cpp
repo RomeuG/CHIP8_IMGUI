@@ -101,7 +101,7 @@ void win_registers(std::array<std::uint8_t, Constants::CH8_REG_SIZE>& registers)
     ImGui::Begin("CHIP8 Registers");
 
 	ImGui::Columns(4, nullptr, true);
-    static bool selected[16] = { 0 };
+	static bool selected[16] = {false};
 	for (auto i = 0; i < 16; i++) {
         char label[32];
         sprintf(label, "V[0x%.1X] = 0x%.2X", i, registers[i]);
@@ -124,7 +124,7 @@ void win_timers(std::uint8_t &sound_timer, std::uint8_t &delay_timer)
 	ImGui::Begin("CHIP8 Timer");
 
 	ImGui::Columns(2, nullptr, true);
-    static bool selected[2] = { 0 };
+	static bool selected[2] = {false};
 	for (auto i = 0; i < 2; i++) {
         char label[32];
         sprintf(label, "%s = 0x%.2X", i == 0 ? "Sound Timer" : "Delay Timer", i == 0 ? sound_timer : delay_timer);

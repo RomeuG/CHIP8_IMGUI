@@ -2,6 +2,10 @@
 
 #include <imgui_memory_editor.h>
 
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+#include <GL/gl3w.h>
+
 static void win_menu_bar_file()
 {
     if (ImGui::MenuItem("New")) {}
@@ -56,8 +60,34 @@ void win_menu_bar()
 void win_game()
 {
     ImGui::Begin("Game Window");
-    ImVec2 p = ImGui::GetCursorScreenPos();
-    ImGui::GetWindowDrawList()->AddRectFilled(p, ImVec2(p.x + 100, p.y + 100), ImGui::GetColorU32((ImGuiCol) 1));
+//    ImVec2 p = ImGui::GetCursorScreenPos();
+//    ImGui::GetWindowDrawList()->AddRectFilled(p, ImVec2(p.x + 100, p.y + 100), ImGui::GetColorU32((ImGuiCol) 1));
+
+	SDL_Surface* Surface = IMG_Load("image.jpg");
+
+	if (Surface == nullptr) {
+		std::printf("SDL_Init failed: %s\n", SDL_GetError());
+		return;
+	}
+
+	GLuint TextureID = 0;
+
+	glGenTextures(1, &TextureID);
+	glBindTexture(GL_TEXTURE_2D, TextureID);
+
+	int Mode = GL_RGB;
+
+	if (Surface->format->BytesPerPixel == 4) {
+		Mode = GL_RGBA;
+	}
+
+	glTexImage2D(GL_TEXTURE_2D, 0, Mode, Surface->w, Surface->h, 0, Mode, GL_UNSIGNED_BYTE, Surface->pixels);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+	ImGui::Image((void*) TextureID, ImVec2(512, 512));
+
     ImGui::End();
 }
 

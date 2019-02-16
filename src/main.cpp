@@ -4,9 +4,9 @@
 
 #include "chip8.hpp"
 #include "gui.hpp"
-#include "disasm.hpp"
 
 #include <SDL2/SDL.h>
+
 #include <GL/gl3w.h>
 #include <cstring>
 #include <fstream>

@@ -9,6 +9,8 @@
 #include <random>
 #include <iostream>
 
+#include <SDL2/SDL.h>
+
 #include "logging.hpp"
 
 namespace Constants {
@@ -54,6 +56,7 @@ static constexpr std::array<std::uint8_t, Constants::CH8_MEMORY_SIZE> FONT_LIST 
 
 struct chip8 {
 	Logging* logger;
+	SDL_Surface* screen;
 
 	std::string file_name{0};
 	std::uint32_t file_size{0};

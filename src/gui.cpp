@@ -2,8 +2,6 @@
 
 #include <imgui_memory_editor.h>
 
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
 #include <GL/gl3w.h>
 
 static void win_menu_bar_file()
@@ -57,14 +55,14 @@ void win_menu_bar()
     }
 }
 
-void win_game()
+void win_game(SDL_Surface* screen)
 {
     ImGui::Begin("Game Window");
 
-	auto screen = IMG_Load("image.jpg");
+	//auto screen = IMG_Load("image.jpg");
 	auto window_size = ImGui::GetWindowSize();
 
-	if (screen) {
+	if (screen != nullptr) {
 		GLuint texture_id = 0;
 
 		glGenTextures(1, &texture_id);

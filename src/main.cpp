@@ -5,11 +5,10 @@
 #include "chip8.hpp"
 #include "gui.hpp"
 
-#include <SDL2/SDL.h>
-
 #include <GL/gl3w.h>
 #include <cstring>
 #include <fstream>
+#include <SDL2/SDL_image.h>
 
 namespace Constants {
 	constexpr char GLSL_VERSION[] = "#version 130";
@@ -29,7 +28,7 @@ void render_windows(chip8 &c8)
 	win_menu_bar();
 
 	// insert windows here
-	win_game();
+	win_game(c8.screen);
 
 	// hex editor
 	win_hex_editor(c8.memory);
@@ -72,6 +71,7 @@ int main(int argc, char** argv)
     // init chip8
     chip8 a;
     a.load_rom(argv[1]);
+	a.screen = IMG_Load("image.jpg");
 
 	// Setup SDL
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER) != 0) {

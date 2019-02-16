@@ -9,7 +9,7 @@
 #include "logging.hpp"
 
 void win_menu_bar();
-void win_game();
+void win_game(SDL_Surface* screen);
 void win_hex_editor(std::array<std::uint8_t, Constants::CH8_MEMORY_SIZE>& memory);
 void win_registers(std::array<std::uint8_t, Constants::CH8_REG_SIZE>& registers);
 void win_flags(bool &draw_flag);

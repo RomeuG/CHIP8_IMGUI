@@ -221,7 +221,7 @@ struct chip8 {
 			  pc += 2;
 			}},
 			{0xD000, [this]() {
-			  V[0xF] = 0x0;
+			  V[0xF] &= 0x0;
 			  // TODO: draw stuff
 			  if (!draw_flag_blocked) draw_flag = true;
 			  pc += 2;

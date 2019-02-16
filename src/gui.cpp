@@ -143,8 +143,6 @@ void win_log()
 {
 	auto logger = Logging::get_instance();
 
-	// For the demo: add a debug button before the normal log window contents
-	// We take advantage of the fact that multiple calls to Begin()/End() are appending to the same window.
 	ImGui::SetNextWindowSize(ImVec2(500, 400), ImGuiCond_FirstUseEver);
     ImGui::Begin("Chip8 Logging");
     ImGui::End();

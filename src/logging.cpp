@@ -58,7 +58,7 @@ void Logging::draw(const char* title, bool* p_open)
 	ImGui::SameLine();
 	auto copy = ImGui::Button("Copy");
 	ImGui::SameLine();
-	if (ImGui::Button("Stop")) {
+	if (ImGui::Button(active ? "Stop" : "Start")) {
 		active = !active;
 	}
 	ImGui::SameLine();

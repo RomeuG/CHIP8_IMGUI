@@ -276,7 +276,6 @@ struct chip8 {
 					  break;
 				  }
 				  case 0x29: {
-					  // TODO: no idea
 					  I = V[_x] * 5;
 					  break;
 				  }
@@ -285,6 +284,12 @@ struct chip8 {
 					  memory[I] = V[_x] / 100;
 					  memory[I + 1] = (V[_x] / 10) % 10;
 					  memory[I + 2] = (V[_x] % 100) % 10;
+#if 0
+					  memory[I] = V[_x] / 100;
+					  memory[I + 1] = (V[_x] / 10) % 10;
+					  memory[I + 2] = V[_x] % 10;
+#endif
+
 					  break;
 				  }
 				  case 0x55: {

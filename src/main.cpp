@@ -30,8 +30,11 @@ void render_windows(chip8 &c8)
 	// insert windows here
 	win_game(c8.screen);
 
-	// hex editor
-	win_hex_editor(c8.memory);
+	// memory hex editor
+	win_mem_hex_editor(c8.memory);
+
+	// graphics hex editor
+	win_gfx_hex_editor(c8.graphics);
 
 	// register window
 	win_registers(c8.V);

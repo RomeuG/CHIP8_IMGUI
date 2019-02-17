@@ -224,9 +224,28 @@ struct chip8 {
 			  pc += 2;
 			}},
 			{0xD000, [this]() {
+			  auto _x = (opcode & 0x0F00) >> 8;
+			  auto _y = (opcode & 0x00F0) >> 4;
+			  auto _n = (opcode & 0x000F);
+
 			  V[0xF] &= 0x0;
 			  // TODO: draw stuff
-			  if (!draw_flag_blocked) draw_flag = true;
+			  for (auto i = 0; i < _n; i++) {
+				  auto pixel = memory[I + i];
+
+				  for (auto j = 0; j < 8; j++) {
+					  if (pixel & (0x80 >> j)) {
+						  if (graphics[j + V[_x] + (i + V[_y]) * 64]) {
+							  V[0xF] = 1;
+						  }
+
+						  graphics[j + V[_x] + (i + V[_y]) * 64] ^= 1;
+					  }
+				  }
+			  }
+
+			  //if (!draw_flag_blocked) draw_flag = true;
+			  draw_flag = true;
 			  pc += 2;
 			}},
 			{0xE000, [this]() {

@@ -5,6 +5,8 @@
 #include <filesystem>
 
 #define LOG_INFO "info"
+#define LOG_WARN "warn"
+#define LOG_CRIT "crit"
 
 chip8::chip8()
 {

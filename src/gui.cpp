@@ -79,7 +79,7 @@ void win_game(SDL_Surface* screen)
 		ImGui::Image((void*) texture_id, ImVec2(window_size.x, window_size.y - 50));
 	}
 	else {
-		std::printf("SDL_Init failed: %s\n", SDL_GetError());
+		std::printf("SDL_Surface is null: %s\n", SDL_GetError());
 	}
 
     ImGui::End();

@@ -43,6 +43,13 @@ static constexpr std::array<std::uint8_t, Constants::CH8_MEMORY_SIZE> FONT_LIST 
 		0xF0, 0x80, 0xF0, 0x80, 0x80  // F
 };
 
+static constexpr unsigned int sdl_keymap[16] = {
+		SDLK_1, SDLK_2, SDLK_3, SDLK_4,
+		SDLK_q, SDLK_w, SDLK_e, SDLK_r,
+		SDLK_a, SDLK_s, SDLK_d, SDLK_f,
+		SDLK_z, SDLK_x, SDLK_c, SDLK_v
+};
+
 };
 
 // DEBUG PRINT

@@ -94,7 +94,7 @@ void win_mem_hex_editor(std::array<std::uint8_t, Constants::CH8_MEMORY_SIZE>& me
 void win_gfx_hex_editor(std::array<std::uint8_t, Constants::CH8_GFX_SIZE>& graphics)
 {
 	static MemoryEditor gfx_edit;
-	gfx_edit.DrawWindow("Graphics Hex Editor", &graphics, Constants::CH8_MEMORY_SIZE);
+	gfx_edit.DrawWindow("Graphics Hex Editor", &graphics, Constants::CH8_GFX_SIZE);
 }
 
 void win_registers(std::array<std::uint8_t, Constants::CH8_REG_SIZE>& registers)

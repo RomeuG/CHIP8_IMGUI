@@ -256,7 +256,28 @@ struct chip8 {
 			  pc += 2;
 			}},
 			{0xE000, [this]() {
-			  // TODO: keypad stuff
+			  auto _x = (opcode & 0x0F00) >> 8;
+			  auto sdl_keys = SDL_GetKeyboardState(nullptr);
+
+			  switch (opcode & 0x00FF) {
+				  case 0x9E:
+					  if (sdl_keys[Constants::sdl_keymap[V[_x]]]) {
+						  pc += 4;
+					  }
+					  else {
+						  pc += 2;
+					  }
+					  break;
+				  case 0xA1:
+					  if (!sdl_keys[Constants::sdl_keymap[V[_x]]]) {
+						  pc += 4;
+					  }
+					  else {
+						  pc += 2;
+					  }
+					  break;
+				  default: break;
+			  }
 			}},
 			{0xF000, [this]() {
 			  auto _x = (opcode & 0x0F00) >> 8;

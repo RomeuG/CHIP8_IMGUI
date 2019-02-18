@@ -267,7 +267,14 @@ struct chip8 {
 					  break;
 				  }
 				  case 0x0A: {
-					  // TODO: keypad stuff
+					  auto sdl_keys = SDL_GetKeyboardState(nullptr);
+
+					  for (auto i = 0; i < Constants::CH8_KEY_SIZE; i++) {
+						  if (sdl_keys[Constants::sdl_keymap[i]]) {
+							  V[_x] = i;
+							  pc += 2;
+						  }
+					  }
 					  break;
 				  }
 				  case 0x15: {

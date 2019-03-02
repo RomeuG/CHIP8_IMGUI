@@ -18,7 +18,7 @@ include_directories(include)
 
 # linker flags
 set(LIBSTDCXX_FS_LIBRARIES -lstdc++fs)
-set(CMAKE_CXX_FLAGS "-ggdb3 -O0 -lSDL2 -lSDL2_image -ldl")
+set(CMAKE_CXX_FLAGS "-ggdb3 -O0 -lSDL2main -lSDL2 -lSDL2_image -ldl -lGL")
 
 # debug print
 add_definitions(-DDEBUG)

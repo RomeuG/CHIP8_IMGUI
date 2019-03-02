@@ -4,6 +4,8 @@
 #include <fstream>
 #include <filesystem>
 
+#include <SDL2/SDL_opengl.h>
+
 #define LOG_INFO "info"
 #define LOG_WARN "warn"
 #define LOG_CRIT "crit"
@@ -93,6 +95,8 @@ void chip8::graphics_update()
 	}
 
 	graphics_clear();
+	glClear(GL_COLOR_BUFFER_BIT);
+
 	for (y = 0; y < 32; y++) {
 		for (x = 0; x < 64; x++) {
 			if (graphics[x + (y * 64)]) {
@@ -104,6 +108,7 @@ void chip8::graphics_update()
 	if (SDL_MUSTLOCK(screen)) {
 		SDL_UnlockSurface(screen);
 	}
+
 }
 
 void chip8::fps_lock(std::uint32_t next_frame, std::uint32_t max_fps)

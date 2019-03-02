@@ -70,14 +70,6 @@ int main(int argc, char** argv)
         return EXIT_SUCCESS;
     }
 
-    // init chip8
-    chip8 a;
-    a.load_rom(argv[1]);
-	a.screen = SDL_CreateRGBSurface(0, 64 * 8, 32 * 8, 32, 0x000000ff, 0x0000ff00, 0x00ff0000, 0xff000000);
-	if (a.screen == nullptr) {
-		std::printf("Error creating RGB surface: %s\n", SDL_GetError());
-	}
-
 	// Setup SDL
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER) != 0) {
 		std::printf("Error: %s\n", SDL_GetError());
@@ -105,6 +97,14 @@ int main(int argc, char** argv)
 	if (err) {
 		fprintf(stderr, "Failed to initialize OpenGL loader!\n");
 		return EXIT_FAILURE;
+	}
+
+	// init chip8
+	chip8 a;
+	a.load_rom(argv[1]);
+	a.screen = SDL_CreateRGBSurface(0, 64 * 8, 32 * 8, 32, 0x000000ff, 0x0000ff00, 0x00ff0000, 0xff000000);
+	if (a.screen == nullptr) {
+		std::printf("Error creating RGB surface: %s\n", SDL_GetError());
 	}
 
 	// Setup Dear ImGui context

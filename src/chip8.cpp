@@ -69,13 +69,41 @@ void chip8::cycle()
 	// draw flag events
 	if (draw_flag) {
 		// graphics update
+		graphics_update();
 		draw_flag = false;
 	}
 	// input events
 
 	// fps
-	fps_lock((std::uint32_t) next_frame, 60);
-	next_frame = SDL_GetTicks() + 60;
+	//fps_lock((std::uint32_t) next_frame, 60);
+	//next_frame = SDL_GetTicks() + 60;
+}
+
+void chip8::graphics_clear()
+{
+	SDL_FillRect(screen, nullptr, 0);
+}
+
+void chip8::graphics_update()
+{
+	unsigned int x, y;
+
+	if (SDL_MUSTLOCK(screen)) {
+		SDL_LockSurface(screen);
+	}
+
+	graphics_clear();
+	for (y = 0; y < 32; y++) {
+		for (x = 0; x < 64; x++) {
+			if (graphics[x + (y * 64)]) {
+				draw_pixel(x, y);
+			}
+		}
+	}
+
+	if (SDL_MUSTLOCK(screen)) {
+		SDL_UnlockSurface(screen);
+	}
 }
 
 void chip8::fps_lock(std::uint32_t next_frame, std::uint32_t max_fps)

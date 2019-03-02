@@ -64,8 +64,7 @@ namespace Constants {
 struct chip8
 {
 	Logging *logger;
-	SDL_Texture *texture;
-	SDL_Renderer *renderer;
+	SDL_Surface *screen;
 
 	std::string file_name{0};
 	std::uint32_t file_size{0};
@@ -350,6 +349,8 @@ struct chip8
 	void load_rom(char *rom_name);
 	void cycle();
 
+	void graphics_clear();
+	void graphics_update();
 	void draw_pixel(int x, int y);
 	void fps_lock(std::uint32_t next_frame, std::uint32_t max_fps);
 

@@ -213,6 +213,13 @@ struct chip8
 
 				pc += 2;
 			}},
+			{0x9000, [this]() {
+				auto _x = (opcode & 0x0F00) >> 8;
+				auto _y = (opcode & 0x00F0) >> 4;
+
+				if (V[_x] != V[_y]) { pc += 2; }
+				pc += 2;
+			}},
 			{0xA000, [this]() {
 				I = opcode & 0x0FFF;
 				pc += 2;

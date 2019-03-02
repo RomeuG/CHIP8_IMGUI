@@ -22,7 +22,7 @@ void chip8::load_font()
 	std::copy(Constants::FONT_LIST.begin(), Constants::FONT_LIST.end(), memory.begin());
 }
 
-void chip8::load_rom(char* rom_name)
+void chip8::load_rom(char *rom_name)
 {
 	// read file
 	std::ifstream f(rom_name, std::ios::binary);
@@ -47,6 +47,8 @@ void chip8::load_rom(char* rom_name)
 
 void chip8::cycle()
 {
+	static int next_frame = SDL_GetTicks() + 60;
+
 	opcode = (memory[pc] << 8 | memory[pc + 1]);
 
 	// reset timers
@@ -65,16 +67,38 @@ void chip8::cycle()
 	}
 
 	// draw flag events
+	if (draw_flag) {
+		// graphics update
+		draw_flag = false;
+	}
 	// input events
+
 	// fps
+	fps_lock((std::uint32_t) next_frame, 60);
+	next_frame = SDL_GetTicks() + 60;
+}
+
+void chip8::fps_lock(std::uint32_t next_frame, std::uint32_t max_fps)
+{
+	unsigned int n_ticks = SDL_GetTicks();
+
+	if (next_frame < n_ticks) {
+		return;
+	}
+
+	if (next_frame > (n_ticks + max_fps)) {
+		SDL_Delay(max_fps);
+	} else {
+		SDL_Delay(next_frame - n_ticks);
+	}
 }
 
 void chip8::draw_pixel(int x, int y)
 {
-	Uint8 *pixel;
+	std::uint8_t *pixel;
 	unsigned int i, j;
 
-	pixel = (Uint8 *) screen->pixels + (y * 8) * screen->pitch + (x * 8);
+	pixel = (std::uint8_t *) screen->pixels + (y * 8) * screen->pitch + (x * 8);
 	for (i = 0; i < 8; i++) {
 		for (j = 0; j < 8; j++) {
 			pixel[j] = 0xFF;

@@ -64,6 +64,7 @@ static constexpr std::array<unsigned int, Constants::CH8_KEY_SIZE> sdl_keymap = 
 struct chip8 {
 	Logging* logger;
 	SDL_Surface* screen;
+	SDL_Renderer *renderer;
 
 	std::string file_name{0};
 	std::uint32_t file_size{0};
@@ -351,6 +352,9 @@ struct chip8 {
 	void load_font();
 	void load_rom(char* rom_name);
 	void cycle();
+
+	void draw_pixel(int x, int y);
+
 };
 
 #endif //CHIP8_IMGUI_CHIP8_H

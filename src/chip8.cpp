@@ -68,3 +68,18 @@ void chip8::cycle()
 	// input events
 	// fps
 }
+
+void chip8::draw_pixel(int x, int y)
+{
+	Uint8 *pixel;
+	unsigned int i, j;
+
+	pixel = (Uint8 *) screen->pixels + (y * 8) * screen->pitch + (x * 8);
+	for (i = 0; i < 8; i++) {
+		for (j = 0; j < 8; j++) {
+			pixel[j] = 0xFF;
+		}
+
+		pixel += screen->pitch;
+	}
+}

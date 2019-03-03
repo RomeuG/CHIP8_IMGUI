@@ -88,8 +88,6 @@ void chip8::graphics_clear()
 
 void chip8::graphics_update()
 {
-	unsigned int x, y;
-
 	if (SDL_MUSTLOCK(screen)) {
 		SDL_LockSurface(screen);
 	}
@@ -97,8 +95,8 @@ void chip8::graphics_update()
 	graphics_clear();
 	glClear(GL_COLOR_BUFFER_BIT);
 
-	for (y = 0; y < 32; y++) {
-		for (x = 0; x < 64; x++) {
+	for (auto y = 0; y < 32; y++) {
+		for (auto x = 0; x < 64; x++) {
 			if (graphics[x + (y * 64)]) {
 				draw_pixel(x, y);
 			}

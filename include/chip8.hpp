@@ -104,11 +104,14 @@ struct chip8
 				}
 			}},
 			{0x1000, [this]() {
-				pc = opcode & 0x00FF;
+				// TODO
+				//pc = opcode & 0x00FF;
+				pc = opcode & 0x0FFF;
 			}},
 
 			{0x2000, [this]() {
-				stack[sp++] = pc;
+//				stack[sp++] = pc;
+				stack[sp++] = pc + 2;
 				pc = opcode & 0x0FFF;
 			}},
 			{0x3000, [this]() {
@@ -169,11 +172,19 @@ struct chip8
 					}
 					case 0x4: {
 						// TODO: verify 'V[_x] -= 0x100;'
-						V[_x] += V[_y];
-						if (V[_x] > 255) {
+//						V[_x] += V[_y];
+//						if (V[_x] > 255) {
+//							V[0xF] = 1;
+//							V[_x] -= 0x100;
+//						} else { V[0xF] = 0; }
+						if (V[_x] + V[_y] > 255) {
 							V[0xF] = 1;
-							V[_x] -= 0x100;
-						} else { V[0xF] = 0; }
+						} else {
+							V[0xF] = 0;
+						}
+
+						V[_x] += V[_y];
+
 						break;
 					}
 					case 0x5: {
@@ -184,27 +195,46 @@ struct chip8
 						}
 
 						V[_x] -= V[_y];
-						if (V[_x] < 0) { V[_x] += 0x100; }
+
+						// TODO
+						//if (V[_x] < 0) { V[_x] += 0x100; }
 						break;
 					}
 					case 0x6: {
-						V[0xF] = V[_x] & 0x1;
-						V[_x] >>= 1;
+						// TODO
+//						V[0xF] = V[_x] & 0x1;
+//						V[_x] >>= 1;
+
+						V[0xF] = (V[_y] & 0x01);
+						V[_x] = V[_y] >> 1;
 						break;
 					}
 					case 0x7: {
-						if (V[_y] > V[_x]) { V[0xF] = 1; }
-						else { V[0xF] = 0; }
+						// TODO
+//						if (V[_y] > V[_x]) { V[0xF] = 1; }
+//						else { V[0xF] = 0; }
+//
+//						V[_x] = V[_y] - V[_x];
+//						if (V[_x] < 0) { V[_x] += 0x100; }
+
+						if (V[_x] > V[_y]) {
+							V[0xF] = 1;
+						} else {
+							V[0xF] = 0;
+						}
 
 						V[_x] = V[_y] - V[_x];
-						if (V[_x] < 0) { V[_x] += 0x100; }
 
 						break;
 					}
 					case 0xE: {
-						V[0xF] = V[_x] & 0x80;
-						V[_x] <<= 1;
-						if (V[_x] > 0xFF) { V[_x] -= 0x100; }
+						// TODO
+//						V[0xF] = V[_x] & 0x80;
+//						V[_x] <<= 1;
+//						if (V[_x] > 0xFF) { V[_x] -= 0x100; }
+
+						V[0xF] = (V[_y] >> 7);
+						V[_x] = V[_y] << 1;
 						break;
 					}
 
@@ -311,6 +341,11 @@ struct chip8
 						break;
 					}
 					case 0x1E: {
+						// TODO
+						//I += V[_x];
+
+						if (I + V[_x] > 0xFFF) { V[0xF] = 1; }
+						else { V[0xF] = 0; }
 						I += V[_x];
 						break;
 					}
@@ -320,25 +355,23 @@ struct chip8
 					}
 					case 0x33: {
 						// TODO: check
-						memory[I] = V[_x] / 100;
-						memory[I + 1] = (V[_x] / 10) % 10;
-						memory[I + 2] = (V[_x] % 100) % 10;
-#if 0
+//						memory[I] = V[_x] / 100;
+//						memory[I + 1] = (V[_x] / 10) % 10;
+//						memory[I + 2] = (V[_x] % 100) % 10;
 						memory[I] = V[_x] / 100;
 						memory[I + 1] = (V[_x] / 10) % 10;
 						memory[I + 2] = V[_x] % 10;
-#endif
 
 						break;
 					}
 					case 0x55: {
-						for (int i = 0; i <= _x; i++) {
+						for (auto i = 0; i <= _x; i++) {
 							memory[I + i] = V[i];
 						}
 						break;
 					}
 					case 0x65: {
-						for (int i = 0; i <= _x; i++) {
+						for (auto i = 0; i <= _x; i++) {
 							V[i] = memory[I + i];
 						}
 						break;

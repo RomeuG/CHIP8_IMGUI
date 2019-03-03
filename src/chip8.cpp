@@ -74,7 +74,9 @@ void chip8::cycle()
 		graphics_update();
 		draw_flag = false;
 	}
+
 	// input events
+	input_new_event();
 
 	// fps
 	//fps_lock((std::uint32_t) next_frame, 60);
@@ -95,10 +97,12 @@ void chip8::graphics_update()
 	graphics_clear();
 	glClear(GL_COLOR_BUFFER_BIT);
 
-	for (auto y = 0; y < 32; y++) {
-		for (auto x = 0; x < 64; x++) {
-			if (graphics[x + (y * 64)]) {
-				draw_pixel(x, y);
+	if (!draw_flag_blocked) {
+		for (auto y = 0; y < 32; y++) {
+			for (auto x = 0; x < 64; x++) {
+				if (graphics[x + (y * 64)]) {
+					draw_pixel(x, y);
+				}
 			}
 		}
 	}
@@ -137,4 +141,34 @@ void chip8::draw_pixel(int x, int y)
 
 		pixel += screen->pitch;
 	}
+}
+
+int chip8::input_new_event()
+{
+	SDL_Event event;
+
+	while (SDL_PollEvent(&event)) {
+		switch (event.type) {
+			case SDL_QUIT: return 1;
+			case SDL_KEYDOWN:
+				for (auto i = 0; i < Constants::CH8_KEY_SIZE; i++) {
+					if (Constants::sdl_keymap[i] == event.key.keysym.sym) {
+						keys[i] = 1;
+						break;
+					}
+				}
+				break;
+			case SDL_KEYUP:
+				for (auto i = 0; i < Constants::CH8_KEY_SIZE; i++) {
+					if (Constants::sdl_keymap[i] == event.key.keysym.sym) {
+						keys[i] = 0;
+						break;
+					}
+				}
+				break;
+			default: break;
+		}
+	}
+
+	return 0;
 }

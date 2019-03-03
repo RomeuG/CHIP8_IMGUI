@@ -44,10 +44,10 @@ namespace Constants {
 	};
 
 	static constexpr std::array<unsigned int, Constants::CH8_KEY_SIZE> sdl_keymap = {
-			SDLK_1, SDLK_2, SDLK_3, SDLK_4,
-			SDLK_q, SDLK_w, SDLK_e, SDLK_r,
-			SDLK_a, SDLK_s, SDLK_d, SDLK_f,
-			SDLK_z, SDLK_x, SDLK_c, SDLK_v
+			SDL_SCANCODE_1, SDL_SCANCODE_2, SDL_SCANCODE_3, SDL_SCANCODE_4,
+			SDL_SCANCODE_Q, SDL_SCANCODE_W, SDL_SCANCODE_E, SDL_SCANCODE_R,
+			SDL_SCANCODE_A, SDL_SCANCODE_S, SDL_SCANCODE_D, SDL_SCANCODE_F,
+			SDL_SCANCODE_Z, SDL_SCANCODE_X, SDL_SCANCODE_C, SDL_SCANCODE_V
 	};
 
 };
@@ -104,13 +104,10 @@ struct chip8
 				}
 			}},
 			{0x1000, [this]() {
-				// TODO
-				//pc = opcode & 0x00FF;
 				pc = opcode & 0x0FFF;
 			}},
 
 			{0x2000, [this]() {
-//				stack[sp++] = pc;
 				stack[sp++] = pc + 2;
 				pc = opcode & 0x0FFF;
 			}},
@@ -171,12 +168,6 @@ struct chip8
 						break;
 					}
 					case 0x4: {
-						// TODO: verify 'V[_x] -= 0x100;'
-//						V[_x] += V[_y];
-//						if (V[_x] > 255) {
-//							V[0xF] = 1;
-//							V[_x] -= 0x100;
-//						} else { V[0xF] = 0; }
 						if (V[_x] + V[_y] > 255) {
 							V[0xF] = 1;
 						} else {
@@ -196,27 +187,14 @@ struct chip8
 
 						V[_x] -= V[_y];
 
-						// TODO
-						//if (V[_x] < 0) { V[_x] += 0x100; }
 						break;
 					}
 					case 0x6: {
-						// TODO
-//						V[0xF] = V[_x] & 0x1;
-//						V[_x] >>= 1;
-
 						V[0xF] = (V[_y] & 0x01);
 						V[_x] = V[_y] >> 1;
 						break;
 					}
 					case 0x7: {
-						// TODO
-//						if (V[_y] > V[_x]) { V[0xF] = 1; }
-//						else { V[0xF] = 0; }
-//
-//						V[_x] = V[_y] - V[_x];
-//						if (V[_x] < 0) { V[_x] += 0x100; }
-
 						if (V[_x] > V[_y]) {
 							V[0xF] = 1;
 						} else {
@@ -228,11 +206,6 @@ struct chip8
 						break;
 					}
 					case 0xE: {
-						// TODO
-//						V[0xF] = V[_x] & 0x80;
-//						V[_x] <<= 1;
-//						if (V[_x] > 0xFF) { V[_x] -= 0x100; }
-
 						V[0xF] = (V[_y] >> 7);
 						V[_x] = V[_y] << 1;
 						break;
@@ -272,7 +245,7 @@ struct chip8
 				auto _n = (opcode & 0x000F);
 
 				V[0xF] &= 0x0;
-				// TODO: draw stuff
+
 				for (auto i = 0; i < _n; i++) {
 					auto pixel = memory[I + i];
 
@@ -287,8 +260,7 @@ struct chip8
 					}
 				}
 
-				//if (!draw_flag_blocked) draw_flag = true;
-				draw_flag = true;
+				if (!draw_flag_blocked) draw_flag = true;
 				pc += 2;
 			}},
 			{0xE000, [this]() {
@@ -341,9 +313,6 @@ struct chip8
 						break;
 					}
 					case 0x1E: {
-						// TODO
-						//I += V[_x];
-
 						if (I + V[_x] > 0xFFF) { V[0xF] = 1; }
 						else { V[0xF] = 0; }
 						I += V[_x];
@@ -354,10 +323,6 @@ struct chip8
 						break;
 					}
 					case 0x33: {
-						// TODO: check
-//						memory[I] = V[_x] / 100;
-//						memory[I + 1] = (V[_x] / 10) % 10;
-//						memory[I + 2] = (V[_x] % 100) % 10;
 						memory[I] = V[_x] / 100;
 						memory[I + 1] = (V[_x] / 10) % 10;
 						memory[I + 2] = V[_x] % 10;
@@ -394,6 +359,7 @@ struct chip8
 	void draw_pixel(int x, int y);
 	void fps_lock(std::uint32_t next_frame, std::uint32_t max_fps);
 
+	int input_new_event();
 };
 
 #endif //CHIP8_IMGUI_CHIP8_H

@@ -77,7 +77,7 @@ int main(int argc, char** argv)
 	chip8 a;
 	a.load_rom(argv[1]);
 	a.window = new sf::RenderWindow(sf::VideoMode(640, 480), "ImGui + SFML = <3");
-	a.window->setFramerateLimit(60);
+	a.window->setFramerateLimit(300);
 
 	ImGui::SFML::Init(*a.window);
 

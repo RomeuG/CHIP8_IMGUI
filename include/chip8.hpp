@@ -255,11 +255,13 @@ struct chip8
 
 					for (auto j = 0; j < 8; j++) {
 						if (pixel & (0x80 >> j)) {
-							if (graphics[j + V[_x] + (i + V[_y]) * 64]) {
+							auto idx = j + V[_x] + (i + V[_y]) * 64;
+
+							if (graphics[idx]) {
 								V[0xF] = 1;
 							}
 
-							graphics[j + V[_x] + (i + V[_y]) * 64] ^= 1;
+							graphics[idx] ^= 1;
 						}
 					}
 				}

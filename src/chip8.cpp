@@ -17,6 +17,9 @@ chip8::chip8()
 
 	// init font
 	load_font();
+
+	// init texture
+	texture.create(64, 32);
 }
 
 void chip8::load_font()

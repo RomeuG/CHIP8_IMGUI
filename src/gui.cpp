@@ -2,6 +2,10 @@
 
 #include <imgui_memory_editor.h>
 
+#include "imgui-SFML.h"
+#include <SFML/Graphics/Texture.hpp>
+#include <SFML/Graphics/Sprite.hpp>
+
 static void win_menu_bar_file()
 {
     if (ImGui::MenuItem("New")) {}
@@ -53,34 +57,35 @@ void win_menu_bar()
     }
 }
 
-void win_game(sf::RenderWindow& window)
+// TODO: this is completely garbage
+void win_game(sf::RenderWindow& window, std::array<std::uint8_t, Constants::CH8_GFX_SIZE>& graphics, sf::Texture& texture)
 {
-	static bool generate_texture = true;
-	// static GLuint texture_id = 0;
+	ImGui::Begin("Game Window", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
 
-    ImGui::Begin("Game Window");
+	std::vector<std::uint8_t> data;
+	for (auto &i : graphics) {
+		if (i == 0) {
+			data.push_back(0x0);
+			data.push_back(0x0);
+			data.push_back(0x0);
+			data.push_back(0x0);
+		} else {
+			data.push_back(0xFF);
+			data.push_back(0xFF);
+			data.push_back(0xFF);
+			data.push_back(0xFF);
+		}
+	}
 
-	// if (generate_texture) {
-	// 	glGenTextures(1, &texture_id);
-	// 	generate_texture = false;
-	// }
+	//texture.update(graphics.data());
+	texture.update(data.data());
 
-	// if (screen != nullptr) {
-	// 	auto gl_mode = GL_RGB;
-	// 	auto window_size = ImGui::GetWindowSize();
+	sf::Sprite sprite;
+	sprite.setTexture(texture, false);
+	sprite.scale(10, 10);
 
-	// 	glBindTexture(GL_TEXTURE_2D, texture_id);
-	// 	glTexImage2D(GL_TEXTURE_2D, 0, gl_mode, screen->w, screen->h, 0, gl_mode, GL_UNSIGNED_BYTE, screen->pixels);
-	// 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	// 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-	// 	ImGui::Image((void*) texture_id, ImVec2(window_size.x, window_size.y - 50));
-	// }
-	// else {
-	// 	std::printf("SDL_Surface is null: %s\n", SDL_GetError());
-	// }
-
-    ImGui::End();
+	ImGui::Image(sprite);
+ImGui::End();
 }
 
 void win_mem_hex_editor(std::array<std::uint8_t, Constants::CH8_MEMORY_SIZE>& memory)

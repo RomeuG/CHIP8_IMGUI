@@ -11,6 +11,7 @@
 
 #include <SFML/Window.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Graphics/Texture.hpp>
 
 #include "logging.hpp"
 
@@ -65,7 +66,9 @@ namespace Constants {
 struct chip8
 {
 	Logging *logger;
+
 	sf::RenderWindow *window;
+	sf::Texture texture;
 
 	std::string file_name{0};
 	std::uint32_t file_size{0};

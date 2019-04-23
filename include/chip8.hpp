@@ -9,7 +9,8 @@
 #include <random>
 #include <iostream>
 
-#include <SDL2/SDL.h>
+#include <SFML/Window.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
 
 #include "logging.hpp"
 
@@ -43,20 +44,20 @@ namespace Constants {
 			0xF0, 0x80, 0xF0, 0x80, 0x80  // F
 	};
 
-	static constexpr std::array<unsigned int, Constants::CH8_KEY_SIZE> sdl_keymap = {
-			SDL_SCANCODE_1, SDL_SCANCODE_2, SDL_SCANCODE_3, SDL_SCANCODE_4,
-			SDL_SCANCODE_Q, SDL_SCANCODE_W, SDL_SCANCODE_E, SDL_SCANCODE_R,
-			SDL_SCANCODE_A, SDL_SCANCODE_S, SDL_SCANCODE_D, SDL_SCANCODE_F,
-			SDL_SCANCODE_Z, SDL_SCANCODE_X, SDL_SCANCODE_C, SDL_SCANCODE_V
+	static constexpr std::array<sf::Keyboard::Key, Constants::CH8_KEY_SIZE> sdl_keymap = {
+		sf::Keyboard::Num1, sf::Keyboard::Num2, sf::Keyboard::Num3, sf::Keyboard::Num4,
+		sf::Keyboard::Q, sf::Keyboard::W, sf::Keyboard::E, sf::Keyboard::R,
+		sf::Keyboard::A, sf::Keyboard::S, sf::Keyboard::D, sf::Keyboard::F,
+		sf::Keyboard::Z, sf::Keyboard::X, sf::Keyboard::C, sf::Keyboard::V
 	};
 
 };
 
 // DEBUG PRINT
 #ifdef DEBUG
-#define DEBUG_PRINT(output, fmt, ...)                                    \
-    do { fprintf(output, "%s:%d:%s(): " fmt, __FILE__,        \
-                            __LINE__, __func__, __VA_ARGS__);fflush(stdout);fflush(stderr); } while (0)
+#define DEBUG_PRINT(output, fmt, ...)									\
+    do { fprintf(output, "%s:%d:%s(): " fmt, __FILE__,					\
+				 __LINE__, __func__, __VA_ARGS__);fflush(stdout);fflush(stderr); } while (0)
 #else
 #define DEBUG_PRINT(output, fmt, ...) ((void)0)
 #endif
@@ -64,7 +65,7 @@ namespace Constants {
 struct chip8
 {
 	Logging *logger;
-	SDL_Surface *screen;
+	sf::RenderWindow *window;
 
 	std::string file_name{0};
 	std::uint32_t file_size{0};
@@ -265,18 +266,17 @@ struct chip8
 			}},
 			{0xE000, [this]() {
 				auto _x = (opcode & 0x0F00) >> 8;
-				auto sdl_keys = SDL_GetKeyboardState(nullptr);
 
 				switch (opcode & 0x00FF) {
 					case 0x9E:
-						if (sdl_keys[Constants::sdl_keymap[V[_x]]]) {
+						if (sf::Keyboard::isKeyPressed(Constants::sdl_keymap[V[_x]])) {
 							pc += 4;
 						} else {
 							pc += 2;
 						}
 						break;
 					case 0xA1:
-						if (!sdl_keys[Constants::sdl_keymap[V[_x]]]) {
+						if (!sf::Keyboard::isKeyPressed(Constants::sdl_keymap[V[_x]])) {
 							pc += 4;
 						} else {
 							pc += 2;
@@ -294,10 +294,8 @@ struct chip8
 						break;
 					}
 					case 0x0A: {
-						auto sdl_keys = SDL_GetKeyboardState(nullptr);
-
 						for (auto i = 0; i < Constants::CH8_KEY_SIZE; i++) {
-							if (sdl_keys[Constants::sdl_keymap[i]]) {
+							if (sf::Keyboard::isKeyPressed(Constants::sdl_keymap[i])) {
 								V[_x] = i;
 								pc += 2;
 							}

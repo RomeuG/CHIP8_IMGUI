@@ -49,7 +49,7 @@ void chip8::load_rom(char *rom_name)
 
 void chip8::cycle()
 {
-	static int next_frame = SDL_GetTicks() + 60;
+	// static int next_frame = SDL_GetTicks() + 60;
 
 	opcode = (memory[pc] << 8 | memory[pc + 1]);
 
@@ -85,90 +85,83 @@ void chip8::cycle()
 
 void chip8::graphics_clear()
 {
-	SDL_FillRect(screen, nullptr, 0);
+	// SDL_FillRect(screen, nullptr, 0);
 }
 
 void chip8::graphics_update()
 {
-	if (SDL_MUSTLOCK(screen)) {
-		SDL_LockSurface(screen);
-	}
+	// graphics_clear();
 
-	graphics_clear();
-	glClear(GL_COLOR_BUFFER_BIT);
-
-	if (!draw_flag_blocked) {
-		for (auto y = 0; y < 32; y++) {
-			for (auto x = 0; x < 64; x++) {
-				if (graphics[x + (y * 64)]) {
-					draw_pixel(x, y);
-				}
-			}
-		}
-	}
-
-	if (SDL_MUSTLOCK(screen)) {
-		SDL_UnlockSurface(screen);
-	}
-
+	// if (!draw_flag_blocked) {
+	// 	for (auto y = 0; y < 32; y++) {
+	// 		for (auto x = 0; x < 64; x++) {
+	// 			if (graphics[x + (y * 64)]) {
+	// 				draw_pixel(x, y);
+	// 			}
+	// 		}
+	// 	}
+	// }
 }
 
 void chip8::fps_lock(std::uint32_t next_frame, std::uint32_t max_fps)
 {
-	unsigned int n_ticks = SDL_GetTicks();
+	// unsigned int n_ticks = SDL_GetTicks();
 
-	if (next_frame < n_ticks) {
-		return;
-	}
+	// if (next_frame < n_ticks) {
+	// 	return;
+	// }
 
-	if (next_frame > (n_ticks + max_fps)) {
-		SDL_Delay(max_fps);
-	} else {
-		SDL_Delay(next_frame - n_ticks);
-	}
+	// if (next_frame > (n_ticks + max_fps)) {
+	// 	SDL_Delay(max_fps);
+	// } else {
+	// 	SDL_Delay(next_frame - n_ticks);
+	// }
 }
 
 void chip8::draw_pixel(int x, int y)
 {
-	std::uint8_t *pixel;
-	unsigned int i, j;
+	// std::uint8_t *pixel;
+	// unsigned int i, j;
 
-	pixel = (std::uint8_t *) screen->pixels + (y * 8) * screen->pitch + (x * 8);
-	for (i = 0; i < 8; i++) {
-		for (j = 0; j < 8; j++) {
-			pixel[j] = 0xFF;
-		}
+	// auto window_view = window->getView();
+	// auto window_pixels = window->getViewport(window_view);
 
-		pixel += screen->pitch;
-	}
+	// pixel = (std::uint8_t *) screen->pixels + (y * 8) * screen->pitch + (x * 8);
+	// for (i = 0; i < 8; i++) {
+	// 	for (j = 0; j < 8; j++) {
+	// 		pixel[j] = 0xFF;
+	// 	}
+
+	// 	pixel += screen->pitch;
+	// }
 }
 
 int chip8::input_new_event()
 {
-	SDL_Event event;
+	// SDL_Event event;
 
-	while (SDL_PollEvent(&event)) {
-		switch (event.type) {
-			case SDL_QUIT: return 1;
-			case SDL_KEYDOWN:
-				for (auto i = 0; i < Constants::CH8_KEY_SIZE; i++) {
-					if (Constants::sdl_keymap[i] == event.key.keysym.sym) {
-						keys[i] = 1;
-						break;
-					}
-				}
-				break;
-			case SDL_KEYUP:
-				for (auto i = 0; i < Constants::CH8_KEY_SIZE; i++) {
-					if (Constants::sdl_keymap[i] == event.key.keysym.sym) {
-						keys[i] = 0;
-						break;
-					}
-				}
-				break;
-			default: break;
-		}
-	}
+	// while (SDL_PollEvent(&event)) {
+	// 	switch (event.type) {
+	// 		case SDL_QUIT: return 1;
+	// 		case SDL_KEYDOWN:
+	// 			for (auto i = 0; i < Constants::CH8_KEY_SIZE; i++) {
+	// 				if (Constants::sdl_keymap[i] == event.key.keysym.sym) {
+	// 					keys[i] = 1;
+	// 					break;
+	// 				}
+	// 			}
+	// 			break;
+	// 		case SDL_KEYUP:
+	// 			for (auto i = 0; i < Constants::CH8_KEY_SIZE; i++) {
+	// 				if (Constants::sdl_keymap[i] == event.key.keysym.sym) {
+	// 					keys[i] = 0;
+	// 					break;
+	// 				}
+	// 			}
+	// 			break;
+	// 		default: break;
+	// 	}
+	// }
 
 	return 0;
 }

@@ -2,8 +2,6 @@
 
 #include <imgui_memory_editor.h>
 
-#include <GL/gl3w.h>
-
 static void win_menu_bar_file()
 {
     if (ImGui::MenuItem("New")) {}
@@ -55,32 +53,32 @@ void win_menu_bar()
     }
 }
 
-void win_game(SDL_Surface* screen)
+void win_game(sf::RenderWindow& window)
 {
 	static bool generate_texture = true;
-	static GLuint texture_id = 0;
+	// static GLuint texture_id = 0;
 
     ImGui::Begin("Game Window");
 
-	if (generate_texture) {
-		glGenTextures(1, &texture_id);
-		generate_texture = false;
-	}
+	// if (generate_texture) {
+	// 	glGenTextures(1, &texture_id);
+	// 	generate_texture = false;
+	// }
 
-	if (screen != nullptr) {
-		auto gl_mode = GL_RGB;
-		auto window_size = ImGui::GetWindowSize();
+	// if (screen != nullptr) {
+	// 	auto gl_mode = GL_RGB;
+	// 	auto window_size = ImGui::GetWindowSize();
 
-		glBindTexture(GL_TEXTURE_2D, texture_id);
-		glTexImage2D(GL_TEXTURE_2D, 0, gl_mode, screen->w, screen->h, 0, gl_mode, GL_UNSIGNED_BYTE, screen->pixels);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	// 	glBindTexture(GL_TEXTURE_2D, texture_id);
+	// 	glTexImage2D(GL_TEXTURE_2D, 0, gl_mode, screen->w, screen->h, 0, gl_mode, GL_UNSIGNED_BYTE, screen->pixels);
+	// 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	// 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-		ImGui::Image((void*) texture_id, ImVec2(window_size.x, window_size.y - 50));
-	}
-	else {
-		std::printf("SDL_Surface is null: %s\n", SDL_GetError());
-	}
+	// 	ImGui::Image((void*) texture_id, ImVec2(window_size.x, window_size.y - 50));
+	// }
+	// else {
+	// 	std::printf("SDL_Surface is null: %s\n", SDL_GetError());
+	// }
 
     ImGui::End();
 }

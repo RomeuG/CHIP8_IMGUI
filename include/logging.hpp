@@ -2,8 +2,6 @@
 #define _LOGGING_HPP_
 
 #include "imgui.h"
-#include "imgui_impl_sdl.h"
-#include "imgui_impl_opengl3.h"
 
 // singleton
 struct Logging

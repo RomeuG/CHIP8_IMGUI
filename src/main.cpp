@@ -27,7 +27,7 @@ void render_windows(chip8 &c8)
 {
 
 	// menu bar
-	win_menu_bar();
+	win_menu_bar(*c8.window);
 
 	// insert windows here
 	win_game(*c8.window, c8.graphics, c8.texture);

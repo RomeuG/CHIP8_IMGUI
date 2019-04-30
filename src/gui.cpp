@@ -6,40 +6,35 @@
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 
-static void win_menu_bar_file()
+namespace Constants {
+	constexpr auto FRAMERATE = 300;
+	constexpr auto FRAMERATE_MIN = 60;
+	constexpr auto FRAMERATE_MAX = 350;
+}
+
+static void win_menu_bar_file(sf::Window& window)
 {
     if (ImGui::MenuItem("New")) {}
     if (ImGui::MenuItem("Open", "Ctrl+O")) {}
     ImGui::Separator();
-	if (ImGui::BeginMenu("Options")) {
-		static auto enabled = true;
-        ImGui::MenuItem("Enabled", "", &enabled);
-        ImGui::BeginChild("child", ImVec2(0, 60), true);
+	if (ImGui::BeginMenu("Settings")) {
 
-		for (auto i = 0; i < 10; i++) {
-			ImGui::Text("Scrolling Text %d", i);
+		static auto framerate_slider = Constants::FRAMERATE;
+		if (ImGui::SliderInt("Slider", &framerate_slider, Constants::FRAMERATE_MIN, Constants::FRAMERATE_MAX)) {
+			window.setFramerateLimit(framerate_slider);
 		}
 
-        ImGui::EndChild();
-
-		static auto f = 0.5f;
-		static auto n = 0;
-		static auto b = true;
-        ImGui::SliderFloat("Value", &f, 0.0f, 1.0f);
-        ImGui::InputFloat("Input", &f, 0.1f);
-        ImGui::Combo("Combo", &n, "Yes\0No\0Maybe\0\0");
-        ImGui::Checkbox("Check", &b);
-        ImGui::EndMenu();
+		ImGui::EndMenu();
     }
 	if (ImGui::MenuItem("Checked", nullptr, true)) { }
     if (ImGui::MenuItem("Quit", "Alt+F4")) { exit(0); }
 }
 
-void win_menu_bar()
+void win_menu_bar(sf::Window& window)
 {
 	if (ImGui::BeginMainMenuBar()) {
 		if (ImGui::BeginMenu("File")) {
-            win_menu_bar_file();
+            win_menu_bar_file(window);
             ImGui::EndMenu();
         }
 

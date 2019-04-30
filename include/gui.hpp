@@ -6,7 +6,7 @@
 #include "chip8.hpp"
 #include "logging.hpp"
 
-void win_menu_bar();
+void win_menu_bar(sf::Window& window);
 void win_game(sf::RenderWindow& window, std::array<std::uint8_t, Constants::CH8_GFX_SIZE>& graphics, sf::Texture& texture);
 void win_mem_hex_editor(std::array<std::uint8_t, Constants::CH8_MEMORY_SIZE>& memory);
 void win_gfx_hex_editor(std::array<std::uint8_t, Constants::CH8_GFX_SIZE>& graphics);

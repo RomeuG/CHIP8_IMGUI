@@ -68,7 +68,7 @@ void win_game(sf::RenderWindow& window, std::array<std::uint8_t, Constants::CH8_
 			data.push_back(0x0);
 			data.push_back(0x0);
 			data.push_back(0x0);
-			data.push_back(0x0);
+			data.push_back(0xFF);
 		} else {
 			data.push_back(0xFF);
 			data.push_back(0xFF);
@@ -77,7 +77,7 @@ void win_game(sf::RenderWindow& window, std::array<std::uint8_t, Constants::CH8_
 		}
 	}
 
-	//texture.update(graphics.data());
+	texture.update(graphics.data());
 	texture.update(data.data());
 
 	sf::Sprite sprite;

@@ -14,45 +14,7 @@
 #include <SFML/Graphics/Texture.hpp>
 
 #include "logging.hpp"
-
-namespace Constants {
-	static constexpr std::size_t ROM_LOCATION = 0x200;
-
-	static constexpr std::size_t CH8_MEMORY_SIZE = 0x1000;
-	static constexpr std::size_t CH8_GFX_SIZE = 0x800;
-
-	static constexpr std::size_t CH8_REG_SIZE = 0x10;
-	static constexpr std::size_t CH8_STACK_SIZE = 0x10;
-	static constexpr std::size_t CH8_KEY_SIZE = 0x10;
-	static constexpr std::size_t CH8_FONT_SIZE = 0x10;
-
-	static constexpr std::array<std::uint8_t, Constants::CH8_MEMORY_SIZE> FONT_LIST = {
-			0xF0, 0x90, 0x90, 0x90, 0xF0, // 0
-			0x20, 0x60, 0x20, 0x20, 0x70, // 1
-			0xF0, 0x10, 0xF0, 0x80, 0xF0, // 2
-			0xF0, 0x10, 0xF0, 0x10, 0xF0, // 3
-			0x90, 0x90, 0xF0, 0x10, 0x10, // 4
-			0xF0, 0x80, 0xF0, 0x10, 0xF0, // 5
-			0xF0, 0x80, 0xF0, 0x90, 0xF0, // 6
-			0xF0, 0x10, 0x20, 0x40, 0x40, // 7
-			0xF0, 0x90, 0xF0, 0x90, 0xF0, // 8
-			0xF0, 0x90, 0xF0, 0x10, 0xF0, // 9
-			0xF0, 0x90, 0xF0, 0x90, 0x90, // A
-			0xE0, 0x90, 0xE0, 0x90, 0xE0, // B
-			0xF0, 0x80, 0x80, 0x80, 0xF0, // C
-			0xE0, 0x90, 0x90, 0x90, 0xE0, // D
-			0xF0, 0x80, 0xF0, 0x80, 0xF0, // E
-			0xF0, 0x80, 0xF0, 0x80, 0x80  // F
-	};
-
-	static constexpr std::array<sf::Keyboard::Key, Constants::CH8_KEY_SIZE> sdl_keymap = {
-		sf::Keyboard::Num1, sf::Keyboard::Num2, sf::Keyboard::Num3, sf::Keyboard::Num4,
-		sf::Keyboard::Q, sf::Keyboard::W, sf::Keyboard::E, sf::Keyboard::R,
-		sf::Keyboard::A, sf::Keyboard::S, sf::Keyboard::D, sf::Keyboard::F,
-		sf::Keyboard::Z, sf::Keyboard::X, sf::Keyboard::C, sf::Keyboard::V
-	};
-
-};
+#include "constants.hpp"
 
 // DEBUG PRINT
 #ifdef DEBUG
@@ -85,11 +47,11 @@ struct chip8
 	bool draw_flag{false};
 	bool draw_flag_blocked{false};
 
-	std::array<std::uint8_t, Constants::CH8_MEMORY_SIZE> memory{0};
-	std::array<std::uint8_t, Constants::CH8_GFX_SIZE> graphics{0};
-	std::array<std::uint8_t, Constants::CH8_REG_SIZE> V{0};
-	std::array<std::uint8_t, Constants::CH8_KEY_SIZE> keys{0};
-	std::array<std::uint16_t, Constants::CH8_STACK_SIZE> stack{0};
+	std::array<std::uint8_t, CONSTANTS::CH8_MEMORY_SIZE> memory{0};
+	std::array<std::uint8_t, CONSTANTS::CH8_GFX_SIZE> graphics{0};
+	std::array<std::uint8_t, CONSTANTS::CH8_REG_SIZE> V{0};
+	std::array<std::uint8_t, CONSTANTS::CH8_KEY_SIZE> keys{0};
+	std::array<std::uint16_t, CONSTANTS::CH8_STACK_SIZE> stack{0};
 
 	std::unordered_map<unsigned short int, std::function<void(void)>> instruction_table{
 			{0x0000, [this]() {
@@ -274,14 +236,14 @@ struct chip8
 
 				switch (opcode & 0x00FF) {
 					case 0x9E:
-						if (sf::Keyboard::isKeyPressed(Constants::sdl_keymap[V[_x]])) {
+						if (sf::Keyboard::isKeyPressed(CONSTANTS::sdl_keymap[V[_x]])) {
 							pc += 4;
 						} else {
 							pc += 2;
 						}
 						break;
 					case 0xA1:
-						if (!sf::Keyboard::isKeyPressed(Constants::sdl_keymap[V[_x]])) {
+						if (!sf::Keyboard::isKeyPressed(CONSTANTS::sdl_keymap[V[_x]])) {
 							pc += 4;
 						} else {
 							pc += 2;
@@ -299,8 +261,8 @@ struct chip8
 						break;
 					}
 					case 0x0A: {
-						for (auto i = 0; i < Constants::CH8_KEY_SIZE; i++) {
-							if (sf::Keyboard::isKeyPressed(Constants::sdl_keymap[i])) {
+						for (auto i = 0; i < CONSTANTS::CH8_KEY_SIZE; i++) {
+							if (sf::Keyboard::isKeyPressed(CONSTANTS::sdl_keymap[i])) {
 								V[_x] = i;
 								pc += 2;
 							}

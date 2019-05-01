@@ -1,17 +1,5 @@
 #include "gui.hpp"
 
-#include <imgui_memory_editor.h>
-
-#include "imgui-SFML.h"
-#include <SFML/Graphics/Texture.hpp>
-#include <SFML/Graphics/Sprite.hpp>
-
-namespace Constants {
-	constexpr auto FRAMERATE = 300;
-	constexpr auto FRAMERATE_MIN = 60;
-	constexpr auto FRAMERATE_MAX = 350;
-}
-
 static void win_menu_bar_file(sf::Window& window)
 {
     if (ImGui::MenuItem("New")) {}
@@ -19,8 +7,8 @@ static void win_menu_bar_file(sf::Window& window)
     ImGui::Separator();
 	if (ImGui::BeginMenu("Settings")) {
 
-		static auto framerate_slider = Constants::FRAMERATE;
-		if (ImGui::SliderInt("Slider", &framerate_slider, Constants::FRAMERATE_MIN, Constants::FRAMERATE_MAX)) {
+		static auto framerate_slider = CONSTANTS::FRAMERATE;
+		if (ImGui::SliderInt("Slider", &framerate_slider, CONSTANTS::FRAMERATE_MIN, CONSTANTS::FRAMERATE_MAX)) {
 			window.setFramerateLimit(framerate_slider);
 		}
 
@@ -53,7 +41,7 @@ void win_menu_bar(sf::Window& window)
 }
 
 // TODO: this is completely garbage
-void win_game(sf::RenderWindow& window, std::array<std::uint8_t, Constants::CH8_GFX_SIZE>& graphics, sf::Texture& texture)
+void win_game(sf::RenderWindow& window, std::array<std::uint8_t, CONSTANTS::CH8_GFX_SIZE>& graphics, sf::Texture& texture)
 {
 	ImGui::Begin("Game Window", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
 
@@ -83,19 +71,19 @@ void win_game(sf::RenderWindow& window, std::array<std::uint8_t, Constants::CH8_
 ImGui::End();
 }
 
-void win_mem_hex_editor(std::array<std::uint8_t, Constants::CH8_MEMORY_SIZE>& memory)
+void win_mem_hex_editor(std::array<std::uint8_t, CONSTANTS::CH8_MEMORY_SIZE>& memory)
 {
     static MemoryEditor mem_edit;
-	mem_edit.DrawWindow("Memory Hex Editor", &memory, Constants::CH8_MEMORY_SIZE);
+	mem_edit.DrawWindow("Memory Hex Editor", &memory, CONSTANTS::CH8_MEMORY_SIZE);
 }
 
-void win_gfx_hex_editor(std::array<std::uint8_t, Constants::CH8_GFX_SIZE>& graphics)
+void win_gfx_hex_editor(std::array<std::uint8_t, CONSTANTS::CH8_GFX_SIZE>& graphics)
 {
 	static MemoryEditor gfx_edit;
-	gfx_edit.DrawWindow("Graphics Hex Editor", &graphics, Constants::CH8_GFX_SIZE);
+	gfx_edit.DrawWindow("Graphics Hex Editor", &graphics, CONSTANTS::CH8_GFX_SIZE);
 }
 
-void win_registers(std::array<std::uint8_t, Constants::CH8_REG_SIZE>& registers)
+void win_registers(std::array<std::uint8_t, CONSTANTS::CH8_REG_SIZE>& registers)
 {
     ImGui::Begin("CHIP8 Registers");
 

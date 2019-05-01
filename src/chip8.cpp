@@ -4,8 +4,6 @@
 #include <fstream>
 #include <filesystem>
 
-#include <SDL2/SDL_opengl.h>
-
 #define LOG_INFO "info"
 #define LOG_WARN "warn"
 #define LOG_CRIT "crit"
@@ -24,7 +22,7 @@ chip8::chip8()
 
 void chip8::load_font()
 {
-	std::copy(Constants::FONT_LIST.begin(), Constants::FONT_LIST.end(), memory.begin());
+	std::copy(CONSTANTS::FONT_LIST.begin(), CONSTANTS::FONT_LIST.end(), memory.begin());
 }
 
 void chip8::load_rom(char *rom_name)
@@ -38,7 +36,7 @@ void chip8::load_rom(char *rom_name)
 
 	// load into memory
 	auto it = memory.begin();
-	std::advance(it, Constants::ROM_LOCATION);
+	std::advance(it, CONSTANTS::ROM_LOCATION);
 	std::copy(v.begin(), v.end(), it);
 
 	// disassemble rom
@@ -147,16 +145,16 @@ int chip8::input_new_event()
 	// 	switch (event.type) {
 	// 		case SDL_QUIT: return 1;
 	// 		case SDL_KEYDOWN:
-	// 			for (auto i = 0; i < Constants::CH8_KEY_SIZE; i++) {
-	// 				if (Constants::sdl_keymap[i] == event.key.keysym.sym) {
+	// 			for (auto i = 0; i < CONSTANTS::CH8_KEY_SIZE; i++) {
+	// 				if (CONSTANTS::sdl_keymap[i] == event.key.keysym.sym) {
 	// 					keys[i] = 1;
 	// 					break;
 	// 				}
 	// 			}
 	// 			break;
 	// 		case SDL_KEYUP:
-	// 			for (auto i = 0; i < Constants::CH8_KEY_SIZE; i++) {
-	// 				if (Constants::sdl_keymap[i] == event.key.keysym.sym) {
+	// 			for (auto i = 0; i < CONSTANTS::CH8_KEY_SIZE; i++) {
+	// 				if (CONSTANTS::sdl_keymap[i] == event.key.keysym.sym) {
 	// 					keys[i] = 0;
 	// 					break;
 	// 				}

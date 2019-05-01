@@ -5,27 +5,9 @@
 #include "gui.hpp"
 
 #include <cstring>
-#include <fstream>
-
-#include <SFML/Graphics/RenderWindow.hpp>
-#include <SFML/System/Clock.hpp>
-#include <SFML/Window/Event.hpp>
-#include <SFML/Graphics/CircleShape.hpp>
-
-namespace Constants {
-	constexpr char GLSL_VERSION[] = "#version 130";
-
-	namespace CLEAR_COLOR {
-		constexpr float X = 0.45f;
-		constexpr float Y = 0.55f;
-		constexpr float Z = 0.60f;
-		constexpr float W = 1.00f;
-	}
-}
 
 void render_windows(chip8 &c8)
 {
-
 	// menu bar
 	win_menu_bar(*c8.window);
 

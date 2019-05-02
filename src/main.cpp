@@ -6,39 +6,6 @@
 
 #include <cstring>
 
-void render_windows(chip8 &c8)
-{
-	// menu bar
-	win_menu_bar(*c8.window);
-
-	// insert windows here
-	win_game(*c8.window, c8.graphics, c8.texture);
-
-	// memory hex editor
-	win_mem_hex_editor(c8.memory);
-
-	// graphics hex editor
-	win_gfx_hex_editor(c8.graphics);
-
-	// register window
-	win_registers(c8.V);
-
-	// flag window
-	win_flags(c8.draw_flag);
-
-	// timer window
-	win_timers(c8.sound_timer, c8.delay_timer);
-
-	// disasm window
-	win_disasm(c8.disassembly);
-
-	// demo window
-	//ImGui::ShowDemoWindow();
-
-	// log window
-	win_log();
-}
-
 int main(int argc, char** argv)
 {
     // check arguments
@@ -49,19 +16,20 @@ int main(int argc, char** argv)
     // tests
 	if (std::strncmp(argv[1], "tests", 5) == 0) {
         // testing here
-        chip8 a;
+        Chip8 a;
         a.load_rom(argv[2]);
 		a.cycle();
         return EXIT_SUCCESS;
     }
 
-	// init chip8
-	chip8 a;
-	a.load_rom(argv[1]);
-	a.window = new sf::RenderWindow(sf::VideoMode(640, 480), "ImGui + SFML = <3");
-	a.window->setFramerateLimit(300);
+	Gui gui;
 
-	ImGui::SFML::Init(*a.window);
+	// init chip8
+	gui.emulator.load_rom(argv[1]);
+	gui.emulator.window = new sf::RenderWindow(sf::VideoMode(640, 480), "ImGui + SFML = <3");
+	gui.emulator.window->setFramerateLimit(300);
+
+	ImGui::SFML::Init(*gui.emulator.window);
 
 	sf::Clock deltaClock;
 
@@ -69,29 +37,29 @@ int main(int argc, char** argv)
 	ImGui::StyleColorsDark();
 
 	// Main loop
-	while (a.window->isOpen()) {
+	while (gui.emulator.window->isOpen()) {
 		sf::Event event;
 
-		while (a.window->pollEvent(event)) {
+		while (gui.emulator.window->pollEvent(event)) {
 			ImGui::SFML::ProcessEvent(event);
 
 			if (event.type == sf::Event::Closed) {
-				a.window->close();
+				gui.emulator.window->close();
 			}
 		}
 
-		ImGui::SFML::Update(*a.window, deltaClock.restart());
+		ImGui::SFML::Update(*gui.emulator.window, deltaClock.restart());
 
 		// function that has all windows
-		render_windows(a);
+		gui.render_windows();
 
 		// chip8 cycle
-		a.cycle();
+		gui.emulator.cycle();
 
 		// Rendering
-		a.window->clear();
-		ImGui::SFML::Render(*a.window);
-		a.window->display();
+		gui.emulator.window->clear();
+		ImGui::SFML::Render(*gui.emulator.window);
+		gui.emulator.window->display();
 	}
 
 	// Cleanup

@@ -1,6 +1,8 @@
 #include "gui.hpp"
 
-static void win_menu_bar_file(sf::Window& window)
+Gui::~Gui() {}
+
+static auto win_menu_bar_file(sf::Window& window) -> void
 {
     if (ImGui::MenuItem("New")) {}
     if (ImGui::MenuItem("Open", "Ctrl+O")) {}
@@ -18,11 +20,11 @@ static void win_menu_bar_file(sf::Window& window)
     if (ImGui::MenuItem("Quit", "Alt+F4")) { exit(0); }
 }
 
-void win_menu_bar(sf::Window& window)
+auto Gui::win_menu_bar() -> void
 {
 	if (ImGui::BeginMainMenuBar()) {
 		if (ImGui::BeginMenu("File")) {
-            win_menu_bar_file(window);
+            //win_menu_bar_file(emulator.window);
             ImGui::EndMenu();
         }
 
@@ -40,13 +42,12 @@ void win_menu_bar(sf::Window& window)
     }
 }
 
-// TODO: this is completely garbage
-void win_game(sf::RenderWindow& window, std::array<std::uint8_t, CONSTANTS::CH8_GFX_SIZE>& graphics, sf::Texture& texture)
+auto Gui::win_game() -> void
 {
 	ImGui::Begin("Game Window", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
 
 	std::vector<std::uint8_t> data;
-	for (auto &i : graphics) {
+	for (auto &i : emulator.graphics) {
 		if (i == 0) {
 			data.push_back(0x0);
 			data.push_back(0x0);
@@ -60,30 +61,30 @@ void win_game(sf::RenderWindow& window, std::array<std::uint8_t, CONSTANTS::CH8_
 		}
 	}
 
-	texture.update(graphics.data());
-	texture.update(data.data());
+	emulator.texture.update(emulator.graphics.data());
+	emulator.texture.update(data.data());
 
 	sf::Sprite sprite;
-	sprite.setTexture(texture, false);
+	sprite.setTexture(emulator.texture, false);
 	sprite.scale(10, 10);
 
 	ImGui::Image(sprite);
-ImGui::End();
+	ImGui::End();
 }
 
-void win_mem_hex_editor(std::array<std::uint8_t, CONSTANTS::CH8_MEMORY_SIZE>& memory)
+auto Gui::win_mem_hex_editor() -> void
 {
     static MemoryEditor mem_edit;
-	mem_edit.DrawWindow("Memory Hex Editor", &memory, CONSTANTS::CH8_MEMORY_SIZE);
+	mem_edit.DrawWindow("Memory Hex Editor", &emulator.memory, CONSTANTS::CH8_MEMORY_SIZE);
 }
 
-void win_gfx_hex_editor(std::array<std::uint8_t, CONSTANTS::CH8_GFX_SIZE>& graphics)
+auto Gui::win_gfx_hex_editor() -> void
 {
 	static MemoryEditor gfx_edit;
-	gfx_edit.DrawWindow("Graphics Hex Editor", &graphics, CONSTANTS::CH8_GFX_SIZE);
+	gfx_edit.DrawWindow("Graphics Hex Editor", &emulator.graphics, CONSTANTS::CH8_GFX_SIZE);
 }
 
-void win_registers(std::array<std::uint8_t, CONSTANTS::CH8_REG_SIZE>& registers)
+auto Gui::win_registers() -> void
 {
     ImGui::Begin("CHIP8 Registers");
 
@@ -91,7 +92,7 @@ void win_registers(std::array<std::uint8_t, CONSTANTS::CH8_REG_SIZE>& registers)
 	static bool selected[16] = {false};
 	for (auto i = 0; i < 16; i++) {
         char label[32];
-        sprintf(label, "V[0x%.1X] = 0x%.2X", i, registers[i]);
+        sprintf(label, "V[0x%.1X] = 0x%.2X", i, emulator.V[i]);
         if (ImGui::Selectable(label, &selected[i])) {}
         ImGui::NextColumn();
     }
@@ -99,14 +100,14 @@ void win_registers(std::array<std::uint8_t, CONSTANTS::CH8_REG_SIZE>& registers)
 	ImGui::End();
 }
 
-void win_flags(bool &draw_flag)
+auto Gui::win_flags() -> void
 {
 	ImGui::Begin("CHIP8 Flags");
-	ImGui::CheckboxFlags("Draw Flag", (unsigned int*)&draw_flag, ImGuiComboFlags_PopupAlignLeft);
+	ImGui::CheckboxFlags("Draw Flag", (unsigned int*)&emulator.draw_flag, ImGuiComboFlags_PopupAlignLeft);
 	ImGui::End();
 }
 
-void win_timers(std::uint8_t &sound_timer, std::uint8_t &delay_timer)
+auto Gui::win_timers() -> void
 {
 	ImGui::Begin("CHIP8 Timer");
 
@@ -114,7 +115,7 @@ void win_timers(std::uint8_t &sound_timer, std::uint8_t &delay_timer)
 	static bool selected[2] = {false};
 	for (auto i = 0; i < 2; i++) {
         char label[32];
-        sprintf(label, "%s = 0x%.2X", i == 0 ? "Sound Timer" : "Delay Timer", i == 0 ? sound_timer : delay_timer);
+        sprintf(label, "%s = 0x%.2X", i == 0 ? "Sound Timer" : "Delay Timer", i == 0 ? emulator.sound_timer : emulator.delay_timer);
 		if (ImGui::Selectable(label, &selected[i])) {}
 		ImGui::NextColumn();
     }
@@ -122,22 +123,37 @@ void win_timers(std::uint8_t &sound_timer, std::uint8_t &delay_timer)
 	ImGui::End();
 }
 
-void win_disasm(std::vector<std::string> &vec)
+auto Gui::win_disasm() -> void
 {
+
 	ImGui::Begin("Disasm window");
-	for (auto &disasm_str : vec) {
+	for (auto &disasm_str : emulator.disassembly) {
 	 	ImGui::Selectable(disasm_str.c_str());
 	}
 	ImGui::End();
 }
 
-void win_log()
+auto Gui::win_log() -> void
 {
 	auto logger = Logging::get_instance();
 
 	ImGui::SetNextWindowSize(ImVec2(500, 400), ImGuiCond_FirstUseEver);
-    ImGui::Begin("Chip8 Logging");
-    ImGui::End();
+	ImGui::Begin("Chip8 Logging");
+	ImGui::End();
 
-    logger->draw("Chip8 Logging");
+	logger->draw("Chip8 Logging");
+}
+
+auto Gui::render_windows() -> void
+{
+	win_menu_bar();
+	win_game();
+	win_mem_hex_editor();
+	win_gfx_hex_editor();
+	win_registers();
+	win_flags();
+	win_timers();
+	win_disasm();
+	//ImGui::ShowDemoWindow();
+	win_log();
 }

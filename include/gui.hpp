@@ -12,15 +12,37 @@
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 
-void win_menu_bar(sf::Window& window);
-void win_game(sf::RenderWindow& window, std::array<std::uint8_t, CONSTANTS::CH8_GFX_SIZE>& graphics, sf::Texture& texture);
-void win_mem_hex_editor(std::array<std::uint8_t, CONSTANTS::CH8_MEMORY_SIZE>& memory);
-void win_gfx_hex_editor(std::array<std::uint8_t, CONSTANTS::CH8_GFX_SIZE>& graphics);
-void win_registers(std::array<std::uint8_t, CONSTANTS::CH8_REG_SIZE>& registers);
-void win_flags(bool& draw_flag);
-void win_timers(std::uint8_t& sound_timer, std::uint8_t& delay_timer);
-void win_disasm(std::vector<std::string>& vec);
+struct Gui {
 
-void win_log();
+	// chip8
+	Chip8 emulator;
+
+	// window flags
+	bool window_game_enabled{true};
+	bool window_mem_hex_enabled{true};
+	bool window_gfx_hex_enabled{true};
+	bool window_registers_enabled{true};
+	bool window_flags_enabled{true};
+	bool window_timers_enabled{true};
+	bool window_disasm_enabled{true};
+	bool window_log_enabled{true};
+
+	Gui() = default;
+	~Gui();
+
+	// single window methods
+	void win_menu_bar();
+	void win_game();
+	void win_mem_hex_editor();
+	void win_gfx_hex_editor();
+	void win_registers();
+	void win_flags();
+	void win_timers();
+	void win_disasm();
+	void win_log();
+
+	// rendering
+	void render_windows();
+};
 
 #endif

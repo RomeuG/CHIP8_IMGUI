@@ -8,7 +8,7 @@
 #define LOG_WARN "warn"
 #define LOG_CRIT "crit"
 
-chip8::chip8()
+Chip8::Chip8()
 {
 	// initialize logger
 	logger = Logging::get_instance();
@@ -20,12 +20,12 @@ chip8::chip8()
 	texture.create(64, 32);
 }
 
-void chip8::load_font()
+auto Chip8::load_font() -> void
 {
 	std::copy(CONSTANTS::FONT_LIST.begin(), CONSTANTS::FONT_LIST.end(), memory.begin());
 }
 
-void chip8::load_rom(char *rom_name)
+auto Chip8::load_rom(char *rom_name) -> void
 {
 	// read file
 	std::ifstream f(rom_name, std::ios::binary);
@@ -48,10 +48,8 @@ void chip8::load_rom(char *rom_name)
 	}
 }
 
-void chip8::cycle()
+auto Chip8::cycle() -> void
 {
-	// static int next_frame = SDL_GetTicks() + 60;
-
 	opcode = (memory[pc] << 8 | memory[pc + 1]);
 
 	// reset timers
@@ -71,98 +69,6 @@ void chip8::cycle()
 
 	// draw flag events
 	if (draw_flag) {
-		// graphics update
-		graphics_update();
 		draw_flag = false;
 	}
-
-	// input events
-	input_new_event();
-
-	// fps
-	//fps_lock((std::uint32_t) next_frame, 60);
-	//next_frame = SDL_GetTicks() + 60;
-}
-
-void chip8::graphics_clear()
-{
-	// SDL_FillRect(screen, nullptr, 0);
-}
-
-void chip8::graphics_update()
-{
-	// graphics_clear();
-
-	// if (!draw_flag_blocked) {
-	// 	for (auto y = 0; y < 32; y++) {
-	// 		for (auto x = 0; x < 64; x++) {
-	// 			if (graphics[x + (y * 64)]) {
-	// 				draw_pixel(x, y);
-	// 			}
-	// 		}
-	// 	}
-	// }
-}
-
-void chip8::fps_lock(std::uint32_t next_frame, std::uint32_t max_fps)
-{
-	// unsigned int n_ticks = SDL_GetTicks();
-
-	// if (next_frame < n_ticks) {
-	// 	return;
-	// }
-
-	// if (next_frame > (n_ticks + max_fps)) {
-	// 	SDL_Delay(max_fps);
-	// } else {
-	// 	SDL_Delay(next_frame - n_ticks);
-	// }
-}
-
-void chip8::draw_pixel(int x, int y)
-{
-	// std::uint8_t *pixel;
-	// unsigned int i, j;
-
-	// auto window_view = window->getView();
-	// auto window_pixels = window->getViewport(window_view);
-
-	// pixel = (std::uint8_t *) screen->pixels + (y * 8) * screen->pitch + (x * 8);
-	// for (i = 0; i < 8; i++) {
-	// 	for (j = 0; j < 8; j++) {
-	// 		pixel[j] = 0xFF;
-	// 	}
-
-	// 	pixel += screen->pitch;
-	// }
-}
-
-int chip8::input_new_event()
-{
-	// SDL_Event event;
-
-	// while (SDL_PollEvent(&event)) {
-	// 	switch (event.type) {
-	// 		case SDL_QUIT: return 1;
-	// 		case SDL_KEYDOWN:
-	// 			for (auto i = 0; i < CONSTANTS::CH8_KEY_SIZE; i++) {
-	// 				if (CONSTANTS::sdl_keymap[i] == event.key.keysym.sym) {
-	// 					keys[i] = 1;
-	// 					break;
-	// 				}
-	// 			}
-	// 			break;
-	// 		case SDL_KEYUP:
-	// 			for (auto i = 0; i < CONSTANTS::CH8_KEY_SIZE; i++) {
-	// 				if (CONSTANTS::sdl_keymap[i] == event.key.keysym.sym) {
-	// 					keys[i] = 0;
-	// 					break;
-	// 				}
-	// 			}
-	// 			break;
-	// 		default: break;
-	// 	}
-	// }
-
-	return 0;
 }

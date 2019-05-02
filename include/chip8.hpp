@@ -25,7 +25,7 @@
 #define DEBUG_PRINT(output, fmt, ...) ((void)0)
 #endif
 
-struct chip8
+struct Chip8
 {
 	Logging *logger;
 
@@ -313,18 +313,11 @@ struct chip8
 			}},
 	};
 
-	chip8();
+	Chip8();
 
 	void load_font();
 	void load_rom(char *rom_name);
 	void cycle();
-
-	void graphics_clear();
-	void graphics_update();
-	void draw_pixel(int x, int y);
-	void fps_lock(std::uint32_t next_frame, std::uint32_t max_fps);
-
-	int input_new_event();
 };
 
 #endif //CHIP8_IMGUI_CHIP8_H

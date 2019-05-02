@@ -2,7 +2,7 @@
 
 Gui::~Gui() {}
 
-static auto win_menu_bar_file(sf::Window& window) -> void
+auto Gui::win_menu_bar_file() -> void
 {
     if (ImGui::MenuItem("New")) {}
     if (ImGui::MenuItem("Open", "Ctrl+O")) {}
@@ -11,7 +11,7 @@ static auto win_menu_bar_file(sf::Window& window) -> void
 
 		static auto framerate_slider = CONSTANTS::FRAMERATE;
 		if (ImGui::SliderInt("Slider", &framerate_slider, CONSTANTS::FRAMERATE_MIN, CONSTANTS::FRAMERATE_MAX)) {
-			window.setFramerateLimit(framerate_slider);
+			emulator.window->setFramerateLimit(framerate_slider);
 		}
 
 		ImGui::EndMenu();
@@ -20,11 +20,23 @@ static auto win_menu_bar_file(sf::Window& window) -> void
     if (ImGui::MenuItem("Quit", "Alt+F4")) { exit(0); }
 }
 
+auto Gui::win_menu_bar_windows() -> void
+{
+	if (ImGui::MenuItem("Game Window", nullptr, &window_game_enabled)) { }
+	if (ImGui::MenuItem("Disasm Window", nullptr, &window_disasm_enabled)) { }
+	if (ImGui::MenuItem("Flags Window", nullptr, &window_flags_enabled)) { }
+	if (ImGui::MenuItem("Graphics Hex Window", nullptr, &window_gfx_hex_enabled)) { }
+	if (ImGui::MenuItem("Memory Hex Window", nullptr, &window_mem_hex_enabled)) { }
+	if (ImGui::MenuItem("Log Window", nullptr, &window_log_enabled)) { }
+	if (ImGui::MenuItem("Registers Window", nullptr, &window_registers_enabled)) { }
+	if (ImGui::MenuItem("Timers Window", nullptr, &window_timers_enabled)) { }
+}
+
 auto Gui::win_menu_bar() -> void
 {
 	if (ImGui::BeginMainMenuBar()) {
 		if (ImGui::BeginMenu("File")) {
-            //win_menu_bar_file(emulator.window);
+            win_menu_bar_file();
             ImGui::EndMenu();
         }
 
@@ -38,12 +50,21 @@ auto Gui::win_menu_bar() -> void
             ImGui::EndMenu();
         }
 
+		if (ImGui::BeginMenu("Windows")) {
+			win_menu_bar_windows();
+			ImGui::EndMenu();
+		}
+
 		ImGui::EndMainMenuBar();
     }
 }
 
 auto Gui::win_game() -> void
 {
+	if (!window_game_enabled) {
+		return;
+	}
+
 	ImGui::Begin("Game Window", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
 
 	std::vector<std::uint8_t> data;
@@ -74,18 +95,30 @@ auto Gui::win_game() -> void
 
 auto Gui::win_mem_hex_editor() -> void
 {
-    static MemoryEditor mem_edit;
+	if (!window_mem_hex_enabled) {
+		return;
+	}
+
+	static MemoryEditor mem_edit;
 	mem_edit.DrawWindow("Memory Hex Editor", &emulator.memory, CONSTANTS::CH8_MEMORY_SIZE);
 }
 
 auto Gui::win_gfx_hex_editor() -> void
 {
+	if (!window_gfx_hex_enabled) {
+		return;
+	}
+
 	static MemoryEditor gfx_edit;
 	gfx_edit.DrawWindow("Graphics Hex Editor", &emulator.graphics, CONSTANTS::CH8_GFX_SIZE);
 }
 
 auto Gui::win_registers() -> void
 {
+	if (!window_registers_enabled) {
+		return;
+	}
+
     ImGui::Begin("CHIP8 Registers");
 
 	ImGui::Columns(4, nullptr, true);
@@ -102,6 +135,10 @@ auto Gui::win_registers() -> void
 
 auto Gui::win_flags() -> void
 {
+	if (!window_flags_enabled) {
+		return;
+	}
+
 	ImGui::Begin("CHIP8 Flags");
 	ImGui::CheckboxFlags("Draw Flag", (unsigned int*)&emulator.draw_flag, ImGuiComboFlags_PopupAlignLeft);
 	ImGui::End();
@@ -109,22 +146,29 @@ auto Gui::win_flags() -> void
 
 auto Gui::win_timers() -> void
 {
+	if (!window_timers_enabled) {
+		return;
+	}
+
 	ImGui::Begin("CHIP8 Timer");
 
 	ImGui::Columns(2, nullptr, true);
 	static bool selected[2] = {false};
 	for (auto i = 0; i < 2; i++) {
-        char label[32];
-        sprintf(label, "%s = 0x%.2X", i == 0 ? "Sound Timer" : "Delay Timer", i == 0 ? emulator.sound_timer : emulator.delay_timer);
+		char label[32];
+		sprintf(label, "%s = 0x%.2X", i == 0 ? "Sound Timer" : "Delay Timer", i == 0 ? emulator.sound_timer : emulator.delay_timer);
 		if (ImGui::Selectable(label, &selected[i])) {}
 		ImGui::NextColumn();
-    }
+	}
 
 	ImGui::End();
 }
 
 auto Gui::win_disasm() -> void
 {
+	if (!window_disasm_enabled) {
+		return;
+	}
 
 	ImGui::Begin("Disasm window");
 	for (auto &disasm_str : emulator.disassembly) {
@@ -135,6 +179,10 @@ auto Gui::win_disasm() -> void
 
 auto Gui::win_log() -> void
 {
+	if (!window_log_enabled) {
+		return;
+	}
+
 	auto logger = Logging::get_instance();
 
 	ImGui::SetNextWindowSize(ImVec2(500, 400), ImGuiCond_FirstUseEver);

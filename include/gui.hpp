@@ -30,6 +30,10 @@ struct Gui {
 	Gui() = default;
 	~Gui();
 
+	// menu bar functions
+	auto win_menu_bar_file() -> void;
+	auto win_menu_bar_windows() -> void;
+
 	// single window methods
 	auto win_menu_bar() -> void;
 	auto win_game() -> void;

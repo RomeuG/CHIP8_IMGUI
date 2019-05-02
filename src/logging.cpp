@@ -3,7 +3,12 @@
 
 Logging* Logging::instance = nullptr;
 
-Logging *Logging::get_instance()
+Logging::~Logging()
+{
+	delete instance;
+}
+
+auto Logging::get_instance() -> Logging*
 {
 	if (instance == nullptr) {
 		instance = new Logging();
@@ -13,21 +18,18 @@ Logging *Logging::get_instance()
 	return instance;
 }
 
-Logging::~Logging()
-{
-	delete instance;
-}
-
-void Logging::clear()
+auto Logging::clear() -> void
 {
 	text_buffer.clear();
 	line_offsets.clear();
 	line_offsets.push_back(0);
 }
 
-void Logging::add_log(const char* fmt, ...)
+auto Logging::add_log(const char* fmt, ...) -> void
 {
-	if (!active) return;
+	if (!active) {
+		return;
+	}
 
 	auto old_size = text_buffer.size();
 	va_list args;
@@ -44,7 +46,7 @@ void Logging::add_log(const char* fmt, ...)
 	scroll_to_bottom = true;
 }
 
-void Logging::draw(const char* title, bool* p_open)
+auto Logging::draw(const char* title, bool* p_open) -> void
 {
 	if (!ImGui::Begin(title, p_open)) {
 		ImGui::End();
@@ -95,10 +97,10 @@ void Logging::draw(const char* title, bool* p_open)
 	ImGui::PopStyleVar();
 
 	if (scroll_to_bottom) {
-		ImGui::SetScrollHereY(1.0f);
-	}
+		 ImGui::SetScrollHereY(1.0f);
+	 }
 
-	scroll_to_bottom = false;
-	ImGui::EndChild();
-	ImGui::End();
-}
+	 scroll_to_bottom = false;
+	 ImGui::EndChild();
+	 ImGui::End();
+ }

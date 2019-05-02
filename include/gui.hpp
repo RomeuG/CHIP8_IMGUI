@@ -31,18 +31,18 @@ struct Gui {
 	~Gui();
 
 	// single window methods
-	void win_menu_bar();
-	void win_game();
-	void win_mem_hex_editor();
-	void win_gfx_hex_editor();
-	void win_registers();
-	void win_flags();
-	void win_timers();
-	void win_disasm();
-	void win_log();
+	auto win_menu_bar() -> void;
+	auto win_game() -> void;
+	auto win_mem_hex_editor() -> void;
+	auto win_gfx_hex_editor() -> void;
+	auto win_registers() -> void;
+	auto win_flags() -> void;
+	auto win_timers() -> void;
+	auto win_disasm() -> void;
+	auto win_log() -> void;
 
 	// rendering
-	void render_windows();
+	auto render_windows() -> void;
 };
 
 #endif

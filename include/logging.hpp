@@ -15,13 +15,13 @@ struct Logging
     bool scroll_to_bottom;
 	bool active;
 
-	static Logging *get_instance();
+	static auto get_instance() -> Logging*;
 
 	~Logging();
 
-	void clear();
+	auto clear() -> void;
 	void add_log(const char* fmt, ...) IM_FMTARGS(2);
-	void draw(const char* title, bool* p_open = nullptr);
+	auto draw(const char* title, bool* p_open = nullptr) -> void;
 };
 
 #endif

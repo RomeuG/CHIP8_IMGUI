@@ -6,7 +6,7 @@
 
 #include <cstring>
 
-int main(int argc, char** argv)
+auto main(int argc, char** argv) -> int
 {
     // check arguments
     if (argc < 2) {

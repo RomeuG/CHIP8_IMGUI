@@ -26,7 +26,7 @@ auto main(int argc, char** argv) -> int
 
 	// init chip8
 	gui.emulator.load_rom(argv[1]);
-	gui.emulator.window = new sf::RenderWindow(sf::VideoMode(640, 480), "ImGui + SFML = <3");
+	gui.emulator.window = new sf::RenderWindow(sf::VideoMode(640, 480), "Chip8 ImGui");
 	gui.emulator.window->setFramerateLimit(300);
 
 	ImGui::SFML::Init(*gui.emulator.window);

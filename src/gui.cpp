@@ -9,10 +9,14 @@ auto Gui::win_menu_bar_file() -> void
     ImGui::Separator();
 	if (ImGui::BeginMenu("Settings")) {
 
+		// game framerate
 		static auto framerate_slider = CONSTANTS::FRAMERATE;
-		if (ImGui::SliderInt("Slider", &framerate_slider, CONSTANTS::FRAMERATE_MIN, CONSTANTS::FRAMERATE_MAX)) {
+		if (ImGui::SliderInt("Framerate", &framerate_slider, CONSTANTS::FRAMERATE_MIN, CONSTANTS::FRAMERATE_MAX)) {
 			emulator.window->setFramerateLimit(framerate_slider);
 		}
+
+		// game scale
+		if (ImGui::SliderInt("Scale", &game_scale, CONSTANTS::SCALE_MIN, CONSTANTS::SCALE_MAX)) { }
 
 		ImGui::EndMenu();
     }
@@ -77,7 +81,7 @@ auto Gui::win_game() -> void
 
 	sf::Sprite sprite;
 	sprite.setTexture(emulator.texture, false);
-	sprite.scale(10, 10);
+	sprite.scale(game_scale, game_scale);
 
 	ImGui::Image(sprite);
 	ImGui::End();

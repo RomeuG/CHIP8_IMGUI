@@ -47,6 +47,10 @@ namespace CONSTANTS {
 	constexpr auto FRAMERATE_MIN = 60;
 	constexpr auto FRAMERATE_MAX = 350;
 
+	constexpr auto SCALE = 10;
+	constexpr auto SCALE_MIN = 5;
+	constexpr auto SCALE_MAX = 15;
+
 	constexpr char GLSL_VERSION[] = "#version 130";
 
 	namespace CLEAR_COLOR {

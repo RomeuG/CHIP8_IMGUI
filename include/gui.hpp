@@ -27,6 +27,8 @@ struct Gui {
 	bool window_disasm_enabled{true};
 	bool window_log_enabled{true};
 
+	int game_scale = CONSTANTS::SCALE;
+
 	Gui() = default;
 	~Gui();
 

@@ -40,16 +40,6 @@ auto Gui::win_menu_bar() -> void
             ImGui::EndMenu();
         }
 
-		if (ImGui::BeginMenu("Edit")) {
-            if (ImGui::MenuItem("Undo", "CTRL+Z")) {}
-            if (ImGui::MenuItem("Redo", "CTRL+Y", false, false)) {}  // Disabled item
-            ImGui::Separator();
-            if (ImGui::MenuItem("Cut", "CTRL+X")) {}
-            if (ImGui::MenuItem("Copy", "CTRL+C")) {}
-            if (ImGui::MenuItem("Paste", "CTRL+V")) {}
-            ImGui::EndMenu();
-        }
-
 		if (ImGui::BeginMenu("Windows")) {
 			win_menu_bar_windows();
 			ImGui::EndMenu();

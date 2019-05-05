@@ -13,15 +13,6 @@ auto main(int argc, char** argv) -> int
         return EXIT_FAILURE;
     }
 
-    // tests
-	if (std::strncmp(argv[1], "tests", 5) == 0) {
-        // testing here
-        Chip8 a;
-        a.load_rom(argv[2]);
-		a.cycle();
-        return EXIT_SUCCESS;
-    }
-
 	Gui gui;
 
 	// init chip8

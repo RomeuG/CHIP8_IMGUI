@@ -22,7 +22,7 @@ auto main(int argc, char** argv) -> int
 
 	ImGui::SFML::Init(*gui.emulator.window);
 
-	sf::Clock deltaClock;
+	sf::Clock delta_clock;
 
 	// imgui style
 	ImGui::StyleColorsDark();
@@ -39,7 +39,7 @@ auto main(int argc, char** argv) -> int
 			}
 		}
 
-		ImGui::SFML::Update(*gui.emulator.window, deltaClock.restart());
+		ImGui::SFML::Update(*gui.emulator.window, delta_clock.restart());
 
 		// function that has all windows
 		gui.render_windows();

@@ -10,9 +10,8 @@ auto Gui::win_menu_bar_file() -> void
 	if (ImGui::BeginMenu("Settings")) {
 
 		// game framerate
-		static auto framerate_slider = CONSTANTS::FRAMERATE;
-		if (ImGui::SliderInt("Framerate", &framerate_slider, CONSTANTS::FRAMERATE_MIN, CONSTANTS::FRAMERATE_MAX)) {
-			emulator.window->setFramerateLimit(framerate_slider);
+		if (ImGui::SliderInt("Framerate", &game_framerate, CONSTANTS::FRAMERATE_MIN, CONSTANTS::FRAMERATE_MAX)) {
+			emulator.window->setFramerateLimit(game_framerate);
 		}
 
 		// game scale

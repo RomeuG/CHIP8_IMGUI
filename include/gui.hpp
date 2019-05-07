@@ -28,6 +28,7 @@ struct Gui {
 	bool window_log_enabled{true};
 
 	int game_scale = CONSTANTS::SCALE;
+	int game_framerate = CONSTANTS::FRAMERATE;
 
 	Gui() = default;
 	~Gui();

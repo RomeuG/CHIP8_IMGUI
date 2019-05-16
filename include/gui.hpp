@@ -9,6 +9,8 @@
 #include "constants.hpp"
 
 #include <imgui_memory_editor.h>
+#include "imgui_filebrowser.hpp"
+
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 
@@ -16,6 +18,10 @@ struct Gui {
 
 	// chip8
 	Chip8 emulator;
+
+	// file browser
+	bool file_browser_open{false};
+	ImGui::FileBrowser file_browser;
 
 	// window flags
 	bool window_game_enabled{true};
@@ -47,6 +53,7 @@ struct Gui {
 	auto win_timers() -> void;
 	auto win_disasm() -> void;
 	auto win_log() -> void;
+	auto win_file_browser() -> void;
 
 	// rendering
 	auto render_windows() -> void;

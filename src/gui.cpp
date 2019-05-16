@@ -4,9 +4,20 @@ Gui::~Gui() {}
 
 auto Gui::win_menu_bar_file() -> void
 {
-    if (ImGui::MenuItem("New")) {}
-    if (ImGui::MenuItem("Open", "Ctrl+O")) {}
-    ImGui::Separator();
+    if (ImGui::MenuItem("New")) {
+		if (!file_browser.IsOpened()) {
+			file_browser.Open();
+			file_browser_open = true;
+		} else {
+			std::printf("File Dialog is already open!\n");
+
+			file_browser.Close();
+			file_browser.Open();
+			file_browser_open = true;
+		}
+	}
+	if (ImGui::MenuItem("Open", "Ctrl+O")) {}
+	ImGui::Separator();
 	if (ImGui::BeginMenu("Settings")) {
 
 		// game framerate
@@ -18,9 +29,9 @@ auto Gui::win_menu_bar_file() -> void
 		if (ImGui::SliderInt("Scale", &game_scale, CONSTANTS::SCALE_MIN, CONSTANTS::SCALE_MAX)) { }
 
 		ImGui::EndMenu();
-    }
+	}
 	if (ImGui::MenuItem("Checked", nullptr, true)) { }
-    if (ImGui::MenuItem("Quit", "Alt+F4")) { exit(0); }
+	if (ImGui::MenuItem("Quit", "Alt+F4")) { exit(0); }
 }
 
 auto Gui::win_menu_bar_windows() -> void
@@ -185,6 +196,19 @@ auto Gui::win_log() -> void
 	logger->draw("Chip8 Logging");
 }
 
+auto Gui::win_file_browser() -> void
+{
+	if (file_browser_open) {
+		file_browser.Display();
+
+		if (file_browser.HasSelected()) {
+			std::printf("File browser: %s\n", file_browser.GetSelected().string().c_str());
+			file_browser.ClearSelected();
+			file_browser_open = false;
+		}
+	}
+}
+
 auto Gui::render_windows() -> void
 {
 	win_menu_bar();
@@ -197,4 +221,5 @@ auto Gui::render_windows() -> void
 	win_disasm();
 	//ImGui::ShowDemoWindow();
 	win_log();
+	win_file_browser();
 }

@@ -318,6 +318,7 @@ struct Chip8
 	auto load_font() -> void;
 	auto load_rom(char *rom_name) -> void;
 	auto cycle() -> void;
+	auto reset() -> void;
 };
 
 #endif //CHIP8_IMGUI_CHIP8_H

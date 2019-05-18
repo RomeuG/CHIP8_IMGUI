@@ -72,3 +72,22 @@ auto Chip8::cycle() -> void
 		draw_flag = false;
 	}
 }
+
+auto Chip8::reset() -> void
+{
+	this->I = 0;
+	this->pc = 0;
+	this->sp = 0;
+	this->opcode = 0;
+
+	this->delay_timer = 0;
+	this->sound_timer = 0;
+
+	this->memory.fill(0);
+	this->graphics.fill(0);
+	this->V.fill(0);
+	this->stack.fill(0);
+	this->keys.fill(0);
+
+	this->load_font();
+}

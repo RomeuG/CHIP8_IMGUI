@@ -4,19 +4,15 @@ Gui::~Gui() {}
 
 auto Gui::win_menu_bar_file() -> void
 {
-    if (ImGui::MenuItem("New")) {
+	if (ImGui::MenuItem("Open Rom...", "Ctrl+O")) {
 		if (!file_browser.IsOpened()) {
 			file_browser.Open();
 			file_browser_open = true;
 		} else {
-			std::printf("File Dialog is already open!\n");
-
 			file_browser.Close();
 			file_browser.Open();
 			file_browser_open = true;
-		}
-	}
-	if (ImGui::MenuItem("Open", "Ctrl+O")) {}
+		}}
 	ImGui::Separator();
 	if (ImGui::BeginMenu("Settings")) {
 
@@ -203,6 +199,10 @@ auto Gui::win_file_browser() -> void
 
 		if (file_browser.HasSelected()) {
 			std::printf("File browser: %s\n", file_browser.GetSelected().string().c_str());
+
+			emulator.reset();
+			emulator.load_rom((char*)file_browser.GetSelected().string().c_str());
+
 			file_browser.ClearSelected();
 			file_browser_open = false;
 		}

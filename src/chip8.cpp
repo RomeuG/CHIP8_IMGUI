@@ -25,10 +25,10 @@ auto Chip8::load_font() -> void
 	std::copy(CONSTANTS::FONT_LIST.begin(), CONSTANTS::FONT_LIST.end(), memory.begin());
 }
 
-auto Chip8::load_rom(char *rom_name) -> void
+auto Chip8::load_rom(std::string_view rom_name) -> void
 {
 	// read file
-	std::ifstream f(rom_name, std::ios::binary);
+	std::ifstream f(rom_name.data(), std::ios::binary);
 	std::vector<char> v(std::istreambuf_iterator<char>{f}, {});
 
 	// file size

@@ -316,7 +316,7 @@ struct Chip8
 	Chip8();
 
 	auto load_font() -> void;
-	auto load_rom(char *rom_name) -> void;
+	auto load_rom(std::string_view rom_name) -> void;
 	auto cycle() -> void;
 	auto reset() -> void;
 };

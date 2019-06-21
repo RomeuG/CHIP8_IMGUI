@@ -1,8 +1,9 @@
 #include "chip8.hpp"
+
 #include "disasm.hpp"
 
-#include <fstream>
 #include <filesystem>
+#include <fstream>
 
 #define LOG_INFO "info"
 #define LOG_WARN "warn"
@@ -10,84 +11,90 @@
 
 Chip8::Chip8()
 {
-	// initialize logger
-	logger = Logging::get_instance();
+    // initialize logger
+    logger = Logging::get_instance();
 
-	// init font
-	load_font();
+    // init font
+    load_font();
 
-	// init texture
-	texture.create(64, 32);
+    // init texture
+    texture.create(64, 32);
 }
 
 auto Chip8::load_font() -> void
 {
-	std::copy(CONSTANTS::FONT_LIST.begin(), CONSTANTS::FONT_LIST.end(), memory.begin());
+    std::copy(CONSTANTS::FONT_LIST.begin(), CONSTANTS::FONT_LIST.end(),
+              memory.begin());
 }
 
 auto Chip8::load_rom(std::string_view rom_name) -> void
 {
-	// read file
-	std::ifstream f(rom_name.data(), std::ios::binary);
-	std::vector<char> v(std::istreambuf_iterator<char>{f}, {});
+    // read file
+    std::ifstream f(rom_name.data(), std::ios::binary);
+    std::vector<char> v(std::istreambuf_iterator<char>{ f }, {});
 
-	// file size
-	file_size = std::filesystem::file_size(rom_name);
+    // file size
+    file_size = std::filesystem::file_size(rom_name);
 
-	// load into memory
-	auto it = memory.begin();
-	std::advance(it, CONSTANTS::ROM_LOCATION);
-	std::copy(v.begin(), v.end(), it);
+    // load into memory
+    auto it = memory.begin();
+    std::advance(it, CONSTANTS::ROM_LOCATION);
+    std::copy(v.begin(), v.end(), it);
 
-	// disassemble rom
-	std::uint32_t pc = 0x0;
-	while (pc < (file_size)) {
-		auto disasm = disasm_opcode(v[pc], v[pc + 1], pc);
-		disassembly.push_back(disasm);
-		pc += 2;
-	}
+    // disassemble rom
+    std::uint32_t pc = 0x0;
+    while (pc < (file_size)) {
+        auto disasm = disasm_opcode(v[pc], v[pc + 1], pc);
+        disassembly.push_back(disasm);
+        pc += 2;
+    }
 }
 
 auto Chip8::cycle() -> void
 {
-	opcode = (memory[pc] << 8 | memory[pc + 1]);
+    opcode = (memory[pc] << 8 | memory[pc + 1]);
 
-	// reset timers
-	if (delay_timer > 0) delay_timer--;
-	if (sound_timer > 0) sound_timer--;
-	if (sound_timer == 0); //beep;
+    // reset timers
+    if (delay_timer > 0)
+        delay_timer--;
+    if (sound_timer > 0)
+        sound_timer--;
+    if (sound_timer == 0)
+        ; //beep;
 
-	auto instruction = (std::uint16_t) (opcode & 0xF000);
-	auto a = instruction_table.find(instruction);
-	if (a == instruction_table.cend()) {
-		//DEBUG_PRINT(stdout, "%s\n", "Unknown instruction.");
-		logger->add_log("[%05d] [%s] Opcode: %s\n", ImGui::GetFrameCount(), LOG_WARN, "Unknown");
-	} else {
-		logger->add_log("[%05d] [%s] Opcode: 0x%02X\n", ImGui::GetFrameCount(), LOG_INFO, instruction);
-		(a->second)();
-	}
+    auto instruction = (std::uint16_t)(opcode & 0xF000);
+    auto a = instruction_table.find(instruction);
+    if (a == instruction_table.cend()) {
+        //DEBUG_PRINT(stdout, "%s\n", "Unknown instruction.");
+        logger->add_log("[%05d] [%s] Opcode: %s\n", ImGui::GetFrameCount(),
+                        LOG_WARN, "Unknown");
+    } else {
+        logger->add_log("[%05d] [%s] Opcode: 0x%02X\n", ImGui::GetFrameCount(),
+                        LOG_INFO, instruction);
+        (a->second)();
+    }
 
-	// draw flag events
-	if (draw_flag) {
-		draw_flag = false;
-	}
+    // draw flag events
+    if (draw_flag) {
+        draw_flag = false;
+    }
 }
 
 auto Chip8::reset() -> void
 {
-	this->I = 0;
-	this->pc = 0;
-	this->sp = 0;
-	this->opcode = 0;
+    this->I = 0;
+    this->pc = 0;
+    this->sp = 0;
+    this->opcode = 0;
 
-	this->delay_timer = 0;
-	this->sound_timer = 0;
+    this->delay_timer = 0;
+    this->sound_timer = 0;
 
-	this->memory.fill(0);
-	this->graphics.fill(0);
-	this->V.fill(0);
-	this->stack.fill(0);
-	this->keys.fill(0);
+    this->memory.fill(0);
+    this->graphics.fill(0);
+    this->V.fill(0);
+    this->stack.fill(0);
+    this->keys.fill(0);
 
-	this->load_font();
+    this->load_font();
 }

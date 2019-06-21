@@ -4,24 +4,23 @@
 #include "imgui.h"
 
 // singleton
-struct Logging
-{
-	static Logging *instance;
+struct Logging {
+    static Logging* instance;
 
     ImGuiTextBuffer text_buffer;
     ImGuiTextFilter text_filter;
     ImVector<int> line_offsets;
 
     bool scroll_to_bottom;
-	bool active;
+    bool active;
 
-	static auto get_instance() -> Logging*;
+    static auto get_instance() -> Logging*;
 
-	~Logging();
+    ~Logging();
 
-	auto clear() -> void;
-	void add_log(const char* fmt, ...) IM_FMTARGS(2);
-	auto draw(const char* title, bool* p_open = nullptr) -> void;
+    auto clear() -> void;
+    void add_log(const char* fmt, ...) IM_FMTARGS(2);
+    auto draw(const char* title, bool* p_open = nullptr) -> void;
 };
 
 #endif

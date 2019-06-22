@@ -53,6 +53,8 @@ constexpr auto SCALE = 10;
 constexpr auto SCALE_MIN = 5;
 constexpr auto SCALE_MAX = 15;
 
+constexpr auto DISASM_LEN = 256;
+
 constexpr char GLSL_VERSION[] = "#version 130";
 
 namespace CLEAR_COLOR

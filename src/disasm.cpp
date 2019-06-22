@@ -1,6 +1,8 @@
 #include <iostream>
 #include <vector>
 
+#include "constants.hpp"
+
 auto disasm_opcode(char& _p_code, char& _p_code_next, std::uint32_t _pcounter)
     -> std::string
 {
@@ -17,7 +19,7 @@ auto disasm_opcode(char& _p_code, char& _p_code_next, std::uint32_t _pcounter)
     unsigned short int _NNN = (opcode & 0x0FFF);
 
     std::string final_string;
-    char out_buffer[256];
+    char out_buffer[CONSTANTS::DISASM_LEN];
 
     switch (opcode & 0xF000) {
         case 0x0000:

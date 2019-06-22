@@ -78,8 +78,8 @@ auto Logging::draw(const char* title, bool* p_open) -> void
     auto const buf_end = text_buffer.end();
     if (text_filter.IsActive()) {
         for (auto line_no = 0; line_no < line_offsets.Size; line_no++) {
-            auto line_start = buf + line_offsets[line_no];
-            auto line_end = (line_no + 1 < line_offsets.Size) ?
+            auto const line_start = buf + line_offsets[line_no];
+            auto const line_end = (line_no + 1 < line_offsets.Size) ?
                                 (buf + line_offsets[line_no + 1] - 1) :
                                 buf_end;
             if (text_filter.PassFilter(line_start, line_end)) {
@@ -92,8 +92,8 @@ auto Logging::draw(const char* title, bool* p_open) -> void
         while (clipper.Step()) {
             for (auto line_no = clipper.DisplayStart;
                  line_no < clipper.DisplayEnd; line_no++) {
-                auto line_start = buf + line_offsets[line_no];
-                auto line_end = (line_no + 1 < line_offsets.Size) ?
+                auto const line_start = buf + line_offsets[line_no];
+                auto const line_end = (line_no + 1 < line_offsets.Size) ?
                                     (buf + line_offsets[line_no + 1] - 1) :
                                     buf_end;
                 ImGui::TextUnformatted(line_start, line_end);

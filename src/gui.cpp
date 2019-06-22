@@ -1,8 +1,6 @@
 #include "gui.hpp"
 
-Gui::~Gui()
-{
-}
+Gui::~Gui() = default;
 
 auto Gui::win_menu_bar_file() -> void
 {

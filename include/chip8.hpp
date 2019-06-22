@@ -83,8 +83,8 @@ struct Chip8 {
               } },
             { 0x3000,
               [this]() {
-                  auto _x = (opcode & 0x0F00) >> 8;
-                  auto _nn = (opcode & 0x00FF);
+                  auto const _x = (opcode & 0x0F00) >> 8;
+                  auto const _nn = (opcode & 0x00FF);
 
                   if (V[_x] == _nn) {
                       pc += 2;
@@ -93,8 +93,8 @@ struct Chip8 {
               } },
             { 0x4000,
               [this]() {
-                  auto _x = (opcode & 0x0F00) >> 8;
-                  auto _nn = (opcode & 0x00FF);
+                  auto const _x = (opcode & 0x0F00) >> 8;
+                  auto const _nn = (opcode & 0x00FF);
 
                   if (V[_x] != _nn) {
                       pc += 2;
@@ -103,8 +103,8 @@ struct Chip8 {
               } },
             { 0x5000,
               [this]() {
-                  auto _x = (opcode & 0x0F00) >> 8;
-                  auto _y = (opcode & 0x00F0) >> 4;
+                  auto const _x = (opcode & 0x0F00) >> 8;
+                  auto const _y = (opcode & 0x00F0) >> 4;
 
                   if (V[_x] == V[_y]) {
                       pc += 2;
@@ -113,24 +113,24 @@ struct Chip8 {
               } },
             { 0x6000,
               [this]() {
-                  auto _x = (opcode & 0x0F00) >> 8;
-                  auto _nn = (opcode & 0x00FF);
+                  auto const _x = (opcode & 0x0F00) >> 8;
+                  auto const _nn = (opcode & 0x00FF);
 
                   V[_x] = _nn;
                   pc += 2;
               } },
             { 0x7000,
               [this]() {
-                  auto _x = (opcode & 0x0F00) >> 8;
-                  auto _nn = (opcode & 0x00FF);
+                  auto const _x = (opcode & 0x0F00) >> 8;
+                  auto const _nn = (opcode & 0x00FF);
 
                   V[_x] += _nn;
                   pc += 2;
               } },
             { 0x8000,
               [this]() {
-                  auto _x = (opcode & 0x0F00) >> 8;
-                  auto _y = (opcode & 0x00F0) >> 4;
+                  auto const _x = (opcode & 0x0F00) >> 8;
+                  auto const _y = (opcode & 0x00F0) >> 4;
 
                   switch (opcode & 0x000F) {
                       case 0x0: {
@@ -201,8 +201,8 @@ struct Chip8 {
               } },
             { 0x9000,
               [this]() {
-                  auto _x = (opcode & 0x0F00) >> 8;
-                  auto _y = (opcode & 0x00F0) >> 4;
+                  auto const _x = (opcode & 0x0F00) >> 8;
+                  auto const _y = (opcode & 0x00F0) >> 4;
 
                   if (V[_x] != V[_y]) {
                       pc += 2;
@@ -217,7 +217,7 @@ struct Chip8 {
             { 0xB000, [this]() { pc = (opcode & 0x0FFF) + V[0x0]; } },
             { 0xC000,
               [this]() {
-                  auto _x = (opcode & 0x0F00) >> 8;
+                  auto const _x = (opcode & 0x0F00) >> 8;
 
                   std::default_random_engine rand_eng;
                   std::uniform_int_distribution<std::uint8_t> distribution(
@@ -228,18 +228,18 @@ struct Chip8 {
               } },
             { 0xD000,
               [this]() {
-                  auto _x = (opcode & 0x0F00) >> 8;
-                  auto _y = (opcode & 0x00F0) >> 4;
-                  auto _n = (opcode & 0x000F);
+                  auto const _x = (opcode & 0x0F00) >> 8;
+                  auto const _y = (opcode & 0x00F0) >> 4;
+                  auto const _n = (opcode & 0x000F);
 
                   V[0xF] &= 0x0;
 
                   for (auto i = 0; i < _n; i++) {
-                      auto pixel = memory[I + i];
+                      auto const pixel = memory[I + i];
 
                       for (auto j = 0; j < 8; j++) {
                           if (pixel & (0x80 >> j)) {
-                              auto idx = j + V[_x] + (i + V[_y]) * 64;
+                              auto const idx = j + V[_x] + (i + V[_y]) * 64;
 
                               if (graphics[idx]) {
                                   V[0xF] = 1;
@@ -256,7 +256,7 @@ struct Chip8 {
               } },
             { 0xE000,
               [this]() {
-                  auto _x = (opcode & 0x0F00) >> 8;
+                  auto const _x = (opcode & 0x0F00) >> 8;
 
                   switch (opcode & 0x00FF) {
                       case 0x9E:
@@ -281,7 +281,7 @@ struct Chip8 {
               } },
             { 0xF000,
               [this]() {
-                  auto _x = (opcode & 0x0F00) >> 8;
+                  auto const _x = (opcode & 0x0F00) >> 8;
 
                   switch (opcode & 0x00FF) {
                       case 0x07: {

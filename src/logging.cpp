@@ -74,8 +74,8 @@ auto Logging::draw(const char* title, bool* p_open) -> void
     }
 
     ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(0, 0));
-    auto buf = text_buffer.begin();
-    auto buf_end = text_buffer.end();
+    auto const buf = text_buffer.begin();
+    auto const buf_end = text_buffer.end();
     if (text_filter.IsActive()) {
         for (auto line_no = 0; line_no < line_offsets.Size; line_no++) {
             auto line_start = buf + line_offsets[line_no];

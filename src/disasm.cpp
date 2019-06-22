@@ -6,17 +6,17 @@
 auto disasm_opcode(char& _p_code, char& _p_code_next, std::uint32_t _pcounter)
     -> std::string
 {
-    auto p_code = static_cast<std::uint8_t>(_p_code);
-    auto p_code_next = static_cast<std::uint8_t>(_p_code_next);
-    auto pcounter = _pcounter + 0x200;
+    auto const p_code = static_cast<std::uint8_t>(_p_code);
+    auto const p_code_next = static_cast<std::uint8_t>(_p_code_next);
+    auto const pcounter = _pcounter + 0x200;
 
-    std::uint16_t opcode = (p_code << 8) | (p_code_next);
+    std::uint16_t const opcode = (p_code << 8) | (p_code_next);
 
-    unsigned short int _X = (opcode & 0x0F00) >> 8;
-    unsigned short int _Y = (opcode & 0x00F0) >> 4;
-    unsigned short int _N = (opcode & 0x000F);
-    unsigned short int _NN = (opcode & 0x00FF);
-    unsigned short int _NNN = (opcode & 0x0FFF);
+    unsigned short int const _X = (opcode & 0x0F00) >> 8;
+    unsigned short int const _Y = (opcode & 0x00F0) >> 4;
+    unsigned short int const _N = (opcode & 0x000F);
+    unsigned short int const _NN = (opcode & 0x00FF);
+    unsigned short int const _NNN = (opcode & 0x0FFF);
 
     std::string final_string;
     char out_buffer[CONSTANTS::DISASM_LEN];

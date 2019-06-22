@@ -62,8 +62,8 @@ auto Chip8::cycle() -> void
     if (sound_timer == 0)
         ; //beep;
 
-    auto instruction = (std::uint16_t)(opcode & 0xF000);
-    auto a = instruction_table.find(instruction);
+    auto const instruction = (std::uint16_t)(opcode & 0xF000);
+    auto const a = instruction_table.find(instruction);
     if (a == instruction_table.cend()) {
         //DEBUG_PRINT(stdout, "%s\n", "Unknown instruction.");
         logger->add_log("[%05d] [%s] Opcode: %s\n", ImGui::GetFrameCount(),

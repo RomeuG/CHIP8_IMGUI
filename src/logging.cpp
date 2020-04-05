@@ -1,6 +1,24 @@
-#include "logging.hpp"
-
 #include <iostream>
+
+// singleton
+struct Logging {
+    static Logging* instance;
+
+    ImGuiTextBuffer text_buffer;
+    ImGuiTextFilter text_filter;
+    ImVector<int> line_offsets;
+
+    bool scroll_to_bottom;
+    bool active;
+
+    static auto get_instance() -> Logging*;
+
+    ~Logging();
+
+    auto clear() -> void;
+    void add_log(const char* fmt, ...) IM_FMTARGS(2);
+    auto draw(const char* title, bool* p_open = nullptr) -> void;
+};
 
 Logging* Logging::instance = nullptr;
 
@@ -80,8 +98,8 @@ auto Logging::draw(const char* title, bool* p_open) -> void
         for (auto line_no = 0; line_no < line_offsets.Size; line_no++) {
             auto const line_start = buf + line_offsets[line_no];
             auto const line_end = (line_no + 1 < line_offsets.Size) ?
-                                (buf + line_offsets[line_no + 1] - 1) :
-                                buf_end;
+                                      (buf + line_offsets[line_no + 1] - 1) :
+                                      buf_end;
             if (text_filter.PassFilter(line_start, line_end)) {
                 ImGui::TextUnformatted(line_start, line_end);
             }
@@ -93,9 +111,10 @@ auto Logging::draw(const char* title, bool* p_open) -> void
             for (auto line_no = clipper.DisplayStart;
                  line_no < clipper.DisplayEnd; line_no++) {
                 auto const line_start = buf + line_offsets[line_no];
-                auto const line_end = (line_no + 1 < line_offsets.Size) ?
-                                    (buf + line_offsets[line_no + 1] - 1) :
-                                    buf_end;
+                auto const line_end =
+                    (line_no + 1 < line_offsets.Size) ?
+                        (buf + line_offsets[line_no + 1] - 1) :
+                        buf_end;
                 ImGui::TextUnformatted(line_start, line_end);
             }
         }

@@ -1,8 +1,6 @@
 #include <iostream>
 #include <vector>
 
-#include "constants.hpp"
-
 auto disasm_opcode(char& _p_code, char& _p_code_next, std::uint32_t _pcounter)
     -> std::string
 {

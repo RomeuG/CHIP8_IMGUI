@@ -1,5 +1,3 @@
-#include "imgui-SFML.h"
-
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
@@ -12,7 +10,6 @@
 #include <cassert>
 #include <cmath> // abs
 #include <cstddef> // offsetof, NULL
-#include <imgui.h>
 
 #ifdef ANDROID
 #ifdef USE_JNI

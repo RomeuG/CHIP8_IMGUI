@@ -1,7 +1,16 @@
-#include "chip8.hpp"
-#include "gui.hpp"
-#include "imgui-SFML.h"
+#include "imgui-SFML.hpp"
 #include "imgui.h"
+#include "imgui-SFML.cpp"
+
+#include "imgui_filebrowser.hpp"
+#include "imgui_memory_editor.h"
+
+#include "constants.hpp"
+
+#include "disasm.cpp"
+#include "logging.cpp"
+#include "chip8.cpp"
+#include "gui.cpp"
 
 #include <cstring>
 

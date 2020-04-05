@@ -173,12 +173,12 @@ struct Chip8 {
                           break;
                       }
                       case 0x6: {
-                          V[0xF] = (V[_y] & 0x01);
-                          V[_x] = V[_y] >> 1;
+                          V[0xF] = (V[_x] & 0x01);
+                          V[_x] = V[_x] >> 1;
                           break;
                       }
                       case 0x7: {
-                          if (V[_x] > V[_y]) {
+                          if (V[_y] > V[_x]) {
                               V[0xF] = 1;
                           } else {
                               V[0xF] = 0;
@@ -189,8 +189,8 @@ struct Chip8 {
                           break;
                       }
                       case 0xE: {
-                          V[0xF] = (V[_y] >> 7);
-                          V[_x] = V[_y] << 1;
+                          V[0xF] = (V[_x] >> 7);
+                          V[_x] = V[_x] << 1;
                           break;
                       }
 

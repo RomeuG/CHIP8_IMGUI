@@ -132,22 +132,20 @@ auto Gui::win_game() -> void
 
     ImGui::Begin("Game Window", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
 
-    std::vector<std::uint8_t> data;
+    int j = 0;
+    std::array<std::uint8_t, 0x800 * 4> data{ 0 };
     for (auto& i : emulator.graphics) {
         if (i == 0) {
-            data.push_back(0x0);
-            data.push_back(0x0);
-            data.push_back(0x0);
-            data.push_back(0xFF);
+            j += 3;
+            data[j++] = 0xFF;
         } else {
-            data.push_back(0xFF);
-            data.push_back(0xFF);
-            data.push_back(0xFF);
-            data.push_back(0xFF);
+            data[j++] = 0xFF;
+            data[j++] = 0xFF;
+            data[j++] = 0xFF;
+            data[j++] = 0xFF;
         }
     }
 
-    emulator.texture.update(emulator.graphics.data());
     emulator.texture.update(data.data());
 
     sf::Sprite sprite;
@@ -155,6 +153,7 @@ auto Gui::win_game() -> void
     sprite.scale(game_scale, game_scale);
 
     ImGui::Image(sprite);
+
     ImGui::End();
 }
 

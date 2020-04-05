@@ -4,7 +4,6 @@
 #include <array>
 #include <filesystem>
 #include <functional>
-#include <imgui.h>
 #include <memory>
 #include <string>
 
@@ -74,7 +73,8 @@ class FileBrowser
 
       public:
         template<typename T>
-        explicit ScopeGuard(T func) : func_(std::move(func))
+        explicit ScopeGuard(T func) :
+            func_(std::move(func))
         {
         }
         ~ScopeGuard()

@@ -60,6 +60,8 @@ auto Gui::win_menu_bar_file() -> void
         }
     }
     ImGui::Separator();
+    ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+    ImGui::Separator();
     if (ImGui::BeginMenu("Settings")) {
         // game framerate
         if (ImGui::SliderInt("Framerate", &game_framerate,

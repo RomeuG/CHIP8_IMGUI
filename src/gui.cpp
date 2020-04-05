@@ -234,6 +234,7 @@ auto Gui::win_timers() -> void
     ImGui::End();
 }
 
+// 13.63% -> 10.92%
 auto Gui::win_disasm() -> void
 {
     if (!window_disasm_enabled) {
@@ -242,7 +243,7 @@ auto Gui::win_disasm() -> void
 
     ImGui::Begin("Disasm window");
     for (auto& disasm_str : emulator.disassembly) {
-        ImGui::Selectable(disasm_str.c_str());
+        ImGui::Text(disasm_str.c_str());
     }
     ImGui::End();
 }

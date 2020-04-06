@@ -1,5 +1,8 @@
 #include "imgui-SFML.hpp"
-#include "imgui.h"
+// #include "imgui.h"
+#include "imgui.cpp"
+#include "imgui_draw.cpp"
+#include "imgui_widgets.cpp"
 #include "imgui-SFML.cpp"
 
 #include "imgui_filebrowser.hpp"
@@ -27,7 +30,7 @@ auto main(int argc, char** argv) -> int
     gui.emulator.load_rom(argv[1]);
     gui.emulator.window =
         new sf::RenderWindow(sf::VideoMode(640, 480), "Chip8 ImGui");
-    gui.emulator.window->setFramerateLimit(300);
+    // gui.emulator.window->setFramerateLimit(300);
 
     ImGui::SFML::Init(*gui.emulator.window);
 
